@@ -1,16 +1,18 @@
-Mercado Público das Pulgas
+#Mercado Público das Pulgas
 
 ## Requisitos para desenvolvimento
 - PHP >= 7.1.3 (Pode ser instalado através do XAMMP)
-- Composer para gerenciar as dependencias do projeto
+- Composer para gerenciar as dependencias do projeto (https://getcomposer.org/)
+- Oracle Database 19c (https://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)
 
-##Tecnologias ultilizada
+## Tecnologias ultilizada
 - Framework Laravel
-- SGBD Oracle 19c 
-
+- Oracle Database 19c
 
 ## Desenvolvido por :
-- ...
-## License
+- David Aleixo
+- Denis Luciano
+- Henrique Penna
+- Mayke
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## License
