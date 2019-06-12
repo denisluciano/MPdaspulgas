@@ -1,4 +1,4 @@
-#Mercado Público das Pulgas
+# Mercado Público das Pulgas
 
 ## Requisitos para desenvolvimento
 - PHP >= 7.1.3 (Pode ser instalado através do XAMMP)
