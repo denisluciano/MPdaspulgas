@@ -1,5 +1,8 @@
 # Mercado Público das Pulgas
 
+## Descrição
+Trabalho da disciplina de Banco de dados 2 UFV, que consiste desenvolver sistema usando banco de dados SGBD-OR
+
 ## Requisitos para desenvolvimento
 - PHP >= 7.1.3 (Pode ser instalado através do XAMMP)
 - Composer para gerenciar as dependencias do projeto (https://getcomposer.org/)
