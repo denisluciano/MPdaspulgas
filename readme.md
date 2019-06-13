@@ -15,7 +15,8 @@ Trabalho da disciplina de Banco de dados 2 UFV, que consiste desenvolver sistema
     Passo 4: Copia diretorio da pasta e adiciona nas variaveis(path do windows a pasta)
     Passo 5: Vai na pasta do XAMMP e abre php\php.ini e busca no arquivo "oracle" e add seguinte extension "extension=php_oci8_12c.dll" (sem as ") na linha abaixo que tem "Use with Oracle Database 12c Instant Client" e salva
     Passo 6: Para testar cria uma pasta test no htdocs do xammp e cria um arquivo .php com seguinte código
-    <html>
+    
+    <!-- <html>
     <head><title>Oracle demo</title></head>
     <body>
         <?php 
@@ -29,7 +30,7 @@ Trabalho da disciplina de Banco de dados 2 UFV, que consiste desenvolver sistema
     ?>
     
     </body>
-    </html>
+    </html> -->
 
     Onde deve se substituir  username pelo seu e password pra qual foi definido. De padrão username é system. Pra saber service_name você abre SQL Plus pelo menu iniciar windows e loga e digitaa comando "show parameter service_name" e então o value retornado é o service_name.
 
