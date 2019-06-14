@@ -18,7 +18,7 @@ class CategoriaController extends Controller
         if(!$categorias){
             return "error";
         }
-
-        return view('welcome', compact('categorias'));
+        return response()->json($categorias);
+        //return view('welcome', compact('categorias'));
     }
 }

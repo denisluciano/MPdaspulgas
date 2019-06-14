@@ -1,3 +1,4 @@
+@extends('')
 <!doctype html>
 <html lang="en">
     <head>
@@ -8,10 +9,8 @@
 
     </head>
     <body>
-        @foreach ($categorias as $item)
-        <span style="color:black">{{$item->titulo}}</span>
 
-        @endforeach
+
 
     </body>
 </html>
