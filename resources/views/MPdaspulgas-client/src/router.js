@@ -7,6 +7,9 @@ import Cliente from '@/components/Cliente'
 import Compra from '@/components/Compra'
 import NovoCliente from '@/components/NovoCliente'
 import NovoProduto from '@/components/NovoProduto'
+import CadastrarUsuario from '@/components/CadastrarUsuario'
+import Login from '@/components/Login'
+import CadastrarAnuncio from '@/components/CadastrarAnuncio'
 
 
 Vue.use(Router)
@@ -44,6 +47,22 @@ export default new Router({
         path: '/compras',
         name: 'Compra',
         component: Compra
+    },
+    {
+        path: '/cadastrar/usuario',
+        name: 'CadastrarUsuario',
+        component: CadastrarUsuario
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/cadastrar/anuncio',
+        name: 'CadastrarAnuncio',
+        component: CadastrarAnuncio
     }
+
   ]
 })

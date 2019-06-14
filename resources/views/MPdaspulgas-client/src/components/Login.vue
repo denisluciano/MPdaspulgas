@@ -12,22 +12,37 @@
         <v-btn>cadastrar</v-btn>
         </v-toolbar>
 
+           <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-tooltip bottom>
 
-        <v-container>
 
-            <v-layout align-center justify-center column fill-height>
-                <v-flex xs12 >
-                    <v-btn @click="toProdutos" large color="red">Área de produtos</v-btn>
-                </v-flex>
-                <v-flex xs12 >
-                    <v-btn @click="toClientes" large color="primary">Área de clientes</v-btn>
-                </v-flex>
-                <v-flex xs12 >
-                    <v-btn @click="toCompras" large color="green">Área de Compras</v-btn>
-                </v-flex>
-            </v-layout>
-        </v-container>
+                </v-tooltip>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
+                  <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary">Login</v-btn>
+              </v-card-actions>
+
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
     </div>
+
 
 </template>
 
