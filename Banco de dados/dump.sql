@@ -60,6 +60,8 @@ insert into usuarios values ('maju@ufv.br','insirasenha','19329412039','Maria Ju
 insert into negociacoes values('Girassol','Mudas de Girassol para jardim',date '2019-06-14' ,30, (select ref(u) from usuarios u where u.email='astolfo@gmail.com'),(select ref(c) from categorias c where c.tipo='Limpeza'),1,0,0);
 /
 insert into negociacoes values ('Motor','Motor para Uno quadrado',date '2019-05-14',30,(select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref (c) from  categorias c where tipo = 'Mecanica'),0,1,0);
+/
+insert into negociacoes values ('Faxina','Faxina em apartamento', date '2019-05-14',30,(select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref(c) from categorias c where tipo = 'Limpeza'),0,0,0);
 
 /* leiloes */
 /* create type anuncio as object (titulo char (30),descricao char (200),data_ date, valor_inicial float,e_de ref usuario, possui_c ref categoria, disponivel number(1,0)) not final; */
@@ -68,3 +70,13 @@ insert into negociacoes values ('Motor','Motor para Uno quadrado',date '2019-05-
 insert into leiloes values ('Boizao','Boi de 1T',date '2019-06-14', 10000, (select ref(u) from usuarios u where u.email = 'astolfo@gmail.com'),(select ref(c) from categorias c where c.tipo = 'Pecuaria'),1,date '2019-06-20',date '2019-06-30');
 
 /* compras */
+/* create type compra as object (e_de ref usuario, do_anuncio ref anuncio, data_ date, precofim float); */
+
+/
+insert into compras values ((select ref(u) from usuarios u where u.email = 'astolfo@gmail.com'), (select ref(an) from anuncios an where an.titulo = 'Faxina'), date '2019-05-15', 30);
+
+
+/* lances */
+/* create type lance as object (e_de ref usuario, do_leilao ref leilao, data_ date, valor float); */
+
+insert into lances values ((select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref(le) from leiloes le where le.titulo ='Boizao'),date '2019-06-15', 11000 );
