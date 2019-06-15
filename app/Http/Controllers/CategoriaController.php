@@ -11,7 +11,7 @@ class CategoriaController extends Controller
     //
     public function index()
     {
-        $categorias = DB::select('select * from categorias');
+        $categorias = DB::select('select a.titulo from categorias a');
 
         //return $categorias;
 

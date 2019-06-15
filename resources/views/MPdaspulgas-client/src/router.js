@@ -10,6 +10,7 @@ import NovoProduto from '@/components/NovoProduto'
 import CadastrarUsuario from '@/components/CadastrarUsuario'
 import Login from '@/components/Login'
 import CadastrarAnuncio from '@/components/CadastrarAnuncio'
+import Test from '@/components/Test'
 
 
 Vue.use(Router)
@@ -62,7 +63,11 @@ export default new Router({
         path: '/cadastrar/anuncio',
         name: 'CadastrarAnuncio',
         component: CadastrarAnuncio
-    }
-
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test
+    },
   ]
 })

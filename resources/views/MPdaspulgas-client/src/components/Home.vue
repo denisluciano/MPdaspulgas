@@ -13,21 +13,11 @@
         </v-toolbar>
 
 
-        <v-container>
 
-            <v-layout align-center justify-center column fill-height>
-                <v-flex xs12 >
-                    <v-btn @click="toProdutos" large color="red">Área de produtos</v-btn>
-                </v-flex>
-                <v-flex xs12 >
-                    <v-btn @click="toClientes" large color="primary">Área de clientes</v-btn>
-                </v-flex>
-                <v-flex xs12 >
-                    <v-btn @click="toCompras" large color="green">Área de Compras</v-btn>
-                </v-flex>
-            </v-layout>
-        </v-container>
+
+
     </div>
+
 
 </template>
 
