@@ -34,7 +34,6 @@ class CategoriaController extends Controller
             return "sucesso";
 
 
-
         return response()->json($categoria);
 
     }
