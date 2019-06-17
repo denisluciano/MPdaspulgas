@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class AnuncioController extends Controller
 {
     //
-    public function store(Request $request){
+    public function store(Request $request){ //FUNCIONANDO
 
 
         $cons = "insert into anuncios (titulo, descricao, data_, valor_inicial, e_de, possui_c, disponivel) values ('$request->titulo','$request->descricao','$request->data_',

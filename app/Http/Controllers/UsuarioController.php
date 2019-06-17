@@ -18,11 +18,11 @@ class UsuarioController extends Controller
         '$request->bairro',$request->numero,'$request->cidade','$request->cep')),
         lista_telefones('$request->numero_cel'))";
 
-        $usuario =  DB::insert($cons);
+        $query =  DB::insert($cons);
 
 
-        if($usuario){
-            return response()->json($usuario);
+        if($query){
+            return response()->json($query);
         }else {
             return "erro na inserção";
         }

@@ -21,7 +21,7 @@ class CategoriaController extends Controller
         return response()->json($categorias);
         //return view('welcome', compact('categorias'));
     }
-    public function store(Request $request){
+    public function store(Request $request){ //FUNCIONANDO
 
         // $categorias = DB::insert('insert into categorias (titulo, prazo_max, tipo)
         // values (requesttitulo,30,requesttipo )');
