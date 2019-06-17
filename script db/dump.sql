@@ -136,6 +136,15 @@ END;
 ALTER TABLE EMP DROP CONSTRAINT emp_name_PK1
  */
 
+ALTER TYPE anuncio ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE compra ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE leilao ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE negociacao ADD ATTRIBUTE (id integer) CASCADE;
+
+
+
+
 /
  ALTER TABLE anuncios
  ADD (
@@ -218,4 +227,6 @@ CREATE OR REPLACE TRIGGER auto_increment_negoc_insert
 BEGIN
  SELECT auto_increment_negoc_seq.nextval
  INTO :new.id
- FROM dualcompras
+ FROM dual;
+END;
+/
