@@ -63,7 +63,7 @@ insert into negociacoes values('Girassol','Mudas de Girassol para jardim',date '
 insert into negociacoes values ('Motor','Motor para Uno quadrado',date '2019-05-14',30,(select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref (c) from  categorias c where tipo = 'Mecanica'),0,1,0);
 /
 insert into negociacoes values ('Faxina','Faxina em apartamento', date '2019-05-14',30,(select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref(c) from categorias c where tipo = 'Limpeza'),0,0,0);
-
+/
 /* leiloes */
 /* create type anuncio as object (titulo char (30),descricao char (200),data_ date, valor_inicial float,e_de ref usuario, possui_c ref categoria, disponivel number(1,0)) not final; */
 /* create type leilao under anuncio (data_abertura date, data_fim date); */
@@ -75,13 +75,13 @@ insert into leiloes values ('Boizao','Boi de 1T',date '2019-06-14', 10000, (sele
 
 /
 insert into compras values ((select ref(u) from usuarios u where u.email = 'astolfo@gmail.com'), (select ref(an) from anuncios an where an.titulo = 'Faxina'), date '2019-05-15', 30);
-
+/
 
 /* lances */
 /* create type lance as object (e_de ref usuario, do_leilao ref leilao, data_ date, valor float); */
-
-insert into lances values ((select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref(le) from leiloes le where le.titulo ='Boizao'),date '2019-06-15', 11000 );
-
+/
+insert into lances values ((select ref(u) from usuarios u where u.email = 'maju@ufv.br'),(select ref(le) from leiloes le where le.titulo ='Boizao'),date '2019-06-15', 11000, 1 );
+/
 
 /*
 -- Dados para conectar ao banco de dados hospedado na amazon database(Pode usar ferramenta sql developer)
@@ -91,3 +91,131 @@ insert into lances values ((select ref(u) from usuarios u where u.email = 'maju@
 -- porta: 1521
 -- Marca opão nome serviço e digita: orcl
 */
+
+
+
+
+
+
+/*
+--Para alterar tipo(estrutura da tabela)
+ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE compra DROP ATTRIBUTE id cascade;
+*/
+
+
+
+
+
+/*
+Para fazer auto increments eno oracle usando trigger
+/
+ALTER TABLE nometabela
+ ADD (
+ CONSTRAINT auto_increment_nometabela_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_nometabela_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_nometabela_insert
+ BEFORE INSERT ON nometabela
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_nometabela_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+*/
+
+
+
+
+
+/* --drop primary key
+ALTER TABLE EMP DROP CONSTRAINT emp_name_PK1
+ */
+
+/
+ ALTER TABLE anuncios
+ ADD (
+ CONSTRAINT auto_increment_anuncios_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_anuncios_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_anuncios_insert
+ BEFORE INSERT ON anuncios
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_anuncios_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/
+ ALTER TABLE compras
+ ADD (
+ CONSTRAINT auto_increment_compras_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_compras_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_compras_insert
+ BEFORE INSERT ON compras
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_compras_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/
+ ALTER TABLE lances
+ ADD (
+ CONSTRAINT auto_increment_lances_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_lances_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_lances_insert
+ BEFORE INSERT ON lances
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_lances_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/
+ ALTER TABLE leiloes
+ ADD (
+ CONSTRAINT auto_increment_leiloes_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_leiloes_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_leiloes_insert
+ BEFORE INSERT ON leiloes
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_leiloes_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/
+ ALTER TABLE negociacoes
+ ADD (
+ CONSTRAINT auto_increment_negoc_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_negoc_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_negoc_insert
+ BEFORE INSERT ON negociacoes
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_negoc_seq.nextval
+ INTO :new.id
+ FROM dualcompras

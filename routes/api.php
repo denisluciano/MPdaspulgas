@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('/usuario','UsuarioController');
 Route::resource('/categoria','CategoriaController');
+Route::resource('/anuncio','AnuncioController');
+Route::resource('/compra','CompraController');
+Route::resource('/lance','LanceController');
+Route::resource('/leilao','LeilaoController');
+Route::resource('/negociacao','NegociacaoController');

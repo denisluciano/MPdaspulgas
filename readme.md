@@ -26,8 +26,14 @@ Trabalho da disciplina de Banco de dados 2 UFV, que consiste desenvolver sistema
 })
 
 ## Tecnologias ultilizada
-- Framework Laravel
-- Oracle Database 19c
+- Framework Laravel(BackEnd)
+- Framework VueJs(FrontEnd)
+- Framework Vuetify(Podermos usar sistema de grid e vários componentes prontos para FrontEnd)
+- Package npm Axios(Comunicar FrontEnd com BackEnd)
+- Package composer barryvdh/laravel-cors(Resolver problema de CORS)
+- Package npm vue-router(Para trabalharmos com rota no FrontEnd)
+- Package npm moment(Para trabalharmos com hora)
+- Oracle Database 19c(------- Depois de um tempo de desenvolvimento colocamos nosso banco no servidor da Amazon RDS, então não precisa do oracle database na maquina, mas precisa de fazer as outras configurações, como as do "laravel-oci8" e que os dados pra colocar no .env vão ser obtidos pela amazon)
 - Biblioteca yajra/laravel-oci8 (Como Laravel não tem suporte nativo para oracle, com essa biblioteca conseguimos suplir essa necessidade link: https://github.com/yajra/laravel-oci8) (Para quem for instalar  do zero essa biblioteca no laravel, tem um tutorial nesse link aqui: https://www.youtube.com/watch?v=i9C2thlgOg8 ele explica direitinho e ainda mostra uma ferramenta para Ver tabelas do Oracle Database. Unico passo confuso é de onde olha o DB_PORT, que é na pasta que você fez dowload do oracle e não na instalação(meu caso oracle19c\network\admin\TNSNAMES.ORA))
 
 ## Desenvolvido por :
