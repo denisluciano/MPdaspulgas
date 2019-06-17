@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class UsuarioController extends Controller
 {
     //
-    public function store(Request $request){
+    public function store(Request $request){//funcionando
 
         $cons = "insert into usuarios values ('$request->email','$request->senha','$request->cpf',
         '$request->nome','$request->apelido', lista_enderecos(endereco('$request->estado',

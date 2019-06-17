@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class NegociacaoController extends Controller
 {
     //
     public function store(Request $request){ //falta testar
 
+        //negociação herda de anuncio as caracteristicas, ou seja, mexemos só com negociacao e leilao
+        //Pois anuncio serve apenas pra herda as caracteristicas
 
-        $cons = "insert into negociacoes (tipo, tempo_devolucao) values
-        ($request->tipo, '$request->devolucao')";
+        //O id de negociacao e leilao fica na tabela anuncios
+
+        $cons = "insert into negociacoes (titulo, descricao, data_, valor_inicial, e_de, possui_c,
+         disponivel,tipo, tempo_devolucao) values (select ref(u) from usuarios u where u.email =
+         '$request->email'), (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),
+         '$request->disponivel',$request->tipo, '$request->tempo_devolucao')";
 
         $query =  DB::insert($cons);
 

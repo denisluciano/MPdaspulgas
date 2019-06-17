@@ -136,11 +136,11 @@ END;
 ALTER TABLE EMP DROP CONSTRAINT emp_name_PK1
  */
 
+
+/* obs: id de leilai e negociacao esta anuncio*/
 ALTER TYPE anuncio ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE compra ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
-ALTER TYPE leilao ADD ATTRIBUTE (id integer) CASCADE;
-ALTER TYPE negociacao ADD ATTRIBUTE (id integer) CASCADE;
 
 
 
@@ -192,40 +192,6 @@ CREATE OR REPLACE TRIGGER auto_increment_lances_insert
  FOR EACH ROW
 BEGIN
  SELECT auto_increment_lances_seq.nextval
- INTO :new.id
- FROM dual;
-END;
-/
-/
- ALTER TABLE leiloes
- ADD (
- CONSTRAINT auto_increment_leiloes_pk PRIMARY KEY (id)
- );
-/
-CREATE SEQUENCE auto_increment_leiloes_seq;
-/
-CREATE OR REPLACE TRIGGER auto_increment_leiloes_insert
- BEFORE INSERT ON leiloes
- FOR EACH ROW
-BEGIN
- SELECT auto_increment_leiloes_seq.nextval
- INTO :new.id
- FROM dual;
-END;
-/
-/
- ALTER TABLE negociacoes
- ADD (
- CONSTRAINT auto_increment_negoc_pk PRIMARY KEY (id)
- );
-/
-CREATE SEQUENCE auto_increment_negoc_seq;
-/
-CREATE OR REPLACE TRIGGER auto_increment_negoc_insert
- BEFORE INSERT ON negociacoes
- FOR EACH ROW
-BEGIN
- SELECT auto_increment_negoc_seq.nextval
  INTO :new.id
  FROM dual;
 END;
