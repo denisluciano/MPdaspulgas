@@ -2,7 +2,7 @@
 <template>
 
   <v-app>
-    <v-toolbar app dark color="#de5d3c" v-if="$route.name != 'Login'">
+    <v-toolbar app dark color="#3e5190" v-if="$route.name != 'Login'">
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
         <v-btn flat dark icon color="white" v-on="on">

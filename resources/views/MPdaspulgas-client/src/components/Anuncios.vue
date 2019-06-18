@@ -4,11 +4,19 @@
         <v-layout align-center justify-space-between row wrap>
           <v-flex xs12 md6>
             <h3 class="headline mb-0">Anúncios ativos no momento</h3>
+            <v-btn
+            color="red" dark
+            class="mt-4"
+            @click="cria_anuncio"
+          >
+            Criar Anúncio
+          </v-btn>
           </v-flex>
           
-          <v-flex xs12 md6>
+          <v-flex xs4 md4>
+            
               <v-text-field
-                color="#00a65a"
+                color="#ea3b2e"
                 v-model="search"
                 append-icon="search"
                 label="Pesquisar"
@@ -25,17 +33,17 @@
           fixed-tabs
           color="transparent"
         >
-          <v-tabs-slider color="#de5d3c"></v-tabs-slider>
-            <v-tab href="#mobile-tabs-5-1" class="red--text" @click="muda_categoria(1)">
-              Anúncios
+          <v-tabs-slider color="#ea3b2e"></v-tabs-slider>
+            <v-tab href="#mobile-tabs-5-1" class="red--text" >
+              Vendas
             </v-tab>
-            <v-tab href="#mobile-tabs-5-2" class="red--text" @click="muda_categoria(2)">
+            <v-tab href="#mobile-tabs-5-2" class="red--text" >
               Leilões
             </v-tab>
-            <v-tab href="#mobile-tabs-5-3" class="red--text" @click="muda_categoria(3)">
+            <v-tab href="#mobile-tabs-5-3" class="red--text" >
               Empréstimos
             </v-tab>
-            <v-tab href="#mobile-tabs-5-4" class="red--text" @click="muda_categoria(4)">
+            <v-tab href="#mobile-tabs-5-4" class="red--text" >
               Doações
             </v-tab>
         </v-tabs>
@@ -149,7 +157,7 @@
       </v-tab-item>
     </v-tabs-items>
   </v-layout>
-  <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
+    <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
           <v-toolbar-title>{{item_selecionado.titulo}}</v-toolbar-title>
@@ -161,7 +169,6 @@
               >
               </v-img>
         <v-card-text>
-          
           <v-container grid-list-md>
             <v-layout row wrap>
               <v-flex xs6>
@@ -181,8 +188,43 @@
           <v-spacer></v-spacer>
         </v-card-actions>
         </v-card-text>
+      </v-card>
+    </v-dialog>
 
-        
+    <v-dialog v-model="cadastrar_anuncio" max-width="800px">
+      <v-card>
+        <v-toolbar dark>
+          <v-toolbar-title>Cadastrar novo Anúncio</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout row wrap>
+              <v-flex xs12>
+                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.titulo" label="Título do Anúncio"></v-text-field>
+              <br></v-flex>
+              <v-flex xs6>
+              <v-select
+                :items="tipos"
+                label="Tipo de anúncio"
+                v-model="tipo_anuncio"
+                background-color='#f7f2f2'
+                outline
+              ></v-select>
+            </v-flex>
+              <v-flex xs6>
+                <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.preço" :label="label_preco"></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-textarea auto-grow background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.descricao" label="Descrição do Anúncio"></v-textarea>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <v-card-actions>
+            <v-btn color="green darken-1" flat @click="cadastrar_anuncio = false">Fazer Anúncio</v-btn>
+            <v-btn color="red darken-1" flat @click="cadastrar_anuncio = false">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-container>
@@ -191,6 +233,18 @@
   const axios = require('axios');
   export default {
     data: vm => ({
+      cadastrar_anuncio: false,
+      label_preco: 'Preço do Anúncio',
+      tipo_anuncio: null,
+      disable: false,
+      tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
+      cadastro:{
+        tipo: null,
+        titulo: null,
+        foto: null,
+        preço: null,
+        descricao: null,
+      },
       tabs: null,
       dialog: false,
       item_selecionado: null,
@@ -289,6 +343,25 @@
     },
 
     watch: {
+      tipo_anuncio(val){
+        if(val == 'Leilão'){
+          this.disable = false;
+          this.label_preco = 'Lance mínimo inicial'
+        }
+        if(val == 'Venda'){
+          this.disable = false;
+          this.label_preco = 'Valor do produto'
+        }
+        if(val == 'Empréstimo'){
+          this.disable = false;
+          this.label_preco = 'Valor da Diária'
+        }
+        if(val == 'Doação'){
+          this.cadastro.preço = 0.00;
+          this.disable = true;
+          this.label_preco = 'Grátis'
+        }
+      },
       search (val) {
 
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
@@ -302,6 +375,9 @@
     },
 
     methods: {
+      cria_anuncio(){
+        this.cadastrar_anuncio = true;
+      },
       seleciona(item){
         this.dialog = true;
         this.item_selecionado = item;
