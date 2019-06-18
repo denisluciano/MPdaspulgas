@@ -14,7 +14,11 @@ create type negociacao under anuncio (tipo integer, tempo_devolucao integer);
 /
 create type leilao under anuncio (data_abertura date, data_fim date);
 /
-create type compra as object (e_de ref usuario, do_anuncio ref anuncio, data_ date, precofim float);
+/* create type compra as object (e_de ref usuario, do_anuncio ref anuncio, data_ date, precofim float); */
+/
+create type compra_negoc as object (e_de ref usuario, do_negoc ref negociacao, data_ date, precofim float);
+/
+create type compra_leilao as object (e_de ref usuario, do_leilao ref leilao, data_ date, precofim float);
 /
 create type lance as object (e_de ref usuario, do_leilao ref leilao, data_ date, valor float);
 /
@@ -28,7 +32,11 @@ create table negociacoes of negociacao;
 /
 create table leiloes of leilao;
 /
-create table compras of compra;
+/*create table compras of compra;*/
+/
+create table compras_n of compra_negoc;
+/
+create table compras_l of compra_leilao;
 /
 create table lances of lance;
 /
@@ -162,23 +170,60 @@ BEGIN
  FROM dual;
 END;
 /
+-- /
+--  ALTER TABLE compras
+--  ADD (
+--  CONSTRAINT auto_increment_compras_pk PRIMARY KEY (id)
+--  );
+-- /
+-- CREATE SEQUENCE auto_increment_compras_seq;
+-- /
+-- CREATE OR REPLACE TRIGGER auto_increment_compras_insert
+--  BEFORE INSERT ON compras
+--  FOR EACH ROW
+-- BEGIN
+--  SELECT auto_increment_compras_seq.nextval
+--  INTO :new.id
+--  FROM dual;
+-- END;
+-- /
 /
- ALTER TABLE compras
+ ALTER TABLE compras_n
  ADD (
- CONSTRAINT auto_increment_compras_pk PRIMARY KEY (id)
+ CONSTRAINT auto_increment_compras_n_pk PRIMARY KEY (id)
  );
 /
-CREATE SEQUENCE auto_increment_compras_seq;
+CREATE SEQUENCE auto_increment_compras_n_seq;
 /
-CREATE OR REPLACE TRIGGER auto_increment_compras_insert
- BEFORE INSERT ON compras
+CREATE OR REPLACE TRIGGER auto_increment_compras_n_insert
+ BEFORE INSERT ON compras_n
  FOR EACH ROW
 BEGIN
- SELECT auto_increment_compras_seq.nextval
+ SELECT auto_increment_compras_n_seq.nextval
  INTO :new.id
  FROM dual;
 END;
 /
+/
+ ALTER TABLE compras_l
+ ADD (
+ CONSTRAINT auto_increment_compras_l_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_compras_l_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_compras_l_insert
+ BEFORE INSERT ON compras_l
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_compras_l_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+--
+--
+--
 /
  ALTER TABLE lances
  ADD (

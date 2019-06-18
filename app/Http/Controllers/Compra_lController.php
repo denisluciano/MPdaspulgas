@@ -6,16 +6,17 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 
-class LanceController extends Controller
+class Compra_lController extends Controller
 {
     //
-    public function store(Request $request){ //funcionando
+    public function store(Request $request){ //falta testar
 
 
-        $cons = "insert into lances (e_de, do_leilao, data_, valor) values
+
+        $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
         ((select ref(u) from usuarios u where u.email = '$request->email'),
-        (select ref(le) from leiloes le where le.id = '$request->id'), '$request->data_',
-        '$request->valor')";
+        (select ref(an) from leiloes an where an.id = '$request->do_leilao'), '$request->data_',
+        '$request->precofim')";
 
         $query =  DB::insert($cons);
 
