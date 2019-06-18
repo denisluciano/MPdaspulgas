@@ -2,20 +2,19 @@
 <template>
 
   <v-app>
-    
     <v-toolbar app dark color="#de5d3c" v-if="$route.name != 'Login'">
-  <div class="text-xs-center">
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
         <v-btn flat dark icon color="white" v-on="on">
           <v-icon>more_vert</v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list >
         <div v-for="item in items"
-          :key="item.title"
+          :key="item.title" 
         >
           <v-list-tile
+            class='mr-5'
             @click="$router.push(item.path)"
           >
             <v-list-tile-action >
@@ -26,11 +25,10 @@
         </div>
       </v-list>
     </v-menu>
-  </div>
       <span class="">
          <v-list-tile avatar>
           <v-list-tile-avatar>
-            <v-avatar
+            <v-avatar 
             size="45"
             color="grey lighten-4"
           >
@@ -49,28 +47,6 @@
         <v-icon>exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
-    
-
-    
-      <v-list class="pa-1">
-        <v-list-tile avatar>
-          <v-list-tile-avatar>
-            <v-avatar
-            size="45"
-            color="grey lighten-4"
-          >
-          </v-avatar>
-          </v-list-tile-avatar>
-
-          <v-list-tile-content>
-            <v-list-tile-title v-if="$route.name != 'Login'">{{computedNome}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-      <v-divider></v-divider>
-  
-
-
     <v-content>
       <router-view/>
     </v-content>

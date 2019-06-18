@@ -74,7 +74,7 @@
           logado: false,
           carregando: false,
           user: {
-            nome: 'Usuario 8',
+            nome: 'Henrique Penna',
             token: '45asdasd5as15646',
             email: '',
             password: '',
@@ -99,7 +99,7 @@
             sessionStorage.setItem('urt', this.user.token)
             sessionStorage.setItem('nome', this.user.nome)
             sessionStorage.setItem('email', this.user.email)
-            this.$router.push('/App');
+            this.$router.push('/Anuncios');
         /*  })
           .catch(error => {
             this.message_box = true;
