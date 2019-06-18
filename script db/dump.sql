@@ -145,14 +145,35 @@ ALTER TABLE EMP DROP CONSTRAINT emp_name_PK1
  */
 
 
-/* obs: id de leilai e negociacao esta anuncio*/
+/* obs: id de leilao e negociacao esta anuncio*/
+ALTER TYPE usuario ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE anuncio ADD ATTRIBUTE (id integer) CASCADE;
-ALTER TYPE compra ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE compra_negoc ADD ATTRIBUTE (id integer) CASCADE;
+ALTER TYPE compra_leilao ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
 
 
 
 
+
+/
+ ALTER TABLE usuarios
+ ADD (
+ CONSTRAINT auto_increment_usuarios_pk PRIMARY KEY (id)
+ );
+/
+CREATE SEQUENCE auto_increment_usuarios_seq;
+/
+CREATE OR REPLACE TRIGGER auto_increment_usuarios_insert
+ BEFORE INSERT ON usuarios
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_usuarios_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/
 /
  ALTER TABLE anuncios
  ADD (

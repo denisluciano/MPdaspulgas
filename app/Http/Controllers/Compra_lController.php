@@ -14,7 +14,7 @@ class Compra_lController extends Controller
 
 
         $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
-        ((select ref(u) from usuarios u where u.email = '$request->email'),
+        ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
         (select ref(an) from leiloes an where an.id = '$request->do_leilao'), '$request->data_',
         '$request->precofim')";
 

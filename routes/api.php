@@ -20,10 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('/usuario','UsuarioController');
 Route::resource('/categoria','CategoriaController');
 Route::resource('/anuncio','AnuncioController');
-Route::resource('/compra','CompraController');
 Route::resource('/lance','LanceController');
 Route::resource('/leilao','LeilaoController');
 Route::resource('/negociacao','NegociacaoController');
 Route::resource('/compra/n','compra_nController');
 Route::resource('/compra/l','compra_lController');
-
+Route::get('/lancesUsuario/{id}','LanceController@lancesUsuario');
+Route::get('/lancesLeilao/{id}','LanceController@lancesLeilao');
+Route::get('/compra/nUsuario/{id}','compra_nController@compras_nUsuario');

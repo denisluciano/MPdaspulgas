@@ -13,7 +13,7 @@ class UsuarioController extends Controller
     //
     public function store(Request $request){//funcionando
 
-        $cons = "insert into usuarios values ('$request->email','$request->senha','$request->cpf',
+        $cons = "insert into usuarios(email, senha, cpf, nome, apelido, enderecos, telefones) values ('$request->email','$request->senha','$request->cpf',
         '$request->nome','$request->apelido', lista_enderecos(endereco('$request->estado',
         '$request->bairro',$request->numero,'$request->cidade','$request->cep')),
         lista_telefones('$request->numero_cel'))";
