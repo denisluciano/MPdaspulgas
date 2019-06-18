@@ -1,0 +1,29 @@
+###INSERIR
+
+-USUARIO
+
+http://localhost:8000/api/usuario?email=denis@gmail.com&senha=password123&cpf=12345678998&nome=Denis&apelido=Juga&enderecos=dede&telefones=derde&estado=mg&bairro=santa clara&numero=1098&cidade=vicosa&cep=36570000&numero_cel=31997989898
+
+-NEGOCIACAO
+http://localhost:8000/api/negociacao?titulo=Cadeira gamer&descricao=pouca usada&data_=2019-06-06&valor_inicial=500.0&id_usuario=1&titulo_ca=Lazer&disponvel=1&tipo=1&tempo_devolucao=60
+
+-LEILAO
+http://localhost:8000/api/leilao?titulo=Gado&descricao=Gado demais&data_=2019-06-06&valor_inicial=5000.0&id_usuario=1&titulo_ca=Pecuaria&disponvel=1&data_abertura=2019-03-03&data_fim=2019-04-04
+
+-LANCE
+http://localhost:8000/api/lance?id_usuario=1&do_leilao=24&data_=2019-06-07&valor_inicial=5050.0
+
+-COMPRA LEILAO
+http://localhost:8000/api/compra/l?id_usuario=1&do_leilao=24&data_=2019-06-08&precofim=5050.0
+
+-COMPRA NEGOCIACAO
+http://localhost:8000/api/compra/n?id_usuario=1&do_negoc=23&data_=2019-06-08&precofim=5050.0
+
+###SELECTS
+-LANCES
+http://localhost:8000/api/lancesUsuario/1
+http://localhost:8000/api/lancesLeilao/24
+
+-COMPRAS
+http://localhost:8000/api//compra/nUsuario/1
+
