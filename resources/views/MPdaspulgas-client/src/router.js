@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Produto from '@/components/Produto'
 import Cliente from '@/components/Cliente'
+import Anuncios from '@/components/Anuncios'
 import Compra from '@/components/Compra'
 import NovoCliente from '@/components/NovoCliente'
 import NovoProduto from '@/components/NovoProduto'
@@ -21,8 +22,8 @@ export default new Router({
   routes: [
     {
         path: '/',
-        name: 'Home',
-        component: Home
+        name: 'Login',
+        component: Login
     },
     {
       path: '/clientes/novo',
@@ -45,6 +46,11 @@ export default new Router({
         component: Cliente
     },
     {
+        path: '/anuncios',
+        name: 'Anúncios',
+        component: Anuncios
+    },
+    {
         path: '/compras',
         name: 'Compra',
         component: Compra
@@ -53,11 +59,6 @@ export default new Router({
         path: '/cadastrar/usuario',
         name: 'CadastrarUsuario',
         component: CadastrarUsuario
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: Login
     },
     {
         path: '/cadastrar/anuncio',
