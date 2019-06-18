@@ -94,7 +94,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> - 
-                  <span>{{anuncio.preço}}</span>
+                  <span>{{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -296,14 +296,14 @@
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
-        preço: 'R$20 Lance Inicial',
+        valor_inicial: 'R$20 Lance Inicial',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
-        preço: 'R$20 Lance Inicial',
+        valor_inicial: 'R$20 Lance Inicial',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
