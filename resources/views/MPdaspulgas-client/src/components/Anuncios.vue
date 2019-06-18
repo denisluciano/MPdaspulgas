@@ -328,14 +328,7 @@
       
     }),
     created() {
-      this.categoria_atual = 1;
-       this.anuncios_filtro = this.anuncios;
-      
-        this.leiloes_filtro = this.leiloes;
-      
-        this.emprestimos_filtro = this.emprestimos;
-      
-        this.doacoes_filtro = this.doacoes;
+      this.initialize();
     },
 
     computed:{
@@ -375,6 +368,26 @@
     },
 
     methods: {
+      initialize(){
+        
+        axios
+          .get(sessionStorage.getItem('url') + '/api/leilao')
+          .then(response => {
+            this.leiloes = response.data
+            this.leiloes_filtro = this.leiloes;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        this.categoria_atual = 1;
+        this.anuncios_filtro = this.anuncios;
+    
+        this.emprestimos_filtro = this.emprestimos;
+      
+        this.doacoes_filtro = this.doacoes;
+
+      },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
       },
