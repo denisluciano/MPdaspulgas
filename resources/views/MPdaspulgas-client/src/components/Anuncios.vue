@@ -465,12 +465,6 @@
         this.cadastrar_anuncio = true;
       },
       compra(item,tipo){
-        if(tipo == 2){ //É LEILÃO
-          this.mensagem.input = true;
-          this.mensagem.titulo =item.titulo;
-          this.mensagem.message = 'Lance vencendo: ' + item.valor_inicial ;
-        }
-        else{
 
         item.id_usuario = 1;
         item.do_negoc = item.id;
