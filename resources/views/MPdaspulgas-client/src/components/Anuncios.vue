@@ -409,7 +409,7 @@
 
     methods: {
       initialize(){
-        /*
+
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
@@ -451,13 +451,13 @@
           });
 
         this.categoria_atual = 1;
-        */
+        /*
 
         this.leiloes_filtro = this.leiloes;
         this.doacoes_filtro = this.doacoes;
         this.emprestimos_filtro = this.emprestimos;
         this.anuncios_filtro = this.anuncios;
-
+        */
       },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
