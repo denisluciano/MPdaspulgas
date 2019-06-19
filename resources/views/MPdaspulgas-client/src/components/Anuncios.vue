@@ -202,14 +202,16 @@
         </v-flex>
         <v-flex xs6 v-if="mensagem.input">
         <v-btn
+            large 
             color="green darken-1"
             flat="flat"
-            @click="mensagem.dialog = false"
+            @click="dar_lance"
           > DAR LANCE
           </v-btn>
         </v-flex>
         </v-layout>
         <v-card-actions>
+          
           <v-spacer></v-spacer>
           <v-btn
             v-if="mensagem.input == false"
@@ -336,14 +338,14 @@
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
-        valor_inicial: 'R$20 Lance Inicial',
+        valor_inicial: 'R$20',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
-        valor_inicial: 'R$20 Lance Inicial',
+        valor_inicial: 'R$20',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
@@ -463,31 +465,39 @@
         this.cadastrar_anuncio = true;
       },
       compra(item,tipo){
+        if(tipo == 2){
+          this.mensagem.input = true;
+          this.mensagem.titulo =item.titulo;
+          this.mensagem.message = 'Lance vencendo: ' + item.valor_inicial ;
+        }
+
+        item.id_usuario = 1;
+        item.do_negoc = item.id;
+        item.preco_fim = item.valor_inicial;
+
         axios
           .post(sessionStorage.getItem('url') + '/api/??????????', item)
           .then(response => {
-            //
+
+            this.mensagem.dialog = true;
+            this.mensagem.input = false;
+            this.mensagem.titulo ='Operação bem sucedida';
+            if(tipo == 1){
+              this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+            }
+
+            if(tipo == 3){
+              this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+            }
+            if(tipo == 4){
+              this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+            }
+
           })
           .catch(error => {
             console.log(error);
           });
-        this.mensagem.dialog = true;
-        this.mensagem.input = false;
-        this.mensagem.titulo ='Operação bem sucedida';
-        if(tipo == 1){
-          this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-        }
-        if(tipo == 2){
-          this.mensagem.input = true;
-          this.mensagem.titulo ='Dar lance';
-          this.mensagem.message = 'Digite o lance a ser dado em "' + item.titulo + '"';
-        }
-        if(tipo == 3){
-          this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-        }
-        if(tipo == 4){
-          this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-        }
+        
       },
       seleciona(item,tipo){
         if(tipo == 1){
@@ -512,6 +522,23 @@
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
+      },
+      dar_lance(){
+        this.mensagem.dialog = false
+        this.lance.id_usuario = 1
+
+        this.lance.lance = this.mensagem.lance
+
+
+        axios
+          .post('http://localhost:8000/api/leilao', this.cadastro)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
       },
       cadastraAnuncio(){
 
@@ -539,7 +566,7 @@
             this.cadastro.tipo = 2;
             this.cadastro.tempo_devolucao = 15;
           }
-          this.cadastro.titulo_ca = 'Livraria'
+          this.cadastro.titulo_ca = 'Lazer'
           this.cadastro.id_usuario = 1
           
           axios
