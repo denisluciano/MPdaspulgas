@@ -23,9 +23,14 @@ class LanceController extends Controller
 
 
         if($query){
-            return response()->json($query);
-        }else {
-            return "erro na inserção";
+            //gravar maior lance como ref de leilao
+            $cons2 = "update leiloes set maio_lance = (select ref(u) from lances u where u.id = max(u.id))";
+            $query2 = DB::update($cons2);
+            if($query2){
+                return response()->json($query.$query3);
+            }else {
+                return "erro na inserção";
+            }
         }
 
     }

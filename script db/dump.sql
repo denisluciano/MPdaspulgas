@@ -152,6 +152,9 @@ ALTER TYPE compra_negoc ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE compra_leilao ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
 
+-- referencia maior lance
+ALTER TYPE leilao ADD ATTRIBUTE (maior_lance ref lance) CASCADE;
+
 
 
 
