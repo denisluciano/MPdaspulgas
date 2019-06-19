@@ -74,8 +74,8 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green">Comprar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
+                <v-btn flat color="green" @click="compra(anuncio,1)">Comprar</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
             
@@ -98,8 +98,8 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green">Comprar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
+                <v-btn flat color="green" @click="compra(anuncio,2)">Dar Lance</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
             
@@ -122,8 +122,8 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green">Comprar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
+                <v-btn flat color="green" @click="compra(anuncio,3)">Alugar</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,3)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
             
@@ -146,8 +146,8 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green">Comprar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
+                <v-btn flat color="green" @click="compra(anuncio,4)">Aceitar</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
             
@@ -178,19 +178,36 @@
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea auto-grow>
+                <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea>
               </v-flex>
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn color="green darken-1" flat @click="dialog = false">Comprar</v-btn>
+            <v-btn color="green darken-1" flat @click="compra(item_selecionado,tipo_selecionado)">{{comprar}}</v-btn>
             <v-btn color="red darken-1" flat @click="dialog = false">Denunciar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
         </v-card-text>
       </v-card>
     </v-dialog>
-
+    <v-dialog
+      v-model="mensagem.dialog"
+      max-width="400"
+    >
+      <v-card>
+        <v-card-title class="headline green--text">{{mensagem.titulo}}</v-card-title>
+        <v-card-text>{{mensagem.message}}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="mensagem.dialog = false"
+          > Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="cadastrar_anuncio" max-width="800px">
       <v-card>
         <v-toolbar dark>
@@ -233,6 +250,13 @@
   const axios = require('axios');
   export default {
     data: vm => ({
+      mensagem:{
+        dialog: false,
+        message: '',
+        titulo: '',
+      },
+      comprar: null,
+      tipo_selecionado: null,
       cadastrar_anuncio: false,
       label_preco: 'Preço do Anúncio',
       tipo_anuncio: null,
@@ -369,7 +393,6 @@
 
     methods: {
       initialize(){
-        
         axios
           .get(sessionStorage.getItem('url') + '/api/leilao')
           .then(response => {
@@ -391,7 +414,43 @@
       cria_anuncio(){
         this.cadastrar_anuncio = true;
       },
-      seleciona(item){
+      compra(item,tipo){
+        axios
+          .post(sessionStorage.getItem('url') + '/api/??????????', item)
+          .then(response => {
+            //
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        this.mensagem.dialog = true;
+        this.mensagem.titulo ='Operação bem sucedida';
+        if(tipo == 1)
+          this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+        if(tipo == 2)
+          this.mensagem.message = 'Lance efetuado com sucesso em "' + item.titulo + '"';
+        if(tipo == 3)
+          this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+        if(tipo == 4)
+          this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+      },
+      seleciona(item,tipo){
+        if(tipo == 1){
+          this.comprar = 'Comprar';
+          this.tipo_selecionado = 1;
+        }
+        if(tipo == 2){
+          this.comprar = 'Dar lance';
+          this.tipo_selecionado = 2;
+        }
+        if(tipo == 3){
+          this.comprar = 'Alugar';
+          this.tipo_selecionado = 3;
+        }
+        if(tipo == 4){
+          this.comprar =  'Aceitar';
+          this.tipo_selecionado = 4;
+        }
         this.dialog = true;
         this.item_selecionado = item;
         console.log(this.item_selecionado)
