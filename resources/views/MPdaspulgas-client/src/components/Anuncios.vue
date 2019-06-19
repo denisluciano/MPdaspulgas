@@ -397,10 +397,6 @@
 
     methods: {
       initialize(){
-<<<<<<< HEAD
-=======
-
->>>>>>> 3c948f2e4b246a51594f29e3eb0d45c42849487e
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
