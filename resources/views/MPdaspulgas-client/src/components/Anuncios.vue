@@ -273,6 +273,12 @@
         input: false,
         lance: null
       },
+      lance:{
+        vencendo: 20,
+        do_leilao: null,
+        id_usuario: null,
+        lance: null
+      },
       comprar: null,
       tipo_selecionado: null,
       cadastrar_anuncio: false,
@@ -298,68 +304,77 @@
       leiloes_filtro:[],
       anuncios:[
         {
+        id: 1,
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-        valor_inicial: 'R$4000',
+        valor_inicial: '4000',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
+        id: 2,
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
-        valor_inicial: 'R$200',
+        valor_inicial: '200',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
+        id: 3,
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
-        valor_inicial: 'R$40000',
+        valor_inicial: '40000',
         foto: 'https://www.luxurysociety.com/media/uploads/thumbnails/filer_public_thumbnails/cc/04/cc04f3d6-9769-4e90-85fc-b730c8c6f561/bugatti.png__1024x450_q85_crop_subsampling-2_upscale.png',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
+        id: 4,
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
-        valor_inicial: 'R$500',
+        valor_inicial: '500',
         foto: 'https://www.mundoecologia.com.br/wp-content/uploads/2019/04/Porco-3.jpg',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
+        id: 5,
         telefone: '(31) 99714-1569',
         titulo: 'Lixeira infantil',
         foto: 'https://www.casadaeducacao.com.br/octopus/design/images/34/products/o/lixeiracoletaseletivafresooo.jpg',
-        valor_inicial: 'R$2',
+        valor_inicial: '2',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
       leiloes:[
         {
+        id: 6,
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
-        valor_inicial: 'R$20',
+        valor_inicial: '20',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
+        id: 7,
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
-        valor_inicial: 'R$20',
+        valor_inicial: '20',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
       emprestimos:[
         {
+        id: 8,
         telefone: '(31) 99714-1569',
         titulo: 'Violão',
         foto: 'http://iniciantesdoviolao.com.br/wp-content/uploads/2014/04/Design-sem-nomebb.png',
-        valor_inicial: 'R$20/Dia',
+        valor_inicial: '20',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
       doacoes:[
         {
+        id: 9,
         telefone: '(31) 99714-1569',
         titulo: 'Doa-se Galinha',
         foto: 'https://i.ytimg.com/vi/2BZSTbip92w/maxresdefault.jpg',
@@ -411,7 +426,7 @@
 
     methods: {
       initialize(){
-
+      /*
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
@@ -453,21 +468,24 @@
           });
 
         this.categoria_atual = 1;
-        /*
+        */
 
         this.leiloes_filtro = this.leiloes;
         this.doacoes_filtro = this.doacoes;
         this.emprestimos_filtro = this.emprestimos;
         this.anuncios_filtro = this.anuncios;
-        */
+        
       },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
       },
       compra(item,tipo){
         if(tipo == 2){ //É LEILÃO
+          this.mensagem.dialog = true;
           this.mensagem.input = true;
           this.mensagem.titulo =item.titulo;
+          this.lance.vencendo = item.valor_inicial;
+          this.lance.do_leilao = item.id;
           this.mensagem.message = 'Lance vencendo: ' + item.valor_inicial ;
         }
         else{
@@ -526,22 +544,21 @@
         this.categoria_atual = tipo;
       },
       dar_lance(){
-
         this.mensagem.dialog = false
+        this.lance.lance = this.mensagem.lance;
         this.lance.id_usuario = 1
+        console.log(this.lance)
 
-        this.lance.lance = this.mensagem.lance
-
-/*
-        axios
-          .post('http://localhost:8000/api/leilao', this.cadastro)
-          .then(response => {
-            console.log(response)
-          })
-          .catch(error => {
-            console.log(error);
-          });*/
-
+        if(this.lance.lance > this.lance.vencendo){
+          axios
+            .post('http://localhost:8000/api/leilao', this.cadastro)
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
       },
       cadastraAnuncio(){
 
