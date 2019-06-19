@@ -190,6 +190,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
     <v-dialog
       v-model="mensagem.dialog"
       max-width="400"
@@ -197,6 +198,9 @@
       <v-card>
         <v-card-title class="headline green--text">{{mensagem.titulo}}</v-card-title>
         <v-card-text>{{mensagem.message}}</v-card-text>
+        <v-flex xs6 v-if="mensagem.input">
+          <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="mensagem.lance" label="Seu lance"></v-text-field>
+        </v-flex>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -208,6 +212,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    
     <v-dialog v-model="cadastrar_anuncio" max-width="800px">
       <v-card>
         <v-toolbar dark>
@@ -237,7 +242,7 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn color="green darken-1" flat @click="cadastrar_anuncio = false">Fazer Anúncio</v-btn>
+            <v-btn color="green darken-1" flat @click="cadastraAnuncio">Fazer Anúncio</v-btn>
             <v-btn color="red darken-1" flat @click="cadastrar_anuncio = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -254,6 +259,8 @@
         dialog: false,
         message: '',
         titulo: '',
+        input: false,
+        lance: null
       },
       comprar: null,
       tipo_selecionado: null,
@@ -393,6 +400,7 @@
 
     methods: {
       initialize(){
+        /*
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
@@ -434,12 +442,13 @@
           });
 
         this.categoria_atual = 1;
-
-
-
-
-
-
+        */
+        
+        this.leiloes_filtro = this.leiloes;
+        this.doacoes_filtro = this.doacoes;
+        this.emprestimos_filtro = this.emprestimos;
+        this.anuncios_filtro = this.anuncios;
+        
       },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
@@ -455,14 +464,22 @@
           });
         this.mensagem.dialog = true;
         this.mensagem.titulo ='Operação bem sucedida';
-        if(tipo == 1)
+        if(tipo == 1){
+          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-        if(tipo == 2)
+        }
+        if(tipo == 2){
+          this.mensagem.input = true;
           this.mensagem.message = 'Lance efetuado com sucesso em "' + item.titulo + '"';
-        if(tipo == 3)
+        }
+        if(tipo == 3){
+          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-        if(tipo == 4)
+        }
+        if(tipo == 4){
+          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
+        }
       },
       seleciona(item,tipo){
         if(tipo == 1){
@@ -488,6 +505,17 @@
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
       },
+      cadastraAnuncio(){
+
+        axios
+          .post('http://localhost:8000/api/leilao', this.cadastro)
+          .then(response => {
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     }
   }
 
