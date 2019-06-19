@@ -11,9 +11,9 @@ class NegociacaoController extends Controller
     public function indexVenda()
     {
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
-        a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
+        a.e_de.nome as nome_usuario, value(t),  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 1');
+        a.tipo, a.tempo_devolucao, a.id  from negociacoes a, table(a.e_de.telefones) t where a.tipo = 1');
 
         //return $categorias;
 
