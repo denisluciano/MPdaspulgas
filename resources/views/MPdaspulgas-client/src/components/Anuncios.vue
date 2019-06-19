@@ -70,7 +70,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.preço}}</span>
+                  <span>{{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -113,12 +113,11 @@
                 height="200px"
                 :src="anuncio.foto"
               >
-
               </v-img>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.preço}}</span>
+                  <span>{{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -137,12 +136,11 @@
                 height="200px"
                 :src="anuncio.foto"
               >
-
               </v-img>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.preço}}</span>
+                  <span>{{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -172,7 +170,7 @@
           <v-container grid-list-md>
             <v-layout row wrap>
               <v-flex xs6>
-                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.preço" label="Preço do Anúncio"></v-text-field>
+                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.valor_inicial" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
@@ -198,12 +196,23 @@
       <v-card>
         <v-card-title class="headline green--text">{{mensagem.titulo}}</v-card-title>
         <v-card-text>{{mensagem.message}}</v-card-text>
+        <v-layout row wrap v-if="mensagem.input">
         <v-flex xs6 v-if="mensagem.input">
-          <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="mensagem.lance" label="Seu lance"></v-text-field>
+          <v-text-field class='ml-3' background-color='#f7f2f2' outline hide-details required="" v-model="mensagem.lance" label="Seu lance"></v-text-field>
         </v-flex>
+        <v-flex xs6 v-if="mensagem.input">
+        <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="mensagem.dialog = false"
+          > DAR LANCE
+          </v-btn>
+        </v-flex>
+        </v-layout>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
+            v-if="mensagem.input == false"
             color="green darken-1"
             flat="flat"
             @click="mensagem.dialog = false"
@@ -234,7 +243,7 @@
               ></v-select>
             </v-flex>
               <v-flex xs6>
-                <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.preço" :label="label_preco"></v-text-field>
+                <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.valor_inicial" :label="label_preco"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-textarea auto-grow background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.descricao" label="Descrição do Anúncio"></v-textarea>
@@ -273,7 +282,7 @@
         tipo: null,
         titulo: null,
         foto: null,
-        preço: null,
+        valor_inicial: null,
         descricao: null,
       },
       tabs: null,
@@ -290,27 +299,27 @@
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-        preço: 'R$4000',
+        valor_inicial: 'R$4000',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
-        preço: 'R$200',
+        valor_inicial: 'R$200',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
-        preço: 'R$40000',
+        valor_inicial: 'R$40000',
         foto: 'https://www.luxurysociety.com/media/uploads/thumbnails/filer_public_thumbnails/cc/04/cc04f3d6-9769-4e90-85fc-b730c8c6f561/bugatti.png__1024x450_q85_crop_subsampling-2_upscale.png',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
         {
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
-        preço: 'R$500',
+        valor_inicial: 'R$500',
         foto: 'https://www.mundoecologia.com.br/wp-content/uploads/2019/04/Porco-3.jpg',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
@@ -318,7 +327,7 @@
         telefone: '(31) 99714-1569',
         titulo: 'Lixeira infantil',
         foto: 'https://www.casadaeducacao.com.br/octopus/design/images/34/products/o/lixeiracoletaseletivafresooo.jpg',
-        preço: 'R$2',
+        valor_inicial: 'R$2',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
@@ -343,7 +352,7 @@
         telefone: '(31) 99714-1569',
         titulo: 'Violão',
         foto: 'http://iniciantesdoviolao.com.br/wp-content/uploads/2014/04/Design-sem-nomebb.png',
-        preço: 'R$20/Dia',
+        valor_inicial: 'R$20/Dia',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
@@ -352,7 +361,7 @@
         telefone: '(31) 99714-1569',
         titulo: 'Doa-se Galinha',
         foto: 'https://i.ytimg.com/vi/2BZSTbip92w/maxresdefault.jpg',
-        preço: 'GRÁTIS',
+        valor_inicial: 'GRÁTIS',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
@@ -381,7 +390,7 @@
           this.label_preco = 'Valor da Diária'
         }
         if(val == 'Doação'){
-          this.cadastro.preço = 0.00;
+          this.cadastro.valor_inicial = 0.00;
           this.disable = true;
           this.label_preco = 'Grátis'
         }
@@ -463,21 +472,20 @@
             console.log(error);
           });
         this.mensagem.dialog = true;
+        this.mensagem.input = false;
         this.mensagem.titulo ='Operação bem sucedida';
         if(tipo == 1){
-          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
         }
         if(tipo == 2){
           this.mensagem.input = true;
-          this.mensagem.message = 'Lance efetuado com sucesso em "' + item.titulo + '"';
+          this.mensagem.titulo ='Dar lance';
+          this.mensagem.message = 'Digite o lance a ser dado em "' + item.titulo + '"';
         }
         if(tipo == 3){
-          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
         }
         if(tipo == 4){
-          this.mensagem.input = false;
           this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
         }
       },
@@ -507,15 +515,45 @@
       },
       cadastraAnuncio(){
 
-        axios
+        if(this.tipo_anuncio == 'Leilão'){
+
+          this.cadastro.categoria = 'Livraria'
+          this.cadastro.id_usuario = 1
+          
+          axios
           .post('http://localhost:8000/api/leilao', this.cadastro)
           .then(response => {
-
+            console.log(response)
           })
           .catch(error => {
             console.log(error);
           });
-      }
+
+        }
+
+        else{
+          this.cadastro.tempo_devolucao = 0
+          if(this.tipo_anuncio == 'Venda') this.cadastro.tipo = 1
+          if(this.tipo_anuncio == 'Doação') this.cadastro.tipo = 3
+          if(this.tipo_anuncio == 'Empréstimo'){
+            this.cadastro.tipo = 2;
+            this.cadastro.tempo_devolucao = 15;
+          }
+          this.cadastro.titulo_ca = 'Livraria'
+          this.cadastro.id_usuario = 1
+          
+          axios
+          .post('http://localhost:8000/api/leilao', this.cadastro)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        }
+
+      }  
     }
   }
 
