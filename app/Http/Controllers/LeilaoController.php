@@ -11,7 +11,7 @@ class LeilaoController extends Controller
     public function index()
     {
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
-        a.e_de.nome as nome_usuario, a.e_de.email as email_usuario,
+        a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
         a.data_abertura, a.data_fim, a.id  from leiloes a');
 

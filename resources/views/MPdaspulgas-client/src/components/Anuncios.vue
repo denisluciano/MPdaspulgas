@@ -12,9 +12,9 @@
             Criar Anúncio
           </v-btn>
           </v-flex>
-          
+
           <v-flex xs4 md4>
-            
+
               <v-text-field
                 color="#ea3b2e"
                 v-model="search"
@@ -48,7 +48,7 @@
             </v-tab>
         </v-tabs>
       </template>
-      
+
     </v-toolbar>
     <br>
     <v-layout>
@@ -69,7 +69,7 @@
               </v-img>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> - 
+                  <span>{{anuncio.titulo}}</span> -
                   <span>{{anuncio.preço}}</span>
                 </div>
               </v-card-title>
@@ -78,7 +78,7 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-            
+
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 2" row wrap>
@@ -89,11 +89,11 @@
                 height="200px"
                 :src="anuncio.foto"
               >
-                
+
               </v-img>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> - 
+                  <span>{{anuncio.titulo}}</span> -
                   <span>{{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
@@ -102,7 +102,7 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-            
+
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 3" row wrap>
@@ -113,11 +113,11 @@
                 height="200px"
                 :src="anuncio.foto"
               >
-                
+
               </v-img>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> - 
+                  <span>{{anuncio.titulo}}</span> -
                   <span>{{anuncio.preço}}</span>
                 </div>
               </v-card-title>
@@ -126,7 +126,7 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-            
+
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 4" row wrap>
@@ -137,11 +137,11 @@
                 height="200px"
                 :src="anuncio.foto"
               >
-                
+
               </v-img>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> - 
+                  <span>{{anuncio.titulo}}</span> -
                   <span>{{anuncio.preço}}</span>
                 </div>
               </v-card-title>
@@ -150,10 +150,10 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-            
+
           </v-flex>
         </v-layout>
-        
+
       </v-tab-item>
     </v-tabs-items>
   </v-layout>
@@ -178,7 +178,7 @@
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea auto-grow>
+                <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea >
               </v-flex>
             </v-layout>
           </v-container>
@@ -325,7 +325,7 @@
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
-      
+
     }),
     created() {
       this.initialize();
@@ -358,20 +358,20 @@
       search (val) {
 
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
-      
+
         this.leiloes_filtro = this.leiloes.filter(a => a.titulo.toLowerCase().includes(val))
-      
+
         this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo.toLowerCase().includes(val))
-      
+
         this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
       }
     },
 
     methods: {
       initialize(){
-        
+
         axios
-          .get(sessionStorage.getItem('url') + '/api/leilao')
+          .get('http://localhost:8000/api/leilao')
           .then(response => {
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
@@ -380,12 +380,42 @@
             console.log(error);
           });
 
+        axios
+          .get('http://localhost:8000/api/negociacao/1')
+          .then(response => {
+            this.anuncios = response.data
+            this.anuncios_filtro = this.anuncios;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        axios
+          .get('http://localhost:8000/api/negociacao/2')
+          .then(response => {
+            this.emprestimos = response.data
+            this.emprestimos_filtro = this.emprestimos;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        axios
+          .get('http://localhost:8000/api/negociacao/3')
+          .then(response => {
+            this.doacoes = response.data
+            this.doacoes_filtro = this.doacoes;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
         this.categoria_atual = 1;
-        this.anuncios_filtro = this.anuncios;
-    
-        this.emprestimos_filtro = this.emprestimos;
-      
-        this.doacoes_filtro = this.doacoes;
+
+
+
+
+
 
       },
       cria_anuncio(){
