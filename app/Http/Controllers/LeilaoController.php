@@ -26,11 +26,12 @@ class LeilaoController extends Controller
     //
     public function store(Request $request){ //funcionando
 
+        $datatt = Date('Y-m-d');
 
         $cons = "insert into leiloes (titulo, descricao, data_, valor_inicial, e_de, possui_c, disponivel,
-        data_abertura, data_fim) values ('$request->titulo','$request->descricao','$request->data_',
+        data_abertura, data_fim) values ('$request->titulo','$request->descricao','$datatt',
         '$request->valor_inicial',(select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-        (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),'$request->disponivel',
+        (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),'1',
         '$request->data_abertura', '$request->data_fim')";
 
         $query =  DB::insert($cons);
