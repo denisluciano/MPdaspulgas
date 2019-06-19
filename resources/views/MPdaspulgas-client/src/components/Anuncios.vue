@@ -60,7 +60,7 @@
         >
         <v-layout v-if="i == 1" row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="400px" class="ma-2">
+            <v-card width="355px" class="ma-2">
               <v-img
                 class="white--text"
                 height="200px"
@@ -83,7 +83,7 @@
         </v-layout>
         <v-layout v-if="i == 2" row wrap>
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="400px" class="ma-2">
+            <v-card width="355px" class="ma-2">
               <v-img
                 class="white--text"
                 height="200px"
@@ -107,7 +107,7 @@
         </v-layout>
         <v-layout v-if="i == 3" row wrap>
           <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
-            <v-card width="400px" class="ma-2">
+            <v-card width="355px" class="ma-2">
               <v-img
                 class="white--text"
                 height="200px"
@@ -130,7 +130,7 @@
         </v-layout>
         <v-layout v-if="i == 4" row wrap>
           <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
-            <v-card width="400px" class="ma-2">
+            <v-card width="355px" class="ma-2">
               <v-img
                 class="white--text"
                 height="200px"
@@ -162,7 +162,7 @@
         </v-toolbar>
         <v-img
                 class="white--text"
-                height="400px"
+                height="355px"
                 :src="item_selecionado.foto"
               >
               </v-img>
@@ -421,7 +421,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/negociacao/1')
+          .get('http://localhost:8000/api/negociacao1')
           .then(response => {
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
@@ -431,7 +431,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/negociacao/2')
+          .get('http://localhost:8000/api/negociacao2')
           .then(response => {
             this.emprestimos = response.data
             this.emprestimos_filtro = this.emprestimos;
@@ -441,7 +441,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/negociacao/3')
+          .get('http://localhost:8000/api/negociacao3')
           .then(response => {
             this.doacoes = response.data
             this.doacoes_filtro = this.doacoes;
