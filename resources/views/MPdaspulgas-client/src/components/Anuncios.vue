@@ -59,7 +59,7 @@
           :value="'mobile-tabs-5-' + i"
         >
         <v-layout v-if="i == 1" row wrap>
-          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.titulo">
+          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
             <v-card width="400px" class="ma-2">
               <v-img
                 class="white--text"
@@ -82,7 +82,7 @@
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 2" row wrap>
-          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.titulo">
+          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
             <v-card width="400px" class="ma-2">
               <v-img
                 class="white--text"
@@ -106,7 +106,7 @@
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 3" row wrap>
-          <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.titulo">
+          <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
             <v-card width="400px" class="ma-2">
               <v-img
                 class="white--text"
@@ -130,7 +130,7 @@
           </v-flex>
         </v-layout>
         <v-layout v-if="i == 4" row wrap>
-          <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.titulo">
+          <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
             <v-card width="400px" class="ma-2">
               <v-img
                 class="white--text"
@@ -178,11 +178,7 @@
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
               <v-flex xs12>
-<<<<<<< HEAD
                 <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea>
-=======
-                <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea >
->>>>>>> 3c948f2e4b246a51594f29e3eb0d45c42849487e
               </v-flex>
             </v-layout>
           </v-container>
