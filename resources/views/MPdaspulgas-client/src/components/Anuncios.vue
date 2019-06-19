@@ -465,19 +465,20 @@
         this.cadastrar_anuncio = true;
       },
       compra(item,tipo){
-        if(tipo == 2){
+        if(tipo == 2){ //É LEILÃO
           this.mensagem.input = true;
           this.mensagem.titulo =item.titulo;
           this.mensagem.message = 'Lance vencendo: ' + item.valor_inicial ;
         }
+        else{
 
         item.id_usuario = 1;
         item.do_negoc = item.id;
         item.preco_fim = item.valor_inicial;
-
+/*
         axios
           .post(sessionStorage.getItem('url') + '/api/??????????', item)
-          .then(response => {
+          .then(response => { */
 
             this.mensagem.dialog = true;
             this.mensagem.input = false;
@@ -492,12 +493,13 @@
             if(tipo == 4){
               this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
             }
-
+/*
           })
           .catch(error => {
             console.log(error);
           });
-        
+        */
+        }
       },
       seleciona(item,tipo){
         if(tipo == 1){
@@ -524,12 +526,13 @@
         this.categoria_atual = tipo;
       },
       dar_lance(){
+
         this.mensagem.dialog = false
         this.lance.id_usuario = 1
 
         this.lance.lance = this.mensagem.lance
 
-
+/*
         axios
           .post('http://localhost:8000/api/leilao', this.cadastro)
           .then(response => {
@@ -537,7 +540,7 @@
           })
           .catch(error => {
             console.log(error);
-          });
+          });*/
 
       },
       cadastraAnuncio(){
