@@ -11,11 +11,11 @@ class Compra_nController extends Controller
     //
     public function store(Request $request){ //funcionando
 
-
+        $datatt = date('Y-m-d');
 
         $cons = "insert into compras_n (e_de, do_negoc, data_, precofim) values
         ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-        (select ref(an) from negociacoes an where an.id = '$request->do_negoc'), '$request->data_',
+        (select ref(an) from negociacoes an where an.id = '$request->do_negoc'), '$datatt',
         '$request->precofim')";
 
         $query =  DB::insert($cons);

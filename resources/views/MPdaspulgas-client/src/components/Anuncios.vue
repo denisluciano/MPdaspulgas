@@ -223,7 +223,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    
+
     <v-dialog v-model="cadastrar_anuncio" max-width="800px">
       <v-card>
         <v-toolbar dark>
@@ -454,12 +454,12 @@
 
         this.categoria_atual = 1;
         */
-        
+
         this.leiloes_filtro = this.leiloes;
         this.doacoes_filtro = this.doacoes;
         this.emprestimos_filtro = this.emprestimos;
         this.anuncios_filtro = this.anuncios;
-        
+
       },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
@@ -549,7 +549,7 @@
 
           this.cadastro.categoria = 'Livraria'
           this.cadastro.id_usuario = 1
-          
+
           axios
           .post('http://localhost:8000/api/leilao', this.cadastro)
           .then(response => {
@@ -571,9 +571,9 @@
           }
           this.cadastro.titulo_ca = 'Lazer'
           this.cadastro.id_usuario = 1
-          
+
           axios
-          .post('http://localhost:8000/api/leilao', this.cadastro)
+          .post('http://localhost:8000/api/negociacao', this.cadastro)
           .then(response => {
             console.log(response)
           })
@@ -583,7 +583,7 @@
 
         }
 
-      }  
+      }
     }
   }
 

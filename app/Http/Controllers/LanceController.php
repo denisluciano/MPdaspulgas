@@ -12,10 +12,11 @@ class LanceController extends Controller
     //
     public function store(Request $request){ //funcionando
 
+        $datatt = date('Y-m-d');
 
         $cons = "insert into lances (e_de, do_leilao, data_, valor) values
         ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-        (select ref(le) from leiloes le where le.id = '$request->do_leilao'), '$request->data_',
+        (select ref(le) from leiloes le where le.id = '$request->do_leilao'), '$datatt',
         '$request->valor')";
 
         $query =  DB::insert($cons);
