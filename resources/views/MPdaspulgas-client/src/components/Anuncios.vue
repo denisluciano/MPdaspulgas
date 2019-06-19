@@ -70,7 +70,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.valor_inicial}}</span>
+                  <span>R$ {{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -94,7 +94,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.valor_inicial}}</span>
+                  <span>R$ {{anuncio.valor_inicial}} maior lance</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -117,7 +117,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.valor_inicial}}</span>
+                  <span>R$ {{anuncio.valor_inicial}}/Dia</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -385,7 +385,7 @@
 
     }),
     created() {
-      this.initialize();
+      this.initialize('denise');
     },
 
     computed:{
@@ -425,8 +425,9 @@
     },
 
     methods: {
-      initialize(){
-
+      initialize(tipo){
+        this.categoria_atual = 1;
+        if(tipo == 'denis'){
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
@@ -466,15 +467,13 @@
           .catch(error => {
             console.log(error);
           });
-
-        this.categoria_atual = 1;
-        /*
-
-        this.leiloes_filtro = this.leiloes;
-        this.doacoes_filtro = this.doacoes;
-        this.emprestimos_filtro = this.emprestimos;
-        this.anuncios_filtro = this.anuncios;
-        */
+        }
+        else {
+          this.leiloes_filtro = this.leiloes;
+          this.doacoes_filtro = this.doacoes;
+          this.emprestimos_filtro = this.emprestimos;
+          this.anuncios_filtro = this.anuncios;
+        }
       },
       cria_anuncio(){
         this.cadastrar_anuncio = true;
@@ -486,7 +485,7 @@
           this.mensagem.titulo =item.titulo;
           this.lance.vencendo = item.valor_inicial;
           this.lance.do_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: ' + item.valor_inicial ;
+          this.mensagem.message = 'Lance vencendo: R$' + item.valor_inicial ;
         }
         else{
 
@@ -551,7 +550,11 @@
 
         if(this.lance.lance > this.lance.vencendo){
           axios
+<<<<<<< HEAD
             .post('http://localhost:8000/api/lance', this.lance)
+=======
+            .post('http://localhost:8000/api/leilao', this.lance)
+>>>>>>> 77a137ec7d97b4ecb0b6913b85f41684508d4836
             .then(response => {
               console.log(response)
             })
