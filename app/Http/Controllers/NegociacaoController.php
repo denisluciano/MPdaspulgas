@@ -8,12 +8,42 @@ use Illuminate\Support\Facades\DB;
 
 class NegociacaoController extends Controller
 {
-    public function index()
+    public function indexVenda()
     {
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
-        a.e_de.nome as nome_usuario, a.e_de.email as email_usuario,
+        a.e_de.nome as nome_usuario, a.e_de.telefones as telefone_usuario, a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id  from negociacoes a');
+        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 1');
+
+        //return $categorias;
+
+        if(!$categorias){
+            return "error";
+        }
+        return response()->json($categorias);
+        //return view('welcome', compact('categorias'));
+    }
+    public function indexEmprestimo()
+    {
+        $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
+        a.e_de.nome as nome_usuario, a.e_de.telefones as telefone_usuario, a.e_de.email as email_usuario,
+        a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
+        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 2');
+
+        //return $categorias;
+
+        if(!$categorias){
+            return "error";
+        }
+        return response()->json($categorias);
+        //return view('welcome', compact('categorias'));
+    }
+    public function indexDoacao()
+    {
+        $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
+        a.e_de.nome as nome_usuario, a.e_de.telefones as telefone_usuario, a.e_de.email as email_usuario,
+        a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
+        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 3');
 
         //return $categorias;
 

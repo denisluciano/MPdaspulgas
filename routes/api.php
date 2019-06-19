@@ -25,6 +25,12 @@ Route::resource('/leilao','LeilaoController');
 Route::resource('/negociacao','NegociacaoController');
 Route::resource('/compra/n','compra_nController');
 Route::resource('/compra/l','compra_lController');
+
+
+Route::get('/negociacao1','negociacaoController@indexVenda');
+Route::get('/negociacao2','negociacaoController@indexEmprestimo');
+Route::get('/negociacao3','negociacaoController@indexDoacao');
+
 Route::get('/lancesUsuario/{id}','LanceController@lancesUsuario');
 Route::get('/lancesLeilao/{id}','LanceController@lancesLeilao');
 Route::get('/compra/nUsuario/{id}','compra_nController@compras_nUsuario');
