@@ -551,11 +551,7 @@
 
         if(this.lance.lance > this.lance.vencendo){
           axios
-<<<<<<< HEAD
             .post('http://localhost:8000/api/leilao', this.lance)
-=======
-            .post('http://localhost:8000/api/lance', this.cadastro)
->>>>>>> 1f769a00914d39a465aa3bd4b29ddd9da47ea1bd
             .then(response => {
               console.log(response)
             })
