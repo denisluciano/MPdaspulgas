@@ -61,8 +61,11 @@ class NegociacaoController extends Controller
 
         //O id de negociacao e leilao fica na tabela anuncios
 
+        $datatt = date('Y-m-d');
+        $datafim =  date('Y-m-d', strtotime('+1 months', strtotime($datatt)));
+
         $cons = "insert into negociacoes (titulo, descricao, data_, valor_inicial, e_de, possui_c,
-         disponivel,tipo, tempo_devolucao) values ('$request->titulo','$request->descricao','$request->data_',
+         disponivel,tipo, tempo_devolucao) values ('$request->titulo','$request->descricao','$datatt',
          '$request->valor_inicial',(select ref(u) from usuarios u where u.id = '$request->id_usuario'),
          (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),'$request->disponivel'
          ,$request->tipo, '$request->tempo_devolucao')";
