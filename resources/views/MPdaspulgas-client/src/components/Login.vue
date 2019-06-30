@@ -85,7 +85,7 @@
               <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
               <v-text-field
                 color="#de5d3c"
-                v-model="user_cadastro.telefones"
+                v-model="user_cadastro.telefone"
                 prepend-icon="phone"
                 mask="(##) #####-####"
                 name="login"
@@ -191,11 +191,11 @@
           .then(response => {
             console.log(response.data)
             if(response.data.ok == true){
-              sessionStorage.setItem('nome', response.data.usuario.original.nome[0])
-              sessionStorage.setItem('id', response.data.usuario.original.id[0])
-              sessionStorage.setItem('email', response.data.usuario.original.email[0])
-              sessionStorage.setItem('apelido', response.data.usuario.original.apelido[0])
-              sessionStorage.setItem('cpf', response.data.usuario.original.cpf[0])
+              sessionStorage.setItem('nome', response.data.usuario.original[0].nome)
+              sessionStorage.setItem('id', response.data.usuario.original[0].id)
+              sessionStorage.setItem('email', response.data.usuario.original[0].email)
+              sessionStorage.setItem('apelido', response.data.usuario.original[0].apelido)
+              sessionStorage.setItem('cpf', response.data.usuario.original[0].cpf)
               this.$router.push('/Anuncios');
             }
             else{
