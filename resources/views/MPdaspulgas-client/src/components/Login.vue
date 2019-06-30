@@ -82,6 +82,88 @@
                 type="text"
                 ></v-text-field>
               </v-flex>
+              <v-flex xs12>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.password"
+                prepend-icon="lock"
+                name="Senha"
+                label="Insira sua senha"
+                placeholder="Insira sua senha"
+                id="password"
+                min="5"
+                :append-icon="senha_visivel ? 'visibility' : 'visibility_off'"
+                @click:append = "() => (senha_visivel = !senha_visivel)"
+                :type="senha_visivel ? 'text' : 'password'"
+                @keyup.enter="submit()"
+              ></v-text-field>
+              </v-flex>
+              <v-flex xs5>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.rua"
+                class="pr-2"
+                name="rua"
+                label="Rua"
+                placeholder="Rua"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs5>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.bairro"
+                class="pr-2"
+                name="bairro"
+                label="Bairro"
+                placeholder="Bairro"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.numero"
+                class="pr-2"
+                name="numero"
+                label="Número"
+                placeholder="Número"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs4>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.cep"
+                class="pr-2"
+                name="cep"
+                label="CEP"
+                placeholder="CEP"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs4>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.estado"
+                class="pr-2"
+                name="estado"
+                label="Estado"
+                placeholder="Estado"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs4>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.endereco.cidade"
+                class="pr-2"
+                name="cidade"
+                label="Cidade"
+                placeholder="Cidade"
+                type="text"
+                ></v-text-field>
+              </v-flex>
               <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
               <v-text-field
                 color="#de5d3c"
@@ -98,22 +180,6 @@
                 <v-btn flat icon color="green" @click="add_phone">
                   <v-icon>add</v-icon>
                 </v-btn>
-              </v-flex>
-              <v-flex xs12>
-              <v-text-field
-                color="#de5d3c"
-                v-model="user_cadastro.password"
-                prepend-icon="lock"
-                name="Senha"
-                label="Insira sua senha"
-                placeholder="Insira sua senha"
-                id="password"
-                min="5"
-                :append-icon="senha_visivel ? 'visibility' : 'visibility_off'"
-                @click:append = "() => (senha_visivel = !senha_visivel)"
-                :type="senha_visivel ? 'text' : 'password'"
-                @keyup.enter="submit()"
-              ></v-text-field>
               </v-flex>
               </v-layout>
             </v-form>
@@ -170,6 +236,14 @@
             cpf: '',
             qnt_telefones: 1,
             telefones:[],
+            endereco: {
+              rua: '',
+              bairro: '',
+              estado: '',
+              numero: '',
+              cidade: '',
+              cep: '',
+            },
             password: '',
           },
           senha_visivel: false,
