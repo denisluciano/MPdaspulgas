@@ -83,7 +83,7 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs10>
+              <v-flex xs10 v-for="qnt_telefones">
               <v-text-field
                 color="#de5d3c"
                 v-model="user_cadastro.telefones"
@@ -169,6 +169,7 @@
             apelido: '',
             email: '',
             cpf: '',
+            qnt_telefones: '',
             telefone1: '',
             password: '',
           },
@@ -191,9 +192,11 @@
           .then(response => {
             console.log(response.data)
             if(response.data.ok == true){
-              sessionStorage.setItem('nome', response.data.usuario.nome)
-              sessionStorage.setItem('id', response.data.usuario.id)
-              sessionStorage.setItem('email', response.data.usuario.email)
+              sessionStorage.setItem('nome', response.data.usuario.original.nome[0])
+              sessionStorage.setItem('id', response.data.usuario.original.id[0])
+              sessionStorage.setItem('email', response.data.usuario.original.email[0])
+              sessionStorage.setItem('apelido', response.data.usuario.original.apelido[0])
+              sessionStorage.setItem('cpf', response.data.usuario.original.cpf[0])
               this.$router.push('/Anuncios');
             }
             else{
