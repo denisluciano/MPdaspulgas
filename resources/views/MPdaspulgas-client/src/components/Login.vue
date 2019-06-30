@@ -96,7 +96,7 @@
                 ></v-text-field>
               </v-flex>
               <v-flex xs1 class="pt-2">
-                <v-btn flat icon color="green" >
+                <v-btn flat icon color="green" @click="add_phone">
                   <v-icon>add</v-icon>
                 </v-btn>
               </v-flex>
@@ -169,7 +169,7 @@
             apelido: '',
             email: '',
             cpf: '',
-            telefones: [],
+            telefone1: '',
             password: '',
           },
           senha_visivel: false,
@@ -189,9 +189,9 @@
           this.carregando = true;
           axios.post(sessionStorage.getItem('url')+'/api/autentica', this.user )
           .then(response => {
-            if(response.ok == true){
-              sessionStorage.setItem('nome', response.usuario.original.nome)
-              sessionStorage.setItem('email', response.usuario.original.email)
+            if(response.data.ok == true){
+              sessionStorage.setItem('nome', response.data.usuario.original.nome)
+              sessionStorage.setItem('email', response.data.usuario.original.email)
               this.$router.push('/Anuncios');
             }
             else{
@@ -208,6 +208,9 @@
               this.mensagem = "E-mail ou senha incorreta"
             console.log(this.mensagem);
           });
+      },
+      add_phone(){
+
       },
       register(x){
         if(x == true)
