@@ -4,11 +4,11 @@
       <v-flex xs11 sm7 md5 lg4 xl3 >
         <v-card class="elevation-12">
           <v-toolbar extended dark color="#de5d3c">
-            <v-img src="https://i.imgur.com/tkdu3cV.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
+            <v-img src="https://i.imgur.com/O2kLb3y.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
           </v-toolbar>
           
           <v-card-text >
-            <v-form>
+            <v-form v-if="registrando == false">
               <v-text-field 
                 color="#de5d3c" 
                 v-model="user.email" 
@@ -35,10 +35,96 @@
                 @keyup.enter="submit()"
                 ></v-text-field>
             </v-form>
+            <v-form v-if="registrando == true">
+              <v-layout row wrap>
+              <v-flex xs12>
+              <v-text-field 
+                color="#de5d3c" 
+                v-model="user_cadastro.nome" 
+                prepend-icon="assignment_ind" 
+                name="login" 
+                label="Insira seu nome completo" 
+                placeholder="Insira seu nome completo"
+                type="text" 
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs6>
+              <v-text-field
+                color="#de5d3c" 
+                v-model="user_cadastro.apelido" 
+                prepend-icon="person" 
+                name="login" 
+                label="Insira seu apelido" 
+                placeholder="Insira seu apelido"
+                type="text" 
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs6>
+              <v-text-field 
+                color="#de5d3c" 
+                v-model="user_cadastro.cpf" 
+                mask="###.###.###-##"
+                prepend-icon="fingerprint" 
+                name="login" 
+                label="Insira seu CPF"
+                placeholder="Insira seu CPF"
+                type="text" 
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+              <v-text-field 
+                color="#de5d3c" 
+                v-model="user_cadastro.email" 
+                prepend-icon="alternate_email" 
+                name="login" 
+                label="Insira seu e-mail"
+                placeholder="Insira seu e-mail"
+                type="text" 
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs10>
+              <v-text-field 
+                color="#de5d3c" 
+                v-model="user_cadastro.telefones" 
+                prepend-icon="phone" 
+                mask="(##) #####-####"
+                name="login" 
+                label="Insira seus telefones"
+                placeholder="Insira seus telefones"
+                type="text" 
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs1 class="pt-2">
+                <v-btn flat icon color="green" >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex xs12>
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.password"
+                prepend-icon="lock" 
+                name="Senha" 
+                label="Insira sua senha"
+                placeholder="Insira sua senha"
+                id="password" 
+                min="5"
+                :append-icon="senha_visivel ? 'visibility' : 'visibility_off'"
+                @click:append = "() => (senha_visivel = !senha_visivel)"
+                :type="senha_visivel ? 'text' : 'password'"
+                @keyup.enter="submit()"
+              ></v-text-field>
+              </v-flex>
+              </v-layout>
+            </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="#de5d3c" dark @click="submit()" :loading="carregando">Login</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == false" dark @click="register(true)" :loading="carregando">Registrar-se</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == false" dark @click="submit()" :loading="carregando">Fazer Login</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(false)" :loading="carregando">Voltar</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(true)" :loading="carregando">Fazer Registro</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -73,10 +159,17 @@
           message_box: false,
           logado: false,
           carregando: false,
+          registrando: false,
           user: {
-            nome: 'Henrique Penna',
-            token: '45asdasd5as15646',
             email: '',
+            password: '',
+          },
+          user_cadastro: {
+            nome: '',
+            apelido: '',
+            email: '',
+            cpf: '',
+            telefones: [],
             password: '',
           },
           senha_visivel: false,
@@ -93,14 +186,18 @@
       },
       methods: {
         submit () {
-          this.carregando = true;/*
-          axios.post(sessionStorage.getItem('url')+'/api/login', this.user )
-          .then(response => { */
-            sessionStorage.setItem('urt', this.user.token)
-            sessionStorage.setItem('nome', this.user.nome)
-            sessionStorage.setItem('email', this.user.email)
-            this.$router.push('/Anuncios');
-        /*  })
+          this.carregando = true;
+          axios.post(sessionStorage.getItem('url')+'/api/autentica', this.user )
+          .then(response => { 
+            if(response.ok == true){
+              sessionStorage.setItem('nome', response.usuario.original.nome)
+              sessionStorage.setItem('email', response.usuario.original.email)
+              this.$router.push('/Anuncios');
+            }
+            else{
+              console.log('deu ruim')
+            }
+          })
           .catch(error => {
             this.message_box = true;
             this.mensagem = error;
@@ -108,11 +205,18 @@
             if(this.mensagem == 'Error: Request failed with status code 400')
               this.mensagem = "E-mail ou senha incorreta"
             console.log(this.mensagem);
-          }); */
+          }); 
       },
-        clear () {
-          this.$refs.form.reset()
+      register(x){
+        if(x == true)
+          this.registrando = true;
+        else{
+          this.registrando = false;
         }
+      },
+      clear () {
+        this.$refs.form.reset()
+      }
       }
     }
  </script>
