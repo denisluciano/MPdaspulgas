@@ -85,7 +85,7 @@
               <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
               <v-text-field
                 color="#de5d3c"
-                v-model="user_cadastro.telefone"
+                v-model="user_cadastro.telefones[bas]"
                 prepend-icon="phone"
                 mask="(##) #####-####"
                 name="login"
@@ -123,7 +123,7 @@
             <v-btn color="#de5d3c" v-if="registrando == false" dark @click="register(true)">Registrar-se</v-btn>
             <v-btn color="#de5d3c" v-if="registrando == false" dark @click="submit()" :loading="carregando">Fazer Login</v-btn>
             <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(false)">Voltar</v-btn>
-            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(true)" :loading="carregando">Fazer Registro</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="cadastra" :loading="carregando">Fazer Registro</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -169,7 +169,7 @@
             email: '',
             cpf: '',
             qnt_telefones: 1,
-            telefone1: '',
+            telefones:[],
             password: '',
           },
           senha_visivel: false,
@@ -213,8 +213,31 @@
             console.log(this.mensagem);
           });
       },
+      cadastra () {
+          console.log(this.user_cadastro)/*
+          this.carregando = true;
+          axios.post(sessionStorage.getItem('url')+'/api/usuario', this.user_cadastro )
+          .then(response => {
+            console.log(response.data)
+            sessionStorage.setItem('nome', response.data.usuario.original[0].nome)
+            sessionStorage.setItem('id', response.data.usuario.original[0].id)
+            sessionStorage.setItem('email', response.data.usuario.original[0].email)
+            sessionStorage.setItem('apelido', response.data.usuario.original[0].apelido)
+            sessionStorage.setItem('cpf', response.data.usuario.original[0].cpf)
+            this.$router.push('/Anuncios');
+          })
+          .catch(error => {
+            this.message_box = true;
+            this.mensagem = error;
+            this.carregando = false;
+            if(this.mensagem == 'Error: Request failed with status code 400')
+              this.mensagem = "E-mail ou senha incorreta"
+            console.log(this.mensagem);
+          });*/
+      },
       add_phone(){
         this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
+        console.log(this.user_cadastro.telefones)
       },
       register(x){
         if(x == true)
