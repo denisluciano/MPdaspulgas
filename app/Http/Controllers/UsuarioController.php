@@ -34,7 +34,7 @@ class UsuarioController extends Controller
     }
     public function autentica(Request $request){
         $cons = "select a.email, a.nome, a.cpf, a.nome, a.apelido, a.id
-        from usuarios a where a.email = '$request->email' and a.senha = '$request->senha'";
+        from usuarios a where a.email = '$request->email' and a.senha = '$request->password'";
 
         $query = DB::select($cons);
 
