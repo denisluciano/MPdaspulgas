@@ -189,9 +189,11 @@
           this.carregando = true;
           axios.post(sessionStorage.getItem('url')+'/api/autentica', this.user )
           .then(response => {
+            console.log(response.data)
             if(response.data.ok == true){
-              sessionStorage.setItem('nome', response.data.usuario.original.nome)
-              sessionStorage.setItem('email', response.data.usuario.original.email)
+              sessionStorage.setItem('nome', response.data.usuario.nome)
+              sessionStorage.setItem('id', response.data.usuario.id)
+              sessionStorage.setItem('email', response.data.usuario.email)
               this.$router.push('/Anuncios');
             }
             else{
