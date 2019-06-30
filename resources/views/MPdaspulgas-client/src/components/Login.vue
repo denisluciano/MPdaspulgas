@@ -85,7 +85,7 @@
               <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
               <v-text-field
                 color="#de5d3c"
-                v-model="user_cadastro.telefones[bas]"
+                v-model="user_cadastro.telefones[bas-1]"
                 prepend-icon="phone"
                 mask="(##) #####-####"
                 name="login"
