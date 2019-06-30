@@ -82,8 +82,7 @@
                 type="text"
                 ></v-text-field>
               </v-flex>
-
-              <v-flex xs10 v-for="qnt_telefones">
+              <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
               <v-text-field
                 color="#de5d3c"
                 v-model="user_cadastro.telefones"
@@ -169,7 +168,7 @@
             apelido: '',
             email: '',
             cpf: '',
-            qnt_telefones: '',
+            qnt_telefones: 1,
             telefone1: '',
             password: '',
           },
@@ -215,7 +214,7 @@
           });
       },
       add_phone(){
-
+        this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
       },
       register(x){
         if(x == true)
