@@ -329,10 +329,11 @@
         if(x == true)
           this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
         else{
-          if(this.user_cadastro.qnt_telefones > 1){
+          if(this.user_cadastro.qnt_telefones > 0){
             this.user_cadastro.telefones[this.user_cadastro.qnt_telefones-1] = null;
             this.user_cadastro.telefones.splice(this.user_cadastro.qnt_telefones-1, 1); 
-            this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones - 1;
+            if(this.user_cadastro.qnt_telefones > 1)
+              this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones - 1;
           }
         }
       },
