@@ -214,7 +214,7 @@
           });
       },
       cadastra () {
-          console.log(this.user_cadastro)/*
+          console.log(this.user_cadastro)
           this.carregando = true;
           axios.post(sessionStorage.getItem('url')+'/api/usuario', this.user_cadastro )
           .then(response => {
@@ -233,7 +233,7 @@
             if(this.mensagem == 'Error: Request failed with status code 400')
               this.mensagem = "E-mail ou senha incorreta"
             console.log(this.mensagem);
-          });*/
+          });
       },
       add_phone(){
         this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
