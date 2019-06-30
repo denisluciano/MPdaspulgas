@@ -4,7 +4,7 @@
       <v-flex xs11 sm7 md5 lg4 xl3 >
         <v-card class="elevation-12">
           <v-toolbar extended dark color="#de5d3c">
-            <v-img src="https://i.imgur.com/O2kLb3y.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
+            <v-img src="https://i.imgur.com/8Xaojp4.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
           </v-toolbar>
 
           <v-card-text >
