@@ -29,4 +29,21 @@ class Compra_lController extends Controller
         }
 
     }
+    public function compras_lUsuario($id){
+        $cons = "select a.e_de.nome as nome_usuario, a.e_de.email as email_usuario,
+        a.do_leilao.titulo as titulo_leilao, a.do_leilao.descricao as descricao_leilao,
+        a.do_leilao.data_fim as data_fim, a.data_, a.precofim, a.id
+        from compras_l a where a.e_de.id = '$id'";
+
+        $tt = DB::select($cons);
+
+        //return $categorias;
+
+        if(!$tt){
+            return "error";
+        }
+        return response()->json($tt);
+        //return view('welcome', compact('categorias'));
+
+    }
 }

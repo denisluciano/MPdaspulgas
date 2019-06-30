@@ -385,7 +385,7 @@
 
     }),
     created() {
-      this.initialize('denise');
+      this.initialize('denis');
     },
 
     computed:{

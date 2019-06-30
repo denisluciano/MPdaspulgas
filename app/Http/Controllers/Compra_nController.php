@@ -32,17 +32,18 @@ class Compra_nController extends Controller
     //falta terminar aqui
     public function compras_nUsuario($id){
         $cons = "select a.e_de.nome as nome_usuario, a.e_de.email as email_usuario,
-        a.do_leilao.titulo as titulo_leilao, a.do_leilao.descricao as descricao_leilao,
-        a.data_, a.precofim, a.id  from compras_n a where a.e_de.id = '$id'";
+        a.do_negoc.titulo as titulo_negoc, a.do_negoc.descricao as descricao_negoc,
+        a.do_negoc.tipo as tipo_negoc, a.data_, a.precofim, a.id
+        from compras_n a where a.e_de.id = '$id'";
 
-        $categorias = DB::select($cons);
+        $tt = DB::select($cons);
 
         //return $categorias;
 
-        if(!$categorias){
+        if(!$tt){
             return "error";
         }
-        return response()->json($categorias);
+        return response()->json($tt);
         //return view('welcome', compact('categorias'));
 
     }

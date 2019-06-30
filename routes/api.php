@@ -31,6 +31,7 @@ Route::get('/negociacao1','negociacaoController@indexVenda');
 Route::get('/negociacao2','negociacaoController@indexEmprestimo');
 Route::get('/negociacao3','negociacaoController@indexDoacao');
 
-Route::get('/lancesUsuario/{id}','LanceController@lancesUsuario');
-Route::get('/lancesLeilao/{id}','LanceController@lancesLeilao');
-Route::get('/compra/nUsuario/{id}','compra_nController@compras_nUsuario');
+Route::get('/lancesusuario/{id}','LanceController@lancesUsuario');
+Route::get('/lancesleilao/{id}','LanceController@lancesLeilao');
+Route::get('/compra/nusuario/{id}','compra_nController@compras_nUsuario');
+Route::get('/compra/lusuario/{id}','compra_lController@compras_lUsuario');
