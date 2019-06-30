@@ -23,15 +23,29 @@ class UsuarioController extends Controller
 
 
         if($query){
-            return response()->json($query);
+            $cons = "select a.email, a.nome, a.cpf, a.nome, a.apelido, a.id
+            from usuarios a where a.email = '$request->email' and a.senha = '$request->password'";
+
+            $query2 = DB::select($cons);
+
+            if($query2){
+                return[
+                'ok' => true,
+                'usuario' => response()->json($query2)
+                ];
+            }else{
+                return['ok' => false];
+            }
+
+
         }else {
             return "erro na inserção";
         }
     }
+
     public function show($id){
-
-
     }
+
     public function autentica(Request $request){
         $cons = "select a.email, a.nome, a.cpf, a.nome, a.apelido, a.id
         from usuarios a where a.email = '$request->email' and a.senha = '$request->password'";
