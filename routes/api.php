@@ -35,3 +35,4 @@ Route::get('/lancesusuario/{id}','LanceController@lancesUsuario');
 Route::get('/lancesleilao/{id}','LanceController@lancesLeilao');
 Route::get('/compra/nusuario/{id}','compra_nController@compras_nUsuario');
 Route::get('/compra/lusuario/{id}','compra_lController@compras_lUsuario');
+Route::post('/autentica', 'UsuarioController@autentica');
