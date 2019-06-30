@@ -121,9 +121,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="#de5d3c" v-if="registrando == false" dark @click="register(true)" :loading="carregando">Registrar-se</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == false" dark @click="register(true)">Registrar-se</v-btn>
             <v-btn color="#de5d3c" v-if="registrando == false" dark @click="submit()" :loading="carregando">Fazer Login</v-btn>
-            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(false)" :loading="carregando">Voltar</v-btn>
+            <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(false)">Voltar</v-btn>
             <v-btn color="#de5d3c" v-if="registrando == true" dark @click="register(true)" :loading="carregando">Fazer Registro</v-btn>
           </v-card-actions>
         </v-card>
@@ -195,7 +195,9 @@
               this.$router.push('/Anuncios');
             }
             else{
-              console.log('deu ruim')
+              this.message_box = true;
+              this.carregando = false;
+              this.mensagem = "E-mail ou senha incorreta"
             }
           })
           .catch(error => {
