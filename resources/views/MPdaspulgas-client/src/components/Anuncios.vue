@@ -296,7 +296,7 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn color="green darken-1" flat @click="cadastraAnuncio">Fazer Anúncio</v-btn>
+            <v-btn color="green darken-1" flat @click="cadastraAnuncio" :loading="cadastro.loading">Fazer Anúncio</v-btn>
             <v-btn color="red darken-1" flat @click="cadastrar_anuncio = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -339,6 +339,7 @@
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
       categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Livraria','Outros'],
       cadastro:{
+        loading: false,
         tipo: null,
         titulo: null,
         foto: null,
@@ -479,6 +480,8 @@
 
     methods: {
       initialize(tipo){
+        this.msg.dialog = false;
+        this.mensagem.dialog = false;
         this.categoria_atual = 1;
         if(tipo == 'denis'){
         axios
@@ -627,19 +630,30 @@
         }
       },
       cadastraAnuncio(){
-
+        this.cadastro.loading = true;
         if(this.tipo_anuncio == 'Leilão'){
 
-          this.cadastro.categoria = 'Livraria'
+          this.cadastro.titulo_ca = this.cadastro.categoria
           this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
           .post('http://localhost:8000/api/leilao', this.cadastro)
           .then(response => {
-            console.log(response)
+            this.cadastro.loading = false;
+            this.msg.dialog = true;
+            this.msg.error = false;
+            this.msg.titulo ='Anúncio registrado!';
+            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
+            this.initialize('denis'); 
           })
           .catch(error => {
             console.log(error);
+            this.cadastro.loading = false;
+            this.msg.dialog = true;
+            this.msg.error = true;
+            this.msg.titulo ='ERROR';
+            this.msg.message = error;
+            this.initialize('denis'); 
           });
 
         }
@@ -652,16 +666,27 @@
             this.cadastro.tipo = 2;
             this.cadastro.tempo_devolucao = 15;
           }
-          this.cadastro.titulo_ca = 'Lazer'
+          this.cadastro.titulo_ca = this.cadastro.categoria
           this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
           .post('http://localhost:8000/api/negociacao', this.cadastro)
           .then(response => {
-            console.log(response)
+            this.cadastro.loading = false;
+            this.msg.dialog = true;
+            this.msg.error = false;
+            this.msg.titulo ='Anúncio registrado!';
+            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
+            this.initialize('denis'); 
           })
           .catch(error => {
             console.log(error);
+            this.cadastro.loading = false;
+            this.msg.dialog = true;
+            this.msg.error = true;
+            this.msg.titulo ='ERROR';
+            this.msg.message = error;
+            this.initialize('denis'); 
           });
 
         }
