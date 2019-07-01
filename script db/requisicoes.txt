@@ -2,7 +2,7 @@
 
 -USUARIO
 
-http://localhost:8000/api/usuario?email=denis@gmail.com&senha=password123&cpf=12345678998&nome=Denis&apelido=Juga&enderecos=dede&telefones=derde&estado=mg&bairro=santa clara&numero=1098&cidade=vicosa&cep=36570000&numero_cel=31997989898
+http://localhost:8000/api/usuario?email=denis@gmail.com&password=password123&cpf=12345678998&nome=Denis&apelido=Juga&enderecos=dede&telefones=derde&estado=mg&bairro=santa clara&numero=1098&cidade=vicosa&cep=36570000&numero_cel=31997989898
 
 -NEGOCIACAO
 http://localhost:8000/api/negociacao?titulo=Cadeira gamer&descricao=pouca usada&data_=2019-06-06&valor_inicial=500.0&id_usuario=1&titulo_ca=Lazer&disponvel=1&tipo=1&tempo_devolucao=60
