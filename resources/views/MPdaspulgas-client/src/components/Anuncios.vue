@@ -256,7 +256,7 @@
               <v-flex xs12>
                 <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.titulo" label="Título do Anúncio"></v-text-field>
               <br></v-flex>
-              <v-flex xs6>
+              <v-flex xs4>
               <v-select
                 :items="tipos"
                 label="Tipo de anúncio"
@@ -264,8 +264,17 @@
                 background-color='#f7f2f2'
                 outline
               ></v-select>
+              </v-flex>
+              <v-flex xs4>
+              <v-select
+                :items="categoria"
+                label="Categoria"
+                v-model="categoria_anuncio"
+                background-color='#f7f2f2'
+                outline
+              ></v-select>
             </v-flex>
-              <v-flex xs6>
+              <v-flex xs4>
                 <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.valor_inicial" :label="label_preco"></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -312,8 +321,10 @@
       cadastrar_anuncio: false,
       label_preco: 'Preço do Anúncio',
       tipo_anuncio: null,
+      categoria_anuncio: null,
       disable: false,
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
+      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Outros'],
       cadastro:{
         tipo: null,
         titulo: null,
