@@ -12,18 +12,27 @@
             Criar Anúncio
           </v-btn>
           </v-flex>
-
-          <v-flex xs4 md4>
-
+          <v-flex xs2>
+              <v-select
+                class='mt-4'
+                v-model="busca_categoria"
+                :items="categoria"
+                item-text="categoria"
+                item-value="categoria"
+                label="Categoria"
+              ></v-select>
+            </v-flex>
+          <v-flex xs3>
               <v-text-field
                 color="#ea3b2e"
-                v-model="search"
+                v-model="busca_search"
                 append-icon="search"
-                label="Pesquisar"
+                label="Palavras chave"
                 single-line
                 hide-details
               ></v-text-field>
             </v-flex>
+            
           </v-layout>
           </v-container>
       <v-toolbar tabs flat color="transparent">
@@ -253,33 +262,37 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout row wrap>
-              <v-flex xs12>
+              <v-flex xs8>
                 <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.titulo" label="Título do Anúncio"></v-text-field>
-              <br></v-flex>
-              <v-flex xs4>
-              <v-select
-                :items="tipos"
-                label="Tipo de anúncio"
-                v-model="tipo_anuncio"
-                background-color='#f7f2f2'
-                outline
-              ></v-select>
               </v-flex>
-              <v-flex xs4>
-              <v-select
-                :items="categoria"
-                label="Categoria"
-                v-model="categoria_anuncio"
-                background-color='#f7f2f2'
-                outline
-              ></v-select>
-            </v-flex>
               <v-flex xs4>
                 <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.valor_inicial" :label="label_preco"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-textarea auto-grow background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.descricao" label="Descrição do Anúncio"></v-textarea>
               </v-flex>
+              <v-flex xs3>
+                <v-select
+                  :items="tipos"
+                  label="Tipo de anúncio"
+                  v-model="tipo_anuncio"
+                  background-color='#f7f2f2'
+                  outline
+                ></v-select>
+              </v-flex>
+              <v-flex xs3>
+                <v-select
+                  :items="categoria"
+                  label="Categoria"
+                  v-model="categoria_anuncio"
+                  background-color='#f7f2f2'
+                  outline
+                ></v-select>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.foto" label="URL da imagem"></v-text-field>
+              </v-flex>
+
             </v-layout>
           </v-container>
           <v-card-actions>
@@ -324,7 +337,7 @@
       categoria_anuncio: null,
       disable: false,
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
-      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Outros'],
+      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Livraria','Outros'],
       cadastro:{
         tipo: null,
         titulo: null,
@@ -335,7 +348,8 @@
       tabs: null,
       dialog: false,
       item_selecionado: null,
-      search: '',
+      busca_search: '',
+      busca_categoria: null,
       categoria_atual:[],
       anuncios_filtro:[],
       emprestimos_filtro:[],
@@ -424,7 +438,7 @@
 
     }),
     created() {
-      this.initialize('denis');
+      this.initialize('');
     },
 
     computed:{
@@ -451,7 +465,7 @@
           this.label_preco = 'Grátis'
         }
       },
-      search (val) {
+      busca_search (val) {
 
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
 
@@ -551,7 +565,6 @@
           .catch(error => {
             console.log(error);
           });
-
         }
       },
       seleciona(item,tipo){
@@ -593,6 +606,7 @@
               this.msg.error = false;
               this.msg.titulo ='Lance registrado!';
               this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
+              this.initialize('denis'); 
             })
             .catch(error => {
               this.mensagem.loading = false;
