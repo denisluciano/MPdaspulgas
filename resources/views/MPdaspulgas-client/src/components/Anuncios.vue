@@ -205,6 +205,7 @@
             large
             color="green darken-1"
             flat="flat"
+            :loading="mensagem.loading"
             @click="dar_lance"
           > DAR LANCE
           </v-btn>
@@ -218,6 +219,26 @@
             color="green darken-1"
             flat="flat"
             @click="mensagem.dialog = false"
+          > Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+        v-model="msg.dialog"
+        max-width="400"
+      >
+      <v-card>
+        <v-card-title v-if="msg.error == false" class="headline green--text">{{msg.titulo}}</v-card-title>
+        <v-card-title v-if="msg.error == true" class="headline red--text">{{msg.titulo}}</v-card-title>
+        <v-card-text>{{msg.message}}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="msg.dialog = false"
           > Ok
           </v-btn>
         </v-card-actions>
@@ -267,11 +288,18 @@
   export default {
     data: vm => ({
       mensagem:{
+        loading: false,
         dialog: false,
         message: '',
         titulo: '',
         input: false,
         lance: null
+      },
+      msg:{
+        error: null,
+        dialog: false,
+        message: '',
+        titulo: '',
       },
       lance:{
         vencendo: 20,
@@ -540,23 +568,37 @@
         this.categoria_atual = tipo;
       },
       dar_lance(){
-        //this.mensagem.dialog = false
+        this.mensagem.loading = true;
         this.lance.lance = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
-        console.log(this.lance)
 
         if(this.lance.lance > this.lance.vencendo){
           axios
             .post('http://localhost:8000/api/lance', this.lance)
             .then(response => {
-              console.log(response)
+              this.mensagem.loading = false;
+              this.mensagem.dialog = false
+              this.msg.dialog = true;
+              this.msg.error = false;
+              this.msg.titulo ='Lance registrado!';
+              this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
             })
             .catch(error => {
-              console.log(error);
+              this.mensagem.loading = false;
+              this.mensagem.dialog = false
+              this.msg.dialog = true;
+              this.msg.error = true;
+              this.msg.titulo ='ERROR';
+              this.msg.message = error;
             });
         }
         else{
-
+          this.mensagem.loading = false;
+          this.mensagem.dialog = false
+          this.msg.dialog = true;
+          this.msg.error = true;
+          this.msg.titulo ='Lance inválido';
+          this.msg.message = 'Seu lance deve ser superior ao lance vencedor de R$' + this.lance.vencendo;
         }
       },
       cadastraAnuncio(){
