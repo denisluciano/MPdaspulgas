@@ -276,7 +276,7 @@
       lance:{
         vencendo: 20,
         do_leilao: null,
-        id_usuario: null,
+        id_usuario: sessionStorage.getItem('id'),
         lance: null
       },
       comprar: null,
@@ -385,7 +385,7 @@
 
     }),
     created() {
-      this.initialize('denis');
+      this.initialize('hp');
     },
 
     computed:{
@@ -489,33 +489,30 @@
         }
         else{
 
-        item.id_usuario = 1;
+        item.id_usuario =  sessionStorage.getItem('id');
         item.do_negoc = item.id;
         item.preco_fim = item.valor_inicial;
-/*
-        axios
-          .post(sessionStorage.getItem('url') + '/api/??????????', item)
-          .then(response => { */
 
+        axios
+          .post(sessionStorage.getItem('url') + '/api/compras/n', item)
+          .then(response => {
             this.mensagem.dialog = true;
             this.mensagem.input = false;
             this.mensagem.titulo ='Operação bem sucedida';
             if(tipo == 1){
               this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
             }
-
             if(tipo == 3){
               this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
             }
             if(tipo == 4){
               this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
             }
-/*
           })
           .catch(error => {
             console.log(error);
           });
-        */
+        
         }
       },
       seleciona(item,tipo){
@@ -545,7 +542,7 @@
       dar_lance(){
         this.mensagem.dialog = false
         this.lance.lance = this.mensagem.lance;
-        this.lance.id_usuario = 1
+        this.lance.id_usuario =  sessionStorage.getItem('id')
         console.log(this.lance)
 
         if(this.lance.lance > this.lance.vencendo){
@@ -564,7 +561,7 @@
         if(this.tipo_anuncio == 'Leilão'){
 
           this.cadastro.categoria = 'Livraria'
-          this.cadastro.id_usuario = 1
+          this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
           .post('http://localhost:8000/api/leilao', this.cadastro)
@@ -586,7 +583,7 @@
             this.cadastro.tempo_devolucao = 15;
           }
           this.cadastro.titulo_ca = 'Lazer'
-          this.cadastro.id_usuario = 1
+          this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
           .post('http://localhost:8000/api/negociacao', this.cadastro)
