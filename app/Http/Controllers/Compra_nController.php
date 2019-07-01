@@ -22,9 +22,15 @@ class Compra_nController extends Controller
 
 
         if($query){
-            return response()->json($query);
-        }else {
-            return "erro na inserção";
+            //return "batata";
+            //gravar maior lance como ref de leilao
+            $cons2 = "update negociacoes set disponivel = 0 where id = $request->do_negoc";
+            $query2 = DB::update($cons2);
+            if($query2){
+                return response()->json($query2);
+            }else {
+                return "erro na inserção";
+            }
         }
 
     }

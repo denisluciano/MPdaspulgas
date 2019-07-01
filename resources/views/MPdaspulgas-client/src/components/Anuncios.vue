@@ -32,7 +32,7 @@
                 hide-details
               ></v-text-field>
             </v-flex>
-            
+
           </v-layout>
           </v-container>
       <v-toolbar tabs flat color="transparent">
@@ -438,7 +438,7 @@
 
     }),
     created() {
-      this.initialize('');
+      this.initialize('denis');
     },
 
     computed:{
@@ -606,7 +606,7 @@
               this.msg.error = false;
               this.msg.titulo ='Lance registrado!';
               this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
-              this.initialize('denis'); 
+              this.initialize('denis');
             })
             .catch(error => {
               this.mensagem.loading = false;

@@ -147,7 +147,13 @@ ALTER TABLE EMP DROP CONSTRAINT emp_name_PK1
 
 /* obs: id de leilao e negociacao esta anuncio*/
 ALTER TYPE usuario ADD ATTRIBUTE (id integer) CASCADE;
+
 ALTER TYPE anuncio ADD ATTRIBUTE (id integer) CASCADE;
+/*Esse id2 é uma gambiarra. Mas se for criar zero coloca id1*/
+
+-- ALTER TYPE negociacao ADD ATTRIBUTE (id integer) CASCADE;
+-- ALTER TYPE leilao ADD ATTRIBUTE (id integer) CASCADE;
+
 ALTER TYPE compra_negoc ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE compra_leilao ADD ATTRIBUTE (id integer) CASCADE;
 ALTER TYPE lance ADD ATTRIBUTE (id integer) CASCADE;
@@ -176,7 +182,46 @@ BEGIN
  FROM dual;
 END;
 /
-/
+-- id para tabela de negociacao e abaixo para de leiloes
+-- /
+--  ALTER TABLE negociacoes
+--  ADD (
+--  CONSTRAINT auto_increment_negoc_pk PRIMARY KEY (id)
+--  );
+-- /
+-- CREATE SEQUENCE auto_increment_negoc_seq;
+-- /
+-- CREATE OR REPLACE TRIGGER auto_increment_negoc_insert
+--  BEFORE INSERT ON negociacoes
+--  FOR EACH ROW
+-- BEGIN
+--  SELECT auto_increment_negociacoes_seq.nextval
+--  INTO :new.id
+--  FROM dual;
+-- END;
+-- /
+-- /
+-- -- id para tabela de leiloes
+-- /
+--  ALTER TABLE leiloes
+--  ADD (
+--  CONSTRAINT auto_increment_leiloes_pk PRIMARY KEY (id)
+--  );
+-- /
+-- CREATE SEQUENCE auto_increment_leiloes_seq;
+-- /
+-- CREATE OR REPLACE TRIGGER auto_increment_leiloes_insert
+--  BEFORE INSERT ON leiloes
+--  FOR EACH ROW
+-- BEGIN
+--  SELECT auto_increment_leiloes_seq.nextval
+--  INTO :new.id
+--  FROM dual;
+-- END;
+-- /
+-- /
+
+
 /
  ALTER TABLE anuncios
  ADD (
@@ -185,8 +230,9 @@ END;
 /
 CREATE SEQUENCE auto_increment_anuncios_seq;
 /
-CREATE OR REPLACE TRIGGER auto_increment_anuncios_insert
- BEFORE INSERT ON anuncios
+/*trigger para incrementar id do anuncio ao inserir leilao*/
+CREATE OR REPLACE TRIGGER auto_increment_anuncios_n_insert
+ BEFORE INSERT ON negociacoes
  FOR EACH ROW
 BEGIN
  SELECT auto_increment_anuncios_seq.nextval
@@ -194,6 +240,19 @@ BEGIN
  FROM dual;
 END;
 /
+/
+/
+/*trigger para incrementar id do anuncio ao inserir leilao*/
+CREATE OR REPLACE TRIGGER auto_increment_anuncios_l_insert
+ BEFORE INSERT ON leiloes
+ FOR EACH ROW
+BEGIN
+ SELECT auto_increment_anuncios_seq.nextval
+ INTO :new.id
+ FROM dual;
+END;
+/
+/***********************************/
 -- /
 --  ALTER TABLE compras
 --  ADD (
@@ -265,3 +324,18 @@ BEGIN
  FROM dual;
 END;
 /
+
+
+
+/***************************************************/
+drop table compras_l;
+drop table compras_n;
+drop table negociacoes;
+drop table lances;
+drop table leiloes;
+drop table anuncios;
+drop table categorias;
+drop table anuncios;
+drop table usuarios;
+
+

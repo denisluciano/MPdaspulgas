@@ -13,7 +13,7 @@ class LeilaoController extends Controller
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.data_abertura, a.data_fim, a.id  from leiloes a');
+        a.data_abertura, a.data_fim, a.id, a.foto  from leiloes a');
 
         //return $categorias;
 
@@ -30,10 +30,10 @@ class LeilaoController extends Controller
         $datafim =  date('Y-m-d', strtotime('+1 months', strtotime($datatt)));
 
         $cons = "insert into leiloes (titulo, descricao, data_, valor_inicial, e_de, possui_c, disponivel,
-        data_abertura, data_fim) values ('$request->titulo','$request->descricao','$datatt',
+        data_abertura, data_fim, foto) values ('$request->titulo','$request->descricao','$datatt',
         '$request->valor_inicial',(select ref(u) from usuarios u where u.id = '$request->id_usuario'),
         (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),'1',
-        '$request->data_abertura', '$datafim')";
+        '$request->data_abertura', '$datafim', '$request->foto')";
 
         $query =  DB::insert($cons);
 

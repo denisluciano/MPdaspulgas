@@ -13,7 +13,8 @@ class NegociacaoController extends Controller
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario, value(t),  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id  from negociacoes a, table(a.e_de.telefones) t where a.tipo = 1');
+        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a, table(a.e_de.telefones) t
+        where a.tipo = 1 and a.disponivel = 1');
 
         //return $categorias;
 
@@ -28,7 +29,7 @@ class NegociacaoController extends Controller
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 2');
+        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a where a.tipo = 2 and a.disponivel = 1');
 
         //return $categorias;
 
@@ -43,7 +44,7 @@ class NegociacaoController extends Controller
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id  from negociacoes a where a.tipo = 3');
+        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a where a.tipo = 3 and a.disponivel = 1');
 
         //return $categorias;
 
@@ -65,10 +66,10 @@ class NegociacaoController extends Controller
         $datafim =  date('Y-m-d', strtotime('+1 months', strtotime($datatt)));
 
         $cons = "insert into negociacoes (titulo, descricao, data_, valor_inicial, e_de, possui_c,
-         disponivel,tipo, tempo_devolucao) values ('$request->titulo','$request->descricao','$datatt',
+         disponivel,tipo, tempo_devolucao,foto) values ('$request->titulo','$request->descricao','$datatt',
          '$request->valor_inicial',(select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-         (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),'$request->disponivel'
-         ,$request->tipo, '$request->tempo_devolucao')";
+         (select ref(an) from categorias an where an.titulo = '$request->titulo_ca'),1
+         ,$request->tipo, '$request->tempo_devolucao','$request->foto')";
 
         $query =  DB::insert($cons);
 
