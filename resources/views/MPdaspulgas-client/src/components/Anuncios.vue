@@ -494,7 +494,7 @@
         item.preco_fim = item.valor_inicial;
 
         axios
-          .post(sessionStorage.getItem('url') + '/api/compras/n', item)
+          .post(sessionStorage.getItem('url') + '/api/compran', item)
           .then(response => {
             this.mensagem.dialog = true;
             this.mensagem.input = false;
@@ -540,7 +540,7 @@
         this.categoria_atual = tipo;
       },
       dar_lance(){
-        this.mensagem.dialog = false
+        //this.mensagem.dialog = false
         this.lance.lance = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
         console.log(this.lance)
@@ -554,6 +554,9 @@
             .catch(error => {
               console.log(error);
             });
+        }
+        else{
+
         }
       },
       cadastraAnuncio(){
