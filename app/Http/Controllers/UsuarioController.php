@@ -16,6 +16,7 @@ class UsuarioController extends Controller
     //
     public function store(Request $request){//funcionando
 
+
         //return var_dump((integer)$request->endereco['numero']);
         $estado = $request->endereco['estado'];
         $rua = $request->endereco['rua'];
@@ -23,11 +24,14 @@ class UsuarioController extends Controller
         $bairro = $request->endereco['bairro'];
         $cep = $request->endereco['cep'];
         $cidade = $request->endereco['cidade'];
-        $telefone = ['123123','213213'] ;
+
+        //$telefone = ['123123','213213'] ;
         $tell = "";
         //return "hh ". $cidade. " tt";
 
-        foreach ($telefone as $key => $value) {
+
+
+        foreach ($request->telefones as $key => $value) {
             if($key != 0)
                 $tell = $tell. ','. $value;
             else {
@@ -35,6 +39,7 @@ class UsuarioController extends Controller
             }
 
         }
+
         //return $tell;
 
         $cons = "insert into usuarios(email, senha, cpf, nome, apelido, enderecos, telefones)
@@ -42,6 +47,8 @@ class UsuarioController extends Controller
         '$request->nome','$request->apelido', lista_enderecos(endereco('$estado',
         '$bairro',$numero,'$cidade','$cep')),
         lista_telefones('$tell'))";
+
+        //return $cons;
 
         $query =  DB::insert($cons);
 

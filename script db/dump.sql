@@ -1,6 +1,6 @@
-create type lista_telefones as varray(5) of varchar(15);
+create type lista_telefones as varray(5) of varchar(300);
 /
-create type endereco as object(estado char(2), bairro char(30), numero integer, cidade char(30), cep char(8));
+create type endereco as object(estado char(100), bairro char(100), numero integer, cidade char(30), cep char(30));
 /
 create type lista_enderecos as TABLE of endereco;
 /
