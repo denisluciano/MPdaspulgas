@@ -1,4 +1,4 @@
-create type lista_telefones as varray(5) of varchar(300);
+create type lista_telefones as varray(20) of varchar(2000);
 /
 create type endereco as object(estado char(100), bairro char(100), numero integer, cidade char(30), cep char(30));
 /
@@ -8,7 +8,7 @@ create type categoria as object (titulo char(30), prazo_max integer, tipo char(3
 /
 create type usuario as object (email char (30), senha char(20), cpf char (11), nome char(100), apelido char(10), enderecos lista_enderecos, telefones lista_telefones);
 /
-create type anuncio as object (titulo char (30),descricao char (200),data_ date, valor_inicial float,e_de ref usuario, possui_c ref categoria, disponivel number(1,0)) not final;
+create type anuncio as object (titulo char (30),descricao char (200),foto varchar(2000), data_ date, valor_inicial float,e_de ref usuario, possui_c ref categoria, disponivel number(1,0)) not final;
 /
 create type negociacao under anuncio (tipo integer, tempo_devolucao integer);
 /
