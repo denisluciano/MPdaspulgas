@@ -385,7 +385,7 @@
 
     }),
     created() {
-      this.initialize('hp');
+      this.initialize('denis');
     },
 
     computed:{
@@ -512,7 +512,7 @@
           .catch(error => {
             console.log(error);
           });
-        
+
         }
       },
       seleciona(item,tipo){

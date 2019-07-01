@@ -23,8 +23,8 @@ Route::resource('/anuncio','AnuncioController');
 Route::resource('/lance','LanceController');
 Route::resource('/leilao','LeilaoController');
 Route::resource('/negociacao','NegociacaoController');
-Route::resource('/compra/n','compra_nController');
-Route::resource('/compra/l','compra_lController');
+Route::resource('/compran','compra_nController');
+Route::resource('/compral','compra_lController');
 
 
 Route::get('/negociacao1','negociacaoController@indexVenda');
