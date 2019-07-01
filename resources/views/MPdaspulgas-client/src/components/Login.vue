@@ -4,7 +4,7 @@
       <v-flex xs11 sm7 md5 lg4 xl3 >
         <v-card class="elevation-12">
           <v-toolbar extended dark color="#de5d3c">
-            <v-img src="https://i.imgur.com/O2kLb3y.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
+            <v-img src="https://i.imgur.com/8Xaojp4.png" max-width="450" min-width="300" class="mt-5" aspect-ratio="4.5" contain></v-img>
           </v-toolbar>
 
           <v-card-text >
@@ -98,6 +98,36 @@
                 @keyup.enter="submit()"
               ></v-text-field>
               </v-flex>
+              <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
+              <v-text-field
+                color="#de5d3c"
+                v-model="user_cadastro.telefones[bas-1]"
+                prepend-icon="phone"
+                mask="(##) #####-####"
+                name="login"
+                label="Insira seus telefones"
+                placeholder="Insira seus telefones"
+                type="text"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs1 class="pt-2">
+                <v-btn flat icon color="green" @click="add_phone(true)">
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex xs1 class="pt-2">
+                <v-btn flat icon color="red" @click="add_phone(false)">
+                  <v-icon>remove</v-icon>
+                </v-btn>
+              </v-flex>
+              <br>
+              <v-flex xs4>
+                Endereço principal
+              </v-flex>
+              <v-flex xs8 class="mt-2">
+              <v-divider></v-divider>
+              </v-flex>
+              <br><br>
               <v-flex xs5>
               <v-text-field
                 color="#de5d3c"
@@ -127,7 +157,7 @@
                 class="pr-2"
                 name="numero"
                 label="Número"
-                placeholder="Número"
+                placeholder="Nº"
                 type="text"
                 ></v-text-field>
               </v-flex>
@@ -136,24 +166,14 @@
                 color="#de5d3c"
                 v-model="user_cadastro.endereco.cep"
                 class="pr-2"
+                mask="#####-###"
                 name="cep"
                 label="CEP"
                 placeholder="CEP"
                 type="text"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs4>
-              <v-text-field
-                color="#de5d3c"
-                v-model="user_cadastro.endereco.estado"
-                class="pr-2"
-                name="estado"
-                label="Estado"
-                placeholder="Estado"
-                type="text"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs4>
+              <v-flex xs5>
               <v-text-field
                 color="#de5d3c"
                 v-model="user_cadastro.endereco.cidade"
@@ -164,22 +184,17 @@
                 type="text"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs10 v-for="bas in user_cadastro.qnt_telefones" :key="bas">
-              <v-text-field
+              <v-flex xs3>
+              <v-select
+                :items="estados"
                 color="#de5d3c"
-                v-model="user_cadastro.telefones[bas-1]"
-                prepend-icon="phone"
-                mask="(##) #####-####"
-                name="login"
-                label="Insira seus telefones"
-                placeholder="Insira seus telefones"
+                v-model="user_cadastro.endereco.estado"
+                class="pr-2"
+                name="estado"
+                label="Estado"
+                placeholder="Estado"
                 type="text"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs1 class="pt-2">
-                <v-btn flat icon color="green" @click="add_phone">
-                  <v-icon>add</v-icon>
-                </v-btn>
+                ></v-select>
               </v-flex>
               </v-layout>
             </v-form>
@@ -219,7 +234,8 @@
   const axios = require('axios');
   export default {
       data () {
-        return {
+        return { 
+          estados: ['AC','GO','MG','RJ','SP'],
           mensagem: '',
           message_box: false,
           logado: false,
@@ -309,9 +325,17 @@
             console.log(this.mensagem);
           });
       },
-      add_phone(){
-        this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
-        console.log(this.user_cadastro.telefones)
+      add_phone(x){
+        if(x == true)
+          this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones + 1;
+        else{
+          if(this.user_cadastro.qnt_telefones > 0){
+            this.user_cadastro.telefones[this.user_cadastro.qnt_telefones-1] = null;
+            this.user_cadastro.telefones.splice(this.user_cadastro.qnt_telefones-1, 1); 
+            if(this.user_cadastro.qnt_telefones > 1)
+              this.user_cadastro.qnt_telefones = this.user_cadastro.qnt_telefones - 1;
+          }
+        }
       },
       register(x){
         if(x == true)
