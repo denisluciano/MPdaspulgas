@@ -111,7 +111,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_inicial}} maior lance</span>
+                  <span>R$ {{anuncio.valor_lance_v}} maior lance de {{anuncio.nome_us_lance_v}} em {{anuncio.data_lance_v}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -585,15 +585,15 @@
           this.mensagem.dialog = true;
           this.mensagem.input = true;
           this.mensagem.titulo =item.titulo;
-          this.lance.vencendo = item.valor_inicial;
+          this.lance.vencendo = item.valor_lance_v;
           this.lance.id_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: R$' + item.valor_inicial ;
+          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v ;
         }
         else{
 
         item.id_usuario =  sessionStorage.getItem('id');
         item.do_negoc = item.id;
-        item.preco_fim = item.valor_inicial;
+        item.preco_fim = item.valor_lance_v;
 
         axios
           .post(sessionStorage.getItem('url') + '/api/compran', item)
@@ -624,6 +624,7 @@
         if(tipo == 2){
           this.comprar = 'Dar lance';
           this.tipo_selecionado = 2;
+          this.item_selecionado.valor_inicial = item.valor_lance_v;
         }
         if(tipo == 3){
           this.comprar = 'Alugar';
@@ -645,7 +646,7 @@
         this.lance.valor = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
 
-        if(this.lance.valor > this.lance.vencendo){
+        if(this.mensagem.lance > this.lance.vencendo){
           axios
             .post('http://localhost:8000/api/lance', this.lance)
             .then(response => {
