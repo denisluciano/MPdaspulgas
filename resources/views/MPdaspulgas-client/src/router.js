@@ -1,17 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-import Produto from '@/components/Produto'
-import Cliente from '@/components/Cliente'
 import Anuncios from '@/components/Anuncios'
-import Compra from '@/components/Compra'
-import NovoCliente from '@/components/NovoCliente'
-import NovoProduto from '@/components/NovoProduto'
-import CadastrarUsuario from '@/components/CadastrarUsuario'
 import Login from '@/components/Login'
-import CadastrarAnuncio from '@/components/CadastrarAnuncio'
-import Test from '@/components/Test'
+import Historico from '@/components/Historico'
+import MeusAnuncios from '@/components/MeusAnuncios'
 
 
 Vue.use(Router)
@@ -26,49 +19,20 @@ export default new Router({
         component: Login
     },
     {
-      path: '/clientes/novo',
-      name: 'NovoCliente',
-      component: NovoCliente
-    },
-    {
-        path: '/produtos/novo',
-        name: 'NovoProduto',
-        component: NovoProduto
-    },
-    {
-        path: '/produtos',
-        name: 'Produto',
-        component: Produto
-    },
-    {
-        path: '/clientes',
-        name: 'Cliente',
-        component: Cliente
-    },
-    {
         path: '/anuncios',
         name: 'Anúncios',
         component: Anuncios
     },
     {
-        path: '/compras',
-        name: 'Compra',
-        component: Compra
+        path: '/historico',
+        name: 'Historico',
+        component: Historico
     },
     {
-        path: '/cadastrar/usuario',
-        name: 'CadastrarUsuario',
-        component: CadastrarUsuario
+        path: '/MeusAnuncios',
+        name: 'MeusAnuncios',
+        component: MeusAnuncios
     },
-    {
-        path: '/cadastrar/anuncio',
-        name: 'CadastrarAnuncio',
-        component: CadastrarAnuncio
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: Test
-    },
+
   ]
 })

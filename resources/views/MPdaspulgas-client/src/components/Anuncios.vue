@@ -580,6 +580,7 @@
         this.cadastrar_anuncio = true;
       },
       compra(item,tipo){
+        console.log(item.id)
         if(tipo == 2){ //É LEILÃO
           this.mensagem.dialog = true;
           this.mensagem.input = true;
