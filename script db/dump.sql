@@ -45,13 +45,19 @@ create table lances of lance;
 /* categorias*/
 /* create type categoria as object (titulo char(30), prazo_max integer, tipo char(30));*/
 
-insert into categorias values ('Limpeza', 30, 'Serviço');
+insert into categorias values ('Automoveis', 30, 'Produto');
 /
-insert into categorias values ('Mecanica', 30, 'Produto');
+insert into categorias values ('Eletrodomesticos', 30, 'Produto');
 /
-insert into categorias values ('Jardinagem', 30, 'Produto');
+insert into categorias values ('Eletronicos', 30, 'Produto');
+/
+insert into categorias values ('Livraria',30, 'Produto');
+/
+insert into categorias values ('Servicos',30, 'Serviço');
 /
 insert into categorias values ('Pecuaria',30, 'Produto');
+/
+insert into categorias values ('Outros',30, 'Outros');
 /
 
 /* usuarios */
@@ -328,14 +334,14 @@ END;
 
 
 /***************************************************/
-drop table compras_l;
-drop table compras_n;
-drop table negociacoes;
-drop table lances;
-drop table leiloes;
-drop table anuncios;
-drop table categorias;
-drop table anuncios;
-drop table usuarios;
+-- drop table compras_l;
+-- drop table compras_n;
+-- drop table negociacoes;
+-- drop table lances;
+-- drop table leiloes;
+-- drop table anuncios;
+-- drop table categorias;
+-- drop table anuncios;
+-- drop table usuarios;
 
 
