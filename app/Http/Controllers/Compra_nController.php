@@ -22,8 +22,7 @@ class Compra_nController extends Controller
 
 
         if($query){
-            //return "batata";
-            //gravar maior lance como ref de leilao
+            //Altera pra indisponível assim que compra
             $cons2 = "update negociacoes set disponivel = 0 where id = $request->do_negoc";
             $query2 = DB::update($cons2);
             if($query2){
