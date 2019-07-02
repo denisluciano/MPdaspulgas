@@ -263,7 +263,7 @@
 
     }),
     created() {
-      this.initialize('denisDk9');
+      this.initialize('denis');
     },
 
     computed:{
@@ -327,7 +327,7 @@
       initialize(tipo){
         this.msg.dialog = false;
         this.mensagem.dialog = false;
-        this.categoria_atual = 1; 
+        this.categoria_atual = 1;
         console.log(this.getId)
         if(tipo == 'denis'){
         axios
