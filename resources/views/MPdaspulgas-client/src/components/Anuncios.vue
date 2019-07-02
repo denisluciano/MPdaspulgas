@@ -247,7 +247,7 @@
           <v-btn
             color="green darken-1"
             flat="flat"
-            @click="msg.dialog = false"
+            @click="initialize('denis')"
           > Ok
           </v-btn>
         </v-card-actions>
@@ -337,7 +337,7 @@
       categoria_anuncio: null,
       disable: false,
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
-      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Livraria','Outros'],
+      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Livraria','Pecuária','Serviços','Outros'],
       cadastro:{
         loading: false,
         tipo: null,
@@ -609,7 +609,7 @@
               this.msg.error = false;
               this.msg.titulo ='Lance registrado!';
               this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
-              this.initialize('denis');
+              
             })
             .catch(error => {
               this.mensagem.loading = false;
@@ -644,7 +644,7 @@
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
             this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-            this.initialize('denis'); 
+             
           })
           .catch(error => {
             console.log(error);
@@ -653,7 +653,7 @@
             this.msg.error = true;
             this.msg.titulo ='ERROR';
             this.msg.message = error;
-            this.initialize('denis'); 
+             
           });
 
         }
@@ -677,7 +677,7 @@
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
             this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-            this.initialize('denis'); 
+             
           })
           .catch(error => {
             console.log(error);
@@ -686,7 +686,7 @@
             this.msg.error = true;
             this.msg.titulo ='ERROR';
             this.msg.message = error;
-            this.initialize('denis'); 
+             
           });
 
         }
