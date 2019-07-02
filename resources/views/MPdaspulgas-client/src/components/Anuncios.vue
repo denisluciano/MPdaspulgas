@@ -473,7 +473,7 @@
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
