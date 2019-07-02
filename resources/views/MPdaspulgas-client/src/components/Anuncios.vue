@@ -382,7 +382,7 @@
       anuncios:[
         {
         id: 1,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
@@ -391,7 +391,7 @@
         },
         {
         id: 2,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
@@ -400,7 +400,7 @@
         },
         {
         id: 3,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
         valor_inicial: '40000',
@@ -409,7 +409,7 @@
         },
         {
         id: 4,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
         valor_inicial: '500',
@@ -418,7 +418,7 @@
         },
         {
         id: 5,
-        categoria: 'Outros',
+        categoria_titulo: 'Outros',
         telefone: '(31) 99714-1569',
         titulo: 'Acompanhante de Luxo',
         foto: 'https://i.imgur.com/OpGRMhN.png',
@@ -429,7 +429,7 @@
       leiloes:[
         {
         id: 6,
-        categoria: 'Eletrodomesticos',
+        categoria_titulo: 'Eletrodomesticos',
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
@@ -438,7 +438,7 @@
         },
         {
         id: 7,
-        categoria: 'Eletronicos',
+        categoria_titulo: 'Eletronicos',
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
@@ -449,7 +449,7 @@
       emprestimos:[
         {
         id: 8,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Violão',
         foto: 'http://iniciantesdoviolao.com.br/wp-content/uploads/2014/04/Design-sem-nomebb.png',
@@ -460,7 +460,7 @@
       doacoes:[
         {
         id: 9,
-        categoria: 'Pecuaria',
+        categoria_titulo: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Doa-se Galinha',
         foto: 'https://i.ytimg.com/vi/2BZSTbip92w/maxresdefault.jpg',
@@ -509,10 +509,10 @@
       },
       busca_categoria (val) {
         if(this.busca_categoria != 'Todas'){
-          this.anuncios_filtro = this.anuncios.filter(a => a.categoria.includes(val))
-          this.leiloes_filtro = this.leiloes.filter(a => a.categoria.includes(val))
-          this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.includes(val))
-          this.doacoes_filtro = this.doacoes.filter(a => a.categoria.includes(val))
+          this.anuncios_filtro = this.anuncios.filter(a => a.categoria_titulo.includes(val))
+          this.leiloes_filtro = this.leiloes.filter(a => a.categoria_titulo.includes(val))
+          this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria_titulo.includes(val))
+          this.doacoes_filtro = this.doacoes.filter(a => a.categoria_titulo.includes(val))
         }
         else{
           this.anuncios_filtro = this.anuncios
@@ -587,7 +587,7 @@
           this.mensagem.titulo =item.titulo;
           this.lance.vencendo = item.valor_lance_v;
           this.lance.id_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v ;
+          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + item.data_lance_v;
         }
         else{
 
