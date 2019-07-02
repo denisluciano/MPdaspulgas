@@ -167,7 +167,7 @@
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
-                  <span>{{anuncio.valor_inicial}}</span>
+                  <span>Grátis</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -202,7 +202,8 @@
           <v-container grid-list-md>
             <v-layout row wrap>
               <v-flex xs6>
-                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.valor_inicial" label="Valor do Anúncio"></v-text-field>
+                <v-text-field background-color='white' v-if="item_selecionado.valor_inicial>0" readonly outline hide-details required="" v-model="item_selecionado.valor_inicial" label="Valor do Anúncio"></v-text-field>
+                <v-text-field background-color='white' v-elsereadonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
@@ -370,6 +371,7 @@
         descricao: null,
       },
       tabs: null,
+      gratis: 'Grátis',
       dialog: false,
       item_selecionado: null,
       busca_search: '',
