@@ -69,11 +69,17 @@
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
+                v-if="anuncio.foto != null"
                 class="white--text"
                 height="200px"
                 :src="anuncio.foto"
-              >
-              </v-img>
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
+              <v-divider></v-divider>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
@@ -92,12 +98,16 @@
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
+                v-if="anuncio.foto != null"
                 class="white--text"
                 height="200px"
                 :src="anuncio.foto"
-              >
-
-              </v-img>
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
@@ -116,11 +126,16 @@
           <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
+                v-if="anuncio.foto != null"
                 class="white--text"
                 height="200px"
                 :src="anuncio.foto"
-              >
-              </v-img>
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
@@ -139,11 +154,16 @@
           <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
+                v-if="anuncio.foto != null"
                 class="white--text"
                 height="200px"
                 :src="anuncio.foto"
-              >
-              </v-img>
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
                   <span>{{anuncio.titulo}}</span> -
@@ -168,11 +188,16 @@
           <v-toolbar-title>{{item_selecionado.titulo}}</v-toolbar-title>
         </v-toolbar>
         <v-img
-                class="white--text"
-                height="355px"
-                :src="item_selecionado.foto"
-              >
-              </v-img>
+          v-if="item_selecionado.foto != null"
+          class="white--text"
+          height="355px"
+          :src="item_selecionado.foto"
+        ></v-img><v-img
+          v-else
+          class="white--text"
+          height="355px"
+          src="https://i.imgur.com/TOEbilE.png"
+        ></v-img><v-divider></v-divider>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout row wrap>
@@ -288,7 +313,7 @@
                 ></v-select>
               </v-flex>
               <v-flex xs6>
-                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.foto" label="URL da imagem"></v-text-field>
+                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.foto" label="URL da imagem (Opcional)"></v-text-field>
               </v-flex>
 
             </v-layout>
@@ -395,8 +420,8 @@
         id: 5,
         categoria: 'Outros',
         telefone: '(31) 99714-1569',
-        titulo: 'Lixeira infantil',
-        foto: 'https://www.casadaeducacao.com.br/octopus/design/images/34/products/o/lixeiracoletaseletivafresooo.jpg',
+        titulo: 'Roteador',
+        foto: null,
         valor_inicial: '2',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
