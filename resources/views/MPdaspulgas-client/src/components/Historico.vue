@@ -400,7 +400,7 @@
         console.log(this.getId)
         if(tipo == 'denis'){
         axios
-          .get('http://localhost:8000/api/compralusuario/'+ this.getId())
+          .get('http://localhost:8000/api/compralusuario/'+ this.getId)
           .then(response => {
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
@@ -410,7 +410,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/compranusuario/'+ this.getId())
+          .get('http://localhost:8000/api/compranusuario/'+ this.getId)
           .then(response => {
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
