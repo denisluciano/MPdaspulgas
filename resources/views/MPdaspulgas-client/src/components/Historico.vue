@@ -32,7 +32,7 @@
             <v-card class="ma-2">
               <v-divider></v-divider>
               <v-layout row wrap>
-                <v-flex xs2 pa-2>
+                <v-flex xs3 pa-2>
                     <v-img
                         v-if="anuncio.foto != null"
                         class="white--text"
@@ -47,6 +47,7 @@
                         src="https://i.imgur.com/TOEbilE.png"
                       ></v-img>
                 </v-flex>
+<<<<<<< HEAD
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
@@ -100,6 +101,9 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs8>
+=======
+                  <v-flex xs7>
+>>>>>>> 0d64c5f687d1e499b6387d739120bbefd05c719c
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
 
@@ -110,7 +114,7 @@
             <v-card class="ma-2">
               <v-divider></v-divider>
               <v-layout row wrap>
-                <v-flex xs2 pa-2>
+                <v-flex xs3 pa-2>
                     <v-img
                         v-if="anuncio.foto != null"
                         class="white--text"
@@ -125,15 +129,19 @@
                         src="https://i.imgur.com/TOEbilE.png"
                       ></v-img>
                 </v-flex>
-                  <v-flex xs8>
-                    <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_leilao}} - {{anuncio.tipo_leilao}} - {{anuncio.data_fim}}  </h2>
+                  <v-flex xs7>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
 
               </v-layout>
             </v-card>
           </v-flex>
+<<<<<<< HEAD
         </v-layout>
 
+=======
+           
+>>>>>>> 0d64c5f687d1e499b6387d739120bbefd05c719c
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
@@ -399,6 +407,7 @@
         this.msg.dialog = false;
         this.mensagem.dialog = false;
         this.categoria_atual = 1;
+        console.log(this.getId)
         if(tipo == 'denis'){
         axios
           .get('http://localhost:8000/api/compralusuario/'+ this.getId())
