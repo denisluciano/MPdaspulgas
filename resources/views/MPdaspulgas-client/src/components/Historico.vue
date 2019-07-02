@@ -50,7 +50,7 @@
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
-                
+
               </v-layout>
             </v-card>
           </v-flex>
@@ -76,7 +76,7 @@
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
-                
+
               </v-layout>
             </v-card>
           </v-flex>
@@ -102,7 +102,7 @@
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
-                
+
               </v-layout>
             </v-card>
           </v-flex>
@@ -128,12 +128,12 @@
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_leilao}} - {{anuncio.tipo_leilao}} - {{anuncio.data_fim}}  </h2>
                 </v-flex>
-                
+
               </v-layout>
             </v-card>
           </v-flex>
         </v-layout>
-           
+
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
@@ -173,7 +173,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  
+
     <v-dialog
         v-model="msg.dialog"
         max-width="400"
@@ -340,7 +340,7 @@
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
@@ -420,7 +420,7 @@
             console.log(error);
           });
 
-       
+
         }
         else {
           this.leiloes_filtro = this.leiloes;
