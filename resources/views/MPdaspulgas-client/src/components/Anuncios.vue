@@ -483,16 +483,14 @@
         this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
       },
       busca_categoria (val) {
-        console.log(this.busca_categoria)
-        
 
-        this.anuncios_filtro = this.anuncios.filter(a => a.categoria.toLowerCase().includes(val))
+        this.anuncios_filtro = this.anuncios.filter(a => a.categoria.includes(val))
 
-        this.leiloes_filtro = this.leiloes.filter(a => a.categoria.toLowerCase().includes(val))
+        this.leiloes_filtro = this.leiloes.filter(a => a.categoria.includes(val))
 
-        this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.toLowerCase().includes(val))
+        this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.includes(val))
 
-        this.doacoes_filtro = this.doacoes.filter(a => a.categoria.toLowerCase().includes(val))
+        this.doacoes_filtro = this.doacoes.filter(a => a.categoria.includes(val))
       }
     },
 
