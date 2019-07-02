@@ -23,10 +23,8 @@
             hide-details
             ></v-text-field>
         </v-flex>
-
       </v-layout>
     </v-container>
-
         <v-layout align-center justify-space-between row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id" xs12>
             <v-card class="ma-2">
@@ -47,7 +45,6 @@
                         src="https://i.imgur.com/TOEbilE.png"
                       ></v-img>
                 </v-flex>
-<<<<<<< HEAD
                   <v-flex xs8>
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
@@ -101,9 +98,6 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs8>
-=======
-                  <v-flex xs7>
->>>>>>> 0d64c5f687d1e499b6387d739120bbefd05c719c
                     <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
                 </v-flex>
 
@@ -136,12 +130,8 @@
               </v-layout>
             </v-card>
           </v-flex>
-<<<<<<< HEAD
         </v-layout>
 
-=======
-           
->>>>>>> 0d64c5f687d1e499b6387d739120bbefd05c719c
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
