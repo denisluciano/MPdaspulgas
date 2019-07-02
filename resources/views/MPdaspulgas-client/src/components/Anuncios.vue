@@ -17,8 +17,6 @@
                 class='mt-4'
                 v-model="busca_categoria"
                 :items="categoria"
-                item-text="categoria"
-                item-value="categoria"
                 label="Categoria"
               ></v-select>
             </v-flex>
@@ -337,7 +335,7 @@
       categoria_anuncio: null,
       disable: false,
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
-      categoria: ['Automóveis','Eletrodomésticos','Eletrônicos','Livraria','Pecuária','Serviços','Outros'],
+      categoria: ['Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
       cadastro:{
         loading: false,
         tipo: null,
@@ -359,6 +357,7 @@
       anuncios:[
         {
         id: 1,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
@@ -367,6 +366,7 @@
         },
         {
         id: 2,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
@@ -375,6 +375,7 @@
         },
         {
         id: 3,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
         valor_inicial: '40000',
@@ -383,6 +384,7 @@
         },
         {
         id: 4,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
         valor_inicial: '500',
@@ -391,6 +393,7 @@
         },
         {
         id: 5,
+        categoria: 'Outros',
         telefone: '(31) 99714-1569',
         titulo: 'Lixeira infantil',
         foto: 'https://www.casadaeducacao.com.br/octopus/design/images/34/products/o/lixeiracoletaseletivafresooo.jpg',
@@ -401,6 +404,7 @@
       leiloes:[
         {
         id: 6,
+        categoria: 'Eletrodomesticos',
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
@@ -409,6 +413,7 @@
         },
         {
         id: 7,
+        categoria: 'Eletronicos',
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
@@ -419,6 +424,7 @@
       emprestimos:[
         {
         id: 8,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Violão',
         foto: 'http://iniciantesdoviolao.com.br/wp-content/uploads/2014/04/Design-sem-nomebb.png',
@@ -429,6 +435,7 @@
       doacoes:[
         {
         id: 9,
+        categoria: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Doa-se Galinha',
         foto: 'https://i.ytimg.com/vi/2BZSTbip92w/maxresdefault.jpg',
@@ -439,7 +446,7 @@
 
     }),
     created() {
-      this.initialize('denis');
+      this.initialize('deniss');
     },
 
     computed:{
@@ -467,7 +474,6 @@
         }
       },
       busca_search (val) {
-
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
 
         this.leiloes_filtro = this.leiloes.filter(a => a.titulo.toLowerCase().includes(val))
@@ -475,6 +481,18 @@
         this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo.toLowerCase().includes(val))
 
         this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
+      },
+      busca_categoria (val) {
+        console.log(this.busca_categoria)
+        
+
+        this.anuncios_filtro = this.anuncios.filter(a => a.categoria.toLowerCase().includes(val))
+
+        this.leiloes_filtro = this.leiloes.filter(a => a.categoria.toLowerCase().includes(val))
+
+        this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.toLowerCase().includes(val))
+
+        this.doacoes_filtro = this.doacoes.filter(a => a.categoria.toLowerCase().includes(val))
       }
     },
 
@@ -633,7 +651,7 @@
         this.cadastro.loading = true;
         if(this.tipo_anuncio == 'Leilão'){
 
-          this.cadastro.titulo_ca = this.cadastro.categoria
+          this.cadastro.titulo_ca = this.categoria_anuncio
           this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
@@ -666,7 +684,7 @@
             this.cadastro.tipo = 2;
             this.cadastro.tempo_devolucao = 15;
           }
-          this.cadastro.titulo_ca = this.cadastro.categoria
+           this.cadastro.titulo_ca = this.categoria_anuncio
           this.cadastro.id_usuario =  sessionStorage.getItem('id')
 
           axios
