@@ -360,7 +360,7 @@
       categoria_anuncio: null,
       disable: false,
       tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
-      categoria: ['Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
+      categoria: ['Todas','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
       cadastro:{
         loading: false,
         tipo: null,
@@ -373,7 +373,7 @@
       dialog: false,
       item_selecionado: null,
       busca_search: '',
-      busca_categoria: null,
+      busca_categoria: 'Todas',
       categoria_atual:[],
       anuncios_filtro:[],
       emprestimos_filtro:[],
@@ -420,9 +420,9 @@
         id: 5,
         categoria: 'Outros',
         telefone: '(31) 99714-1569',
-        titulo: 'Roteador',
-        foto: null,
-        valor_inicial: '2',
+        titulo: 'Acompanhante de Luxo',
+        foto: 'https://i.imgur.com/OpGRMhN.png',
+        valor_inicial: '9800',
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
@@ -508,14 +508,18 @@
         this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
       },
       busca_categoria (val) {
-
-        this.anuncios_filtro = this.anuncios.filter(a => a.categoria.includes(val))
-
-        this.leiloes_filtro = this.leiloes.filter(a => a.categoria.includes(val))
-
-        this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.includes(val))
-
-        this.doacoes_filtro = this.doacoes.filter(a => a.categoria.includes(val))
+        if(this.busca_categoria != 'Todas'){
+          this.anuncios_filtro = this.anuncios.filter(a => a.categoria.includes(val))
+          this.leiloes_filtro = this.leiloes.filter(a => a.categoria.includes(val))
+          this.emprestimos_filtro = this.emprestimos.filter(a => a.categoria.includes(val))
+          this.doacoes_filtro = this.doacoes.filter(a => a.categoria.includes(val))
+        }
+        else{
+          this.anuncios_filtro = this.anuncios
+          this.leiloes_filtro = this.leiloes
+          this.emprestimos_filtro = this.emprestimos
+          this.doacoes_filtro = this.doacoes
+        }
       }
     },
 
