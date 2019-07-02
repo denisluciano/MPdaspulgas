@@ -24,11 +24,10 @@
             ></v-text-field>
         </v-flex>
 
-                  </v-layout>
-          </v-container>
-
-      <v-tabs-items v-model="tabs">
-            <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
+      </v-layout>
+    </v-container>
+        <v-layout align-center justify-space-between row wrap>
+          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
                 v-if="anuncio.foto != null"
@@ -53,9 +52,7 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-
           </v-flex>
-      
             <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
@@ -80,9 +77,7 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-
           </v-flex>
-      
             <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
@@ -134,12 +129,9 @@
                 <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
-
           </v-flex>
-      
-    </v-tabs-items>
-    
-  </v-layout>
+        </v-layout>
+
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
@@ -179,43 +171,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <v-dialog
-      v-model="mensagem.dialog"
-      max-width="400"
-    >
-      <v-card>
-        <v-card-title class="headline green--text">{{mensagem.titulo}}</v-card-title>
-        <v-card-text>{{mensagem.message}}</v-card-text>
-        <v-layout row wrap v-if="mensagem.input">
-        <v-flex xs6 v-if="mensagem.input">
-          <v-text-field class='ml-3' background-color='#f7f2f2' outline hide-details required="" v-model="mensagem.lance" label="Seu lance"></v-text-field>
-        </v-flex>
-        <v-flex xs6 v-if="mensagem.input">
-        <v-btn
-            large
-            color="green darken-1"
-            flat="flat"
-            :loading="mensagem.loading"
-            @click="dar_lance"
-          > DAR LANCE
-          </v-btn>
-        </v-flex>
-        </v-layout>
-        <v-card-actions>
-
-          <v-spacer></v-spacer>
-          <v-btn
-            v-if="mensagem.input == false"
-            color="green darken-1"
-            flat="flat"
-            @click="mensagem.dialog = false"
-          > Ok
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
+  
     <v-dialog
         v-model="msg.dialog"
         max-width="400"
@@ -236,55 +192,6 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="cadastrar_anuncio" max-width="800px">
-      <v-card>
-        <v-toolbar dark>
-          <v-toolbar-title>Cadastrar novo Anúncio</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-layout row wrap>
-              <v-flex xs8>
-                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.titulo" label="Título do Anúncio"></v-text-field>
-              </v-flex>
-              <v-flex xs4>
-                <v-text-field background-color='#f7f2f2' :disabled="disable" outline hide-details required="" v-model="cadastro.valor_inicial" :label="label_preco"></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-textarea auto-grow background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.descricao" label="Descrição do Anúncio"></v-textarea>
-              </v-flex>
-              <v-flex xs3>
-                <v-select
-                  :items="tipos"
-                  label="Tipo de anúncio"
-                  v-model="tipo_anuncio"
-                  background-color='#f7f2f2'
-                  outline
-                ></v-select>
-              </v-flex>
-              <v-flex xs3>
-                <v-select
-                  :items="categoria"
-                  label="Categoria"
-                  v-model="categoria_anuncio"
-                  background-color='#f7f2f2'
-                  outline
-                ></v-select>
-              </v-flex>
-              <v-flex xs6>
-                <v-text-field background-color='#f7f2f2' outline hide-details required="" v-model="cadastro.foto" label="URL da imagem (Opcional)"></v-text-field>
-              </v-flex>
-
-            </v-layout>
-          </v-container>
-          <v-card-actions>
-            <v-btn color="green darken-1" flat @click="cadastraAnuncio" :loading="cadastro.loading">Fazer Anúncio</v-btn>
-            <v-btn color="red darken-1" flat @click="cadastrar_anuncio = false">Cancelar</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 <script>

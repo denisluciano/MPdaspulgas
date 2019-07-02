@@ -206,7 +206,7 @@
                 <v-text-field background-color='white' v-elsereadonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
-                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
+                <v-text-field background-color='white' readonly outline hide-details required="" mask="(##) #####-####" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea>
