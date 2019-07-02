@@ -52,7 +52,11 @@
               </v-layout>
             </v-card>
           </v-flex>
-          Leilão
+            <v-layout align-center justify-space-between row wrap>
+              <v-flex xs12 md6>
+              <h3 class="headline mb-0 ma-4">Leilões</h3>
+              </v-flex>
+            </v-layout>
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id" xs12>
             <v-card class="ma-2">
               <v-divider></v-divider>
@@ -174,8 +178,8 @@
       tipo_anuncio: null,
       categoria_anuncio: null,
       disable: false,
-      tipos: ['Todos','Venda', 'Leilao', 'Emprestimo', 'Doacao'],
-      categoria: ['Todas','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
+      tipos: ['Todos','1','2','3'],
+      categoria: ['Todas','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Venda','Serviços','Outros'],
       cadastro:{
         loading: false,
         tipo: null,
@@ -196,7 +200,7 @@
       anuncios:[
         {
         id: 1,
-        tipo_negoc: 'Pecuaria',
+        tipo_negoc: 'Venda',
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
@@ -205,7 +209,7 @@
         },
         {
         id: 2,
-        tipo_negoc: 'Pecuaria',
+        tipo_negoc: 'Venda',
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
@@ -214,7 +218,7 @@
         },
         {
         id: 3,
-        tipo_negoc: 'Pecuaria',
+        tipo_negoc: 'Venda',
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
         valor_inicial: '40000',
@@ -223,7 +227,7 @@
         },
         {
         id: 4,
-        tipo_negoc: 'Pecuaria',
+        tipo_negoc: 'Venda',
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
         valor_inicial: '500',
@@ -232,7 +236,7 @@
         },
         {
         id: 5,
-        tipo_negoc: 'Outros',
+        tipo_negoc: 'Leilao',
         telefone: '(31) 99714-1569',
         titulo: 'Acompanhante de Luxo',
         foto: 'https://i.imgur.com/OpGRMhN.png',
@@ -243,7 +247,7 @@
       leiloes:[
         {
         id: 6,
-        tipo_negoc: 'Eletrodomesticos',
+        tipo_negoc: 'Leilao',
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
@@ -252,7 +256,7 @@
         },
         {
         id: 7,
-        tipo_negoc: 'Eletronicos',
+        tipo_negoc: 'Leilao',
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
@@ -273,46 +277,13 @@
     },
 
     watch: {
-      tipo_anuncio(val){
-        if(val == 'Leilão'){
-          this.disable = false;
-          this.label_preco = 'Lance mínimo inicial'
-        }
-        if(val == 'Venda'){
-          this.disable = false;
-          this.label_preco = 'Valor do produto'
-        }
-        if(val == 'Empréstimo'){
-          this.disable = false;
-          this.label_preco = 'Valor da Diária'
-        }
-        if(val == 'Doação'){
-          this.cadastro.valor_inicial = 0.00;
-          this.disable = true;
-          this.label_preco = 'Grátis'
-        }
-      },
       busca_search (val) {
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
-
         this.leiloes_filtro = this.leiloes.filter(a => a.titulo.toLowerCase().includes(val))
 
       },
       busca_tipo (val) {
         if(this.busca_tipo != 'Todas'){
-          var buscando;
-          if(tipo == 'Venda'){
-            buscando = 1;
-          }
-          if(tipo == 'Leilao'){
-            buscando = 2;
-          }
-          if(tipo == 'Emprestimo'){
-            buscando = 3;
-          }
-          if(tipo == 'Doacao'){
-            buscando =  4;
-          }
           this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(buscando))
           this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(buscando))
         }
