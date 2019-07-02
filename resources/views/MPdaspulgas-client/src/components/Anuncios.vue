@@ -446,7 +446,7 @@
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
@@ -484,7 +484,7 @@
       },
       busca_categoria (val) {
         console.log(this.busca_categoria)
-        
+
 
         this.anuncios_filtro = this.anuncios.filter(a => a.categoria.toLowerCase().includes(val))
 
@@ -627,7 +627,7 @@
               this.msg.error = false;
               this.msg.titulo ='Lance registrado!';
               this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
-              
+
             })
             .catch(error => {
               this.mensagem.loading = false;
@@ -662,7 +662,7 @@
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
             this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-             
+
           })
           .catch(error => {
             console.log(error);
@@ -671,7 +671,7 @@
             this.msg.error = true;
             this.msg.titulo ='ERROR';
             this.msg.message = error;
-             
+
           });
 
         }
@@ -695,7 +695,7 @@
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
             this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-             
+
           })
           .catch(error => {
             console.log(error);
@@ -704,7 +704,7 @@
             this.msg.error = true;
             this.msg.titulo ='ERROR';
             this.msg.message = error;
-             
+
           });
 
         }

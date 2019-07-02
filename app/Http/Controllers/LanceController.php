@@ -22,10 +22,17 @@ class LanceController extends Controller
         $query =  DB::insert($cons);
 
 
+
+
         if($query){
-            //return "batata";
+
+            //Pegar o id do maior lance do determinado leilao apos grava-lo
+            $cons_max = "select max(a.id) as id_max from lances a where a.do_leilao.id = $request->do_leilao  ";
+            $query_max = DB::select($cons_max);
+            $max_id =  $query_max[0]->id_max;
+
             //gravar maior lance como ref de leilao
-            $cons2 = "update leiloes set maio_lance = (select ref(u) from lances u where u.id = 52) where id = 24";
+            $cons2 = "update leiloes set maior_lance = (select ref(u) from lances u where u.id = $max_id) where id = $request->do_leilao";
             $query2 = DB::update($cons2);
             if($query2){
                 return response()->json($query2);
