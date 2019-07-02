@@ -26,112 +26,114 @@
 
       </v-layout>
     </v-container>
-        <v-layout align-center justify-space-between row wrap>
-          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
-              <v-img
-                v-if="anuncio.foto != null"
-                class="white--text"
-                height="200px"
-                :src="anuncio.foto"
-              ></v-img><v-img
-                v-else
-                class="white--text"
-                height="200px"
-                src="https://i.imgur.com/TOEbilE.png"
-              ></v-img><v-divider></v-divider>
-              <v-divider></v-divider>
-              <v-card-title>
-                <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_inicial}}</span>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,1)">Comprar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-            <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
-              <v-img
-                v-if="anuncio.foto != null"
-                class="white--text"
-                height="200px"
-                :src="anuncio.foto"
-              ></v-img><v-img
-                v-else
-                class="white--text"
-                height="200px"
-                src="https://i.imgur.com/TOEbilE.png"
-              ></v-img><v-divider></v-divider>
-              <v-card-title>
-                <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_lance_v}} maior lance de {{anuncio.nome_us_lance_v}} em {{anuncio.data_lance_v}}</span>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,2)">Dar Lance</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-            <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
-              <v-img
-                v-if="anuncio.foto != null"
-                class="white--text"
-                height="200px"
-                :src="anuncio.foto"
-              ></v-img><v-img
-                v-else
-                class="white--text"
-                height="200px"
-                src="https://i.imgur.com/TOEbilE.png"
-              ></v-img><v-divider></v-divider>
-              <v-card-title>
-                <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_inicial}}/Dia</span>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,3)">Alugar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,3)">Ver mais</v-btn>
-              </v-card-actions>
-            </v-card>
 
+        <v-layout align-center justify-space-between row wrap>
+          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id" xs12>
+            <v-card class="ma-2">
+              <v-divider></v-divider>
+              <v-layout row wrap>
+                <v-flex xs2 pa-2>
+                    <v-img
+                        v-if="anuncio.foto != null"
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        :src="anuncio.foto"
+                      ></v-img><v-img
+                        v-else
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        src="https://i.imgur.com/TOEbilE.png"
+                      ></v-img>
+                </v-flex>
+                  <v-flex xs8>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
+                </v-flex>
+                
+              </v-layout>
+            </v-card>
           </v-flex>
-      
-            <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
-              <v-img
-                v-if="anuncio.foto != null"
-                class="white--text"
-                height="200px"
-                :src="anuncio.foto"
-              ></v-img><v-img
-                v-else
-                class="white--text"
-                height="200px"
-                src="https://i.imgur.com/TOEbilE.png"
-              ></v-img><v-divider></v-divider>
-              <v-card-title>
-                <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>Grátis</span>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,4)">Aceitar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
-              </v-card-actions>
+          <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id" xs12>
+            <v-card class="ma-2">
+              <v-divider></v-divider>
+              <v-layout row wrap>
+                <v-flex xs2 pa-2>
+                    <v-img
+                        v-if="anuncio.foto != null"
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        :src="anuncio.foto"
+                      ></v-img><v-img
+                        v-else
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        src="https://i.imgur.com/TOEbilE.png"
+                      ></v-img>
+                </v-flex>
+                  <v-flex xs8>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
+                </v-flex>
+                
+              </v-layout>
+            </v-card>
+          </v-flex>
+          <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id" xs12>
+            <v-card class="ma-2">
+              <v-divider></v-divider>
+              <v-layout row wrap>
+                <v-flex xs2 pa-2>
+                    <v-img
+                        v-if="anuncio.foto != null"
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        :src="anuncio.foto"
+                      ></v-img><v-img
+                        v-else
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        src="https://i.imgur.com/TOEbilE.png"
+                      ></v-img>
+                </v-flex>
+                  <v-flex xs8>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
+                </v-flex>
+                
+              </v-layout>
+            </v-card>
+          </v-flex>
+          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id" xs12>
+            <v-card class="ma-2">
+              <v-divider></v-divider>
+              <v-layout row wrap>
+                <v-flex xs2 pa-2>
+                    <v-img
+                        v-if="anuncio.foto != null"
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        :src="anuncio.foto"
+                      ></v-img><v-img
+                        v-else
+                        class="white--text"
+                        height="100px"
+                        width="200px"
+                        src="https://i.imgur.com/TOEbilE.png"
+                      ></v-img>
+                </v-flex>
+                  <v-flex xs8>
+                    <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_leilao}} - {{anuncio.tipo_leilao}} - {{anuncio.data_fim}}  </h2>
+                </v-flex>
+                
+              </v-layout>
             </v-card>
           </v-flex>
         </v-layout>
-
+           
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
@@ -342,7 +344,9 @@
     },
 
     computed:{
-
+      getId(){
+        return sessionStorage.getItem('id');
+      }
     },
 
     watch: {
@@ -397,7 +401,7 @@
         this.categoria_atual = 1;
         if(tipo == 'denis'){
         axios
-          .get('http://localhost:8000/api/leilao')
+          .get('http://localhost:8000/api/compralusuario/'+ this.getId())
           .then(response => {
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
@@ -407,7 +411,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/negociacao1')
+          .get('http://localhost:8000/api/compranusuario/'+ this.getId())
           .then(response => {
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
@@ -416,25 +420,7 @@
             console.log(error);
           });
 
-        axios
-          .get('http://localhost:8000/api/negociacao2')
-          .then(response => {
-            this.emprestimos = response.data
-            this.emprestimos_filtro = this.emprestimos;
-          })
-          .catch(error => {
-            console.log(error);
-          });
-
-        axios
-          .get('http://localhost:8000/api/negociacao3')
-          .then(response => {
-            this.doacoes = response.data
-            this.doacoes_filtro = this.doacoes;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+       
         }
         else {
           this.leiloes_filtro = this.leiloes;
