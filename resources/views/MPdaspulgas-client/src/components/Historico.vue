@@ -284,8 +284,8 @@
       },
       busca_tipo (val) {
         if(this.busca_tipo != 'Todas'){
-          this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(buscando))
-          this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(buscando))
+          this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(val))
+          this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(val))
         }
         else{
           this.anuncios_filtro = this.anuncios
