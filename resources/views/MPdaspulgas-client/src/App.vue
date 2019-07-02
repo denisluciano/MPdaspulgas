@@ -63,10 +63,9 @@ export default {
       url: 'http://127.0.0.1:8000',
       drawer: null,
       items: [
-        { title: 'Fazer Login', icon: 'add_shopping_cart', path: '/Login'},
-        { title: 'Anúncios', icon: 'add_shopping_cart', path: '/Anuncios'},
-        { title: 'Meu perfil', icon: 'add_shopping_cart', path: '/Cadastro'},
-        { title: 'Histórico', icon: 'attach_money', path: '/Acerto'},
+        { title: 'Anúncios', icon: 'shopping_cart', path: '/Anuncios'},
+        { title: 'Histórico', icon: 'history', path: '/Historico'},
+        { title: 'Meus Anúncios', icon: 'add_shopping_cart', path: '/MeusAnuncios'},
       ],
       users: [
        // { title: 'Pessoas', icon: 'people', path: '/Usuarios'},

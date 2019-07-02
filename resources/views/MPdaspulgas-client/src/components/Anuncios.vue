@@ -645,7 +645,7 @@
         this.lance.valor = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
 
-        if(this.lance.valor > this.lance.vencendo){
+        if(this.mensagem.lance > this.lance.vencendo){
           axios
             .post('http://localhost:8000/api/lance', this.lance)
             .then(response => {
