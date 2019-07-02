@@ -8,9 +8,9 @@
         <v-flex xs2>
             <v-select
             class='mt-4'
-            v-model="busca_categoria"
-            :items="categoria"
-            label="Categoria"
+            v-model="busca_tipo"
+            :items="tipos"
+            label="Tipo"
             ></v-select>
         </v-flex>
         <v-flex xs3>
@@ -29,7 +29,7 @@
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id" xs12>
             <v-card class="ma-2">
               <v-divider></v-divider>
-              <v-layout row wrap>
+              <v-layout justify-start fill-height>
                 <v-flex xs3 pa-2>
                     <v-img
                         v-if="anuncio.foto != null"
@@ -52,58 +52,7 @@
               </v-layout>
             </v-card>
           </v-flex>
-          <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id" xs12>
-            <v-card class="ma-2">
-              <v-divider></v-divider>
-              <v-layout row wrap>
-                <v-flex xs2 pa-2>
-                    <v-img
-                        v-if="anuncio.foto != null"
-                        class="white--text"
-                        height="100px"
-                        width="200px"
-                        :src="anuncio.foto"
-                      ></v-img><v-img
-                        v-else
-                        class="white--text"
-                        height="100px"
-                        width="200px"
-                        src="https://i.imgur.com/TOEbilE.png"
-                      ></v-img>
-                </v-flex>
-                  <v-flex xs8>
-                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
-                </v-flex>
-
-              </v-layout>
-            </v-card>
-          </v-flex>
-          <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id" xs12>
-            <v-card class="ma-2">
-              <v-divider></v-divider>
-              <v-layout row wrap>
-                <v-flex xs2 pa-2>
-                    <v-img
-                        v-if="anuncio.foto != null"
-                        class="white--text"
-                        height="100px"
-                        width="200px"
-                        :src="anuncio.foto"
-                      ></v-img><v-img
-                        v-else
-                        class="white--text"
-                        height="100px"
-                        width="200px"
-                        src="https://i.imgur.com/TOEbilE.png"
-                      ></v-img>
-                </v-flex>
-                  <v-flex xs8>
-                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
-                </v-flex>
-
-              </v-layout>
-            </v-card>
-          </v-flex>
+          Leilão
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id" xs12>
             <v-card class="ma-2">
               <v-divider></v-divider>
@@ -225,7 +174,7 @@
       tipo_anuncio: null,
       categoria_anuncio: null,
       disable: false,
-      tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
+      tipos: ['Todos','Venda', 'Leilao', 'Emprestimo', 'Doacao'],
       categoria: ['Todas','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
       cadastro:{
         loading: false,
@@ -240,16 +189,14 @@
       dialog: false,
       item_selecionado: null,
       busca_search: '',
-      busca_categoria: 'Todas',
+      busca_tipo: 'Todas',
       categoria_atual:[],
       anuncios_filtro:[],
-      emprestimos_filtro:[],
-      doacoes_filtro:[],
       leiloes_filtro:[],
       anuncios:[
         {
         id: 1,
-        titulo_categoria: 'Pecuaria',
+        tipo_negoc: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Praia Linda',
         foto: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
@@ -258,7 +205,7 @@
         },
         {
         id: 2,
-        titulo_categoria: 'Pecuaria',
+        tipo_negoc: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Cavalo 5 anos',
         foto: 'http://www.porforadaspistas.com.br/wp-content/uploads/2016/11/frankel-e-um-cavalo-de-corrida_976399.jpg',
@@ -267,7 +214,7 @@
         },
         {
         id: 3,
-        titulo_categoria: 'Pecuaria',
+        tipo_negoc: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Carro novíssimo',
         valor_inicial: '40000',
@@ -276,7 +223,7 @@
         },
         {
         id: 4,
-        titulo_categoria: 'Pecuaria',
+        tipo_negoc: 'Pecuaria',
         telefone: '(31) 99714-1569',
         titulo: 'Porco de granja',
         valor_inicial: '500',
@@ -285,7 +232,7 @@
         },
         {
         id: 5,
-        titulo_categoria: 'Outros',
+        tipo_negoc: 'Outros',
         telefone: '(31) 99714-1569',
         titulo: 'Acompanhante de Luxo',
         foto: 'https://i.imgur.com/OpGRMhN.png',
@@ -296,7 +243,7 @@
       leiloes:[
         {
         id: 6,
-        titulo_categoria: 'Eletrodomesticos',
+        tipo_negoc: 'Eletrodomesticos',
         telefone: '(31) 99714-1569',
         titulo: 'Carro Semi-Novo',
         foto: 'https://files.nsctotal.com.br/s3fs-public/styles/paragraph_image/public/graphql-upload-files/acidente%20com%20morte%20Timb%C3%B3.jpg?yO_Hw81jNw24DKBiYLxRlBqfyPfQfEZ9&itok=24woTc6T',
@@ -305,7 +252,7 @@
         },
         {
         id: 7,
-        titulo_categoria: 'Eletronicos',
+        tipo_negoc: 'Eletronicos',
         telefone: '(31) 99714-1569',
         titulo: 'Bicicleta com defeito',
         foto: 'https://vozdabahia.com.br/wp-content/uploads/2019/05/Ciclista-morre-atropelado-696x522.jpeg',
@@ -313,32 +260,10 @@
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
-      emprestimos:[
-        {
-        id: 8,
-        titulo_categoria: 'Pecuaria',
-        telefone: '(31) 99714-1569',
-        titulo: 'Violão',
-        foto: 'http://iniciantesdoviolao.com.br/wp-content/uploads/2014/04/Design-sem-nomebb.png',
-        valor_inicial: '20',
-        descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
-        },
-      ],
-      doacoes:[
-        {
-        id: 9,
-        titulo_categoria: 'Pecuaria',
-        telefone: '(31) 99714-1569',
-        titulo: 'Doa-se Galinha',
-        foto: 'https://i.ytimg.com/vi/2BZSTbip92w/maxresdefault.jpg',
-        valor_inicial: 'GRÁTIS',
-        descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
-        },
-      ],
 
     }),
     created() {
-      this.initialize('denis');
+      this.initialize('denisDk9');
     },
 
     computed:{
@@ -372,22 +297,28 @@
 
         this.leiloes_filtro = this.leiloes.filter(a => a.titulo.toLowerCase().includes(val))
 
-        this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo.toLowerCase().includes(val))
-
-        this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
       },
-      busca_categoria (val) {
-        if(this.busca_categoria != 'Todas'){
-          this.anuncios_filtro = this.anuncios.filter(a => a.titulo_categoria.includes(val))
-          this.leiloes_filtro = this.leiloes.filter(a => a.titulo_categoria.includes(val))
-          this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo_categoria.includes(val))
-          this.doacoes_filtro = this.doacoes.filter(a => a.titulo_categoria.includes(val))
+      busca_tipo (val) {
+        if(this.busca_tipo != 'Todas'){
+          var buscando;
+          if(tipo == 'Venda'){
+            buscando = 1;
+          }
+          if(tipo == 'Leilao'){
+            buscando = 2;
+          }
+          if(tipo == 'Emprestimo'){
+            buscando = 3;
+          }
+          if(tipo == 'Doacao'){
+            buscando =  4;
+          }
+          this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(buscando))
+          this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(buscando))
         }
         else{
           this.anuncios_filtro = this.anuncios
           this.leiloes_filtro = this.leiloes
-          this.emprestimos_filtro = this.emprestimos
-          this.doacoes_filtro = this.doacoes
         }
       }
     },
@@ -423,8 +354,6 @@
         }
         else {
           this.leiloes_filtro = this.leiloes;
-          this.doacoes_filtro = this.doacoes;
-          this.emprestimos_filtro = this.emprestimos;
           this.anuncios_filtro = this.anuncios;
         }
       },
