@@ -13,7 +13,7 @@ class NegociacaoController extends Controller
         $categorias = DB::select('select a.titulo, a.possui_c.titulo as categoria_titulo,
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo, a.descricao,
         a.data_, a.valor_inicial,
-        a.e_de.nome as nome_usuario, value(t),  a.e_de.email as email_usuario,
+        a.e_de.nome as nome_usuario, value(t) as telefones,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
         a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a, table(a.e_de.telefones) t
         where a.tipo = 1 and a.disponivel = 1');
@@ -33,7 +33,8 @@ class NegociacaoController extends Controller
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a where a.tipo = 2 and a.disponivel = 1');
+        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefones from negociacoes a, table(a.e_de.telefones) t
+        where a.tipo = 2 and a.disponivel = 1');
 
         //return $categorias;
 
@@ -50,7 +51,8 @@ class NegociacaoController extends Controller
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a where a.tipo = 3 and a.disponivel = 1');
+        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefones  from negociacoes a, table(a.e_de.telefones) t
+        where a.tipo = 3 and a.disponivel = 1');
 
         //return $categorias;
 
