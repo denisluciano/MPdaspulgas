@@ -348,9 +348,9 @@
       },
       lance:{
         vencendo: 20,
-        do_leilao: null,
+        id_leilao: null,
         id_usuario: sessionStorage.getItem('id'),
-        lance: null
+        valor: null
       },
       comprar: null,
       tipo_selecionado: null,
@@ -585,7 +585,7 @@
           this.mensagem.input = true;
           this.mensagem.titulo =item.titulo;
           this.lance.vencendo = item.valor_inicial;
-          this.lance.do_leilao = item.id;
+          this.lance.id_leilao = item.id;
           this.mensagem.message = 'Lance vencendo: R$' + item.valor_inicial ;
         }
         else{
@@ -641,10 +641,10 @@
       },
       dar_lance(){
         this.mensagem.loading = true;
-        this.lance.lance = this.mensagem.lance;
+        this.lance.valor = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
 
-        if(this.lance.lance > this.lance.vencendo){
+        if(this.lance.valor > this.lance.vencendo){
           axios
             .post('http://localhost:8000/api/lance', this.lance)
             .then(response => {
@@ -653,7 +653,7 @@
               this.msg.dialog = true;
               this.msg.error = false;
               this.msg.titulo ='Lance registrado!';
-              this.msg.message = 'Seu lance de R$' + this.lance.lance + ' agora está vencendo este leilão!';
+              this.msg.message = 'Seu lance de R$' + this.lance.valor + ' agora está vencendo este leilão!';
 
             })
             .catch(error => {
