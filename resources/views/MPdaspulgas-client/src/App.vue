@@ -65,7 +65,7 @@ export default {
       items: [
         { title: 'Anúncios', icon: 'shopping_cart', path: '/Anuncios'},
         { title: 'Histórico', icon: 'history', path: '/Historico'},
-        { title: 'Meus Anúncios', icon: 'add_shopping_cart', path: '/MeusAnuncios'},
+        { title: 'Meus Anúncios', icon: 'people', path: '/MeusAnuncios'},
       ],
       users: [
        // { title: 'Pessoas', icon: 'people', path: '/Usuarios'},
