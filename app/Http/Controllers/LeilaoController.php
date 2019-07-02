@@ -13,7 +13,8 @@ class LeilaoController extends Controller
         $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.data_abertura, a.data_fim, a.id, a.foto  from leiloes a');
+        a.data_abertura, a.data_fim, a.id, a.foto, a.maior_lance.e_de.nome as nome_us_lance_v,
+        a.maior_lance.valor as valor_lance_v, a.maior_lance.data_ as data_lance_v  from leiloes a');
 
         //return $categorias;
 

@@ -14,6 +14,9 @@ class LanceController extends Controller
 
         $datatt = date('Y-m-d');
 
+        //return "tetsjdwqiodjiqwe";
+        //return var_dump($request->id_leilao);
+
         $cons = "insert into lances (e_de, do_leilao, data_, valor) values
         ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
         (select ref(le) from leiloes le where le.id = '$request->id_leilao'), '$datatt',
@@ -23,16 +26,23 @@ class LanceController extends Controller
 
 
 
-
         if($query){
+
+            //return $request->id_leilao;
 
             //Pegar o id do maior lance do determinado leilao apos grava-lo
             $cons_max = "select max(a.id) as id_max from lances a where a.do_leilao.id = $request->id_leilao  ";
             $query_max = DB::select($cons_max);
             $max_id =  $query_max[0]->id_max;
 
+            //return var_dump($max_id);
+
             //gravar maior lance como ref de leilao
-            $cons2 = "update leiloes set maior_lance = (select ref(u) from lances u where u.id = $max_id) where id = $request->id_leilao";
+            $cons2 = "update leiloes a set maior_lance = (select ref(u) from lances u where u.id = $max_id)
+            where a.id = $request->id_leilao";
+
+            //return $cons2;
+
             $query2 = DB::update($cons2);
             if($query2){
                 return response()->json($query2);
