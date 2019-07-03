@@ -138,6 +138,10 @@
               </v-card-actions>
             </v-card>
           </v-flex>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f99ccdd0631860c868be6ed5b1dd603b925a69b
         </v-layout>
 
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
@@ -294,7 +298,7 @@
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
- 
+
 
     }),
     created() {

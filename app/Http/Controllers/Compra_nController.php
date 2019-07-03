@@ -36,7 +36,8 @@ class Compra_nController extends Controller
     //Essa relacao ta errada, essa tabela tem ser com lance pra pegar ultimo lance ???
     //falta terminar aqui
     public function compras_nUsuario($id){
-        $cons = "select a.do_negoc.titulo as titulo_negoc, a.do_negoc.tipo as tipo_negoc, a.do_negoc.descricao as descricao_negoc,
+        $cons = "select a.do_negoc.titulo as titulo_negoc, a.do_negoc.tipo as tipo_negoc,
+        a.do_negoc.descricao as descricao_negoc,
         a.do_negoc.tipo as tipo_negoc, a.data_, a.precofim, a.id
         from compras_n a where a.e_de.id = '$id'";
 

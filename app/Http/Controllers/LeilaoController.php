@@ -67,18 +67,31 @@ class LeilaoController extends Controller
 
     }
     public function encerrarLeilao(Request $request){
-
-        return var_dump($request);
-
         $datatt = date('Y-m-d');
+        //return var_dump($request);
+
+        //Pegar o id do maior lance do determinado leilao apos grava-lo
+        $cons_max = "select max(a.id) as id_max from lances a where a.do_leilao.id = $request->id_leilao  ";
+        $query_max = DB::select($cons_max);
 
 
-        $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
-        ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-        (select ref(an) from leiloes an where an.id = '$request->id_leilao'), '$datatt',
-        '$request->precofim')";
+        if($query_max){ //se pessoas tiverem dado lances entra aqui registrar compra tipo leilao
+            $max_id =  $query_max[0]->id_max;
 
-        $query =  DB::insert($cons);
+            //consulta saber valor max do lance
+            $cons_val = "select a.valor as valor_max_lance from lances a where a.id = $max_id";
+            $query_val = DB::select($cons_val);
+            $val_lance =  $query_val[0]->valor_max_lance;
+
+
+            //criando uma compra maior lance
+            $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
+            ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
+            (select ref(an) from leiloes an where an.id = '$request->id_leilao'), '$datatt',
+            '$request->val_lance')";
+
+            $query =  DB::insert($cons);
+        }
 
 
         if($query){
