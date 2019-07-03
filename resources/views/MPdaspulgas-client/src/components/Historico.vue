@@ -46,7 +46,7 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs8>
-                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.precofim}} - {{anuncio.descricao_negoc}} - {{anuncio.data_}}  </h2>
                 </v-flex>
 
               </v-layout>
