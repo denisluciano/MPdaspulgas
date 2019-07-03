@@ -364,7 +364,7 @@
         this.categoria_atual = 1;
         if(tipo == 'denis'){
         axios
-          .get('http://localhost:8000/api/leilao')
+          .get('http://localhost:8000/api/leilaocaousuario/'+ this.getId)
           .then(response => {
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
@@ -422,7 +422,7 @@
           item.id_usuario = this.getId;
           item.id_leilao = item.id;
           axios
-            .post('http://localhost:8000/api/finaliza/'+ this.item)
+            .post('http://localhost:8000/api/encerrarleilao',item)
             .then(response => {
               this.msg.loading = false;
               this.msg.dialog = true;
@@ -442,7 +442,7 @@
         else{
           item.id_usuario = this.getId;
           axios
-            .post('http://localhost:8000/api/finaliza/'+ this.item)
+            .post('http://localhost:8000/api/finalizarcompra',item)
             .then(response => {
               this.msg.loading = false;
               this.msg.dialog = true;
