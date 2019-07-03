@@ -59,14 +59,16 @@ class LeilaoController extends Controller
 
         //return $categorias;
 
-        // if(!$tt){
-        //     return "error";
-        // }
+        if(!$tt){
+            return "error";
+        }
         return response()->json($tt);
         //return view('welcome', compact('categorias'));
 
     }
     public function encerrarLeilao(Request $request){
+
+        return var_dump($request);
 
         $datatt = date('Y-m-d');
 

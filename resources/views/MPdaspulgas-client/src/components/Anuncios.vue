@@ -534,8 +534,10 @@
         axios
           .get('http://localhost:8000/api/leilao')
           .then(response => {
+              if(response.data != 'error'){
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
+              }
           })
           .catch(error => {
             console.log(error);
@@ -544,8 +546,9 @@
         axios
           .get('http://localhost:8000/api/negociacao1')
           .then(response => {
+              if(response.data != 'error'){
             this.anuncios = response.data
-            this.anuncios_filtro = this.anuncios;
+            this.anuncios_filtro = this.anuncios;}
           })
           .catch(error => {
             console.log(error);
@@ -554,8 +557,9 @@
         axios
           .get('http://localhost:8000/api/negociacao2')
           .then(response => {
+              if(response.data != 'error'){
             this.emprestimos = response.data
-            this.emprestimos_filtro = this.emprestimos;
+            this.emprestimos_filtro = this.emprestimos;}
           })
           .catch(error => {
             console.log(error);
@@ -564,8 +568,9 @@
         axios
           .get('http://localhost:8000/api/negociacao3')
           .then(response => {
+              if(response.data != 'error'){
             this.doacoes = response.data
-            this.doacoes_filtro = this.doacoes;
+            this.doacoes_filtro = this.doacoes;}
           })
           .catch(error => {
             console.log(error);

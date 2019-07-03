@@ -366,9 +366,11 @@
         axios
           .get('http://localhost:8000/api/leilaousuario/'+ this.getId)
           .then(response => {
-            this.leiloes = response.data
+            if(response.data != 'error'){
+                this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
             this.ordena(this.leiloes_filtro)
+            }
           })
           .catch(error => {
             console.log(error);
@@ -377,9 +379,10 @@
         axios
           .get('http://localhost:8000/api/negociacaousuario/'+ this.getId)
           .then(response => {
+              if(response.data != 'error'){
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
-            this.ordena(this.anuncios_filtro)
+            this.ordena(this.anuncios_filtro)}
           })
           .catch(error => {
             console.log(error);

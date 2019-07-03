@@ -304,8 +304,10 @@
         axios
           .get('http://localhost:8000/api/compralusuario/'+ this.getId)
           .then(response => {
-            this.leiloes = response.data
-            this.leiloes_filtro = response.data
+            if(response.data != 'error'){
+                this.leiloes = response.data
+                this.leiloes_filtro = response.data
+            }
           })
           .catch(error => {
             console.log(error);
