@@ -600,7 +600,7 @@
 
         item.id_usuario =  sessionStorage.getItem('id');
         item.do_negoc = item.id;
-        item.preco_fim = item.valor_lance_v;
+        item.precofim = item.valor_lance_v;
 
         axios
           .post(sessionStorage.getItem('url') + '/api/compran', item)
@@ -697,7 +697,7 @@
             this.msg.dialog = true;
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
-            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
+            this.msg.message = 'Seu anúncio "' + this.cadastro.titulo + '" foi cadastrado com Sucesso!';
 
           })
           .catch(error => {

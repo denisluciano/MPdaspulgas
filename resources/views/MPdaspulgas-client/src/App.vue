@@ -63,8 +63,8 @@ export default {
       url: 'http://127.0.0.1:8000',
       drawer: null,
       items: [
-        { title: 'Anúncios', icon: 'shopping_cart', path: '/Anuncios'},
-        { title: 'Histórico', icon: 'history', path: '/Historico'},
+        { title: 'Ver Anúncios', icon: 'shopping_cart', path: '/Anuncios'},
+        { title: 'Histórico de Compras', icon: 'history', path: '/Historico'},
         { title: 'Meus Anúncios', icon: 'people', path: '/MeusAnuncios'},
       ],
       users: [
