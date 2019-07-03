@@ -28,7 +28,7 @@
     </v-container>
         <v-layout align-center justify-space-between row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2" v-if="disponivel_negoc == 1">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_negoc == 1">
               <v-img
                 v-if="anuncio.foto_negoc != null"
                 class="white--text"
@@ -55,7 +55,7 @@
           </v-flex>
 
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2" v-if="disponivel_leilao == 1">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_leilao == 1">
               <v-img
                 v-if="anuncio.foto_leilao != null"
                 class="white--text"
@@ -87,7 +87,7 @@
         </v-layout>
         <v-layout align-center justify-space-between row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2" v-if="disponivel_negoc == 0">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_negoc == 0">
               <v-img
                 v-if="anuncio.foto_negoc != null"
                 class="white--text"
@@ -114,7 +114,7 @@
           </v-flex>
 
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2" v-if="disponivel_leilao == 0">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_leilao == 0">
               <v-img
                 v-if="anuncio.foto_leilao != null"
                 class="white--text"
