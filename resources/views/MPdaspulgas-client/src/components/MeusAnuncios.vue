@@ -79,7 +79,7 @@
               </v-card-actions>
             </v-card>
           </v-flex>
-          
+
         </v-layout>
 
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
@@ -236,11 +236,11 @@
         descricao: 'Excelente para a família, recomendável também para adultos cansados de suas vidas pacatas'
         },
       ],
- 
+
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
