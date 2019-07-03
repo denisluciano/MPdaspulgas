@@ -30,10 +30,10 @@
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
-                v-if="anuncio.foto != null"
+                v-if="anuncio.foto_negoc != null"
                 class="white--text"
                 height="200px"
-                :src="anuncio.foto"
+                :src="anuncio.foto_negoc"
               ></v-img><v-img
                 v-else
                 class="white--text"
@@ -43,8 +43,8 @@
               <v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_inicial}}</span>
+                  <span>{{anuncio.titulo_negoc}}</span> -
+                  <span>R$ {{anuncio.valor_negoc}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -57,10 +57,10 @@
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
-                v-if="anuncio.foto != null"
+                v-if="anuncio.foto_leilao != null"
                 class="white--text"
                 height="200px"
-                :src="anuncio.foto"
+                :src="anuncio.foto_leilao"
               ></v-img><v-img
                 v-else
                 class="white--text"
@@ -240,7 +240,7 @@
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
@@ -309,13 +309,26 @@
         this.cadastrar_anuncio = true;
       },
       seleciona(item,tipo){
+        this.item_selecionado = item;
         this.comprar = 'Finalizar Anúncio'
         if(tipo == 1){
            this.tipo_selecionado = 1;
         }
         if(tipo == 2){
+          this.item_selecionado.id = item.id_leilao
+          this.item_selecionado.titulo = item.titulo_leilao
+          this.item_selecionado.foto = item.foto_leilao
+          this.item_selecionado.valor_inicial = item.valor_maior_lance
+          this.item_selecionado.descricao = item.descricao_leilao
           this.comprar = 'Encerrara Leilão'
           this.tipo_selecionado = 2;
+        }
+        else{
+          this.item_selecionado.id = item.id_negoc
+          this.item_selecionado.titulo = item.titulo_negoc
+          this.item_selecionado.foto = item.foto_negoc
+          this.item_selecionado.valor_inicial = item.valor_negoc
+          this.item_selecionado.descricao = item.descricao_negoc
         }
         if(tipo == 3){
           this.tipo_selecionado = 3;
@@ -323,9 +336,7 @@
         if(tipo == 4){
             this.tipo_selecionado = 4;
         }
-        this.item_selecionado = item;
         this.dialog = true;
-
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
