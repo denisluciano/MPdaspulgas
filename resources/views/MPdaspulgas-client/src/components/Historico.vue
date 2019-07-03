@@ -305,7 +305,7 @@
           .get('http://localhost:8000/api/compralusuario/'+ this.getId)
           .then(response => {
             this.leiloes = response.data
-            this.leiloes_filtro = this.leiloes;
+            this.leiloes_filtro = response.data
           })
           .catch(error => {
             console.log(error);
