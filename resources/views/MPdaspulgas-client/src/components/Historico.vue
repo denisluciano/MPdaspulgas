@@ -63,11 +63,11 @@
               <v-layout row wrap>
                 <v-flex xs3 pa-2>
                     <v-img
-                        v-if="anuncio.foto != null"
+                        v-if="anuncio.foto_leilao != null"
                         class="white--text"
                         height="100px"
                         width="200px"
-                        :src="anuncio.foto"
+                        :src="anuncio.foto_leilao"
                       ></v-img><v-img
                         v-else
                         class="white--text"
@@ -77,7 +77,7 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs7>
-                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.preco_fim}} - {{anuncio.descricao_negoc}} - {{anuncio.tipo_negoc}} - {{anuncio.data_negoc}}  </h2>
+                    <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.valor_maior_lance}} - {{anuncio.data_fim_leilao}}  </h2>
                 </v-flex>
 
               </v-layout>
@@ -390,7 +390,12 @@
         if(tipo == 2){
           this.comprar = 'Dar lance';
           this.tipo_selecionado = 2;
-          this.item_selecionado.valor_inicial = item.valor_lance_v;
+          this.item_selecionado.foto = this.item_selecionado.foto_leilao;
+          this.item_selecionado.titulo = this.item_selecionado.titulo_leilao;
+          this.item_selecionado.descricao = this.item_selecionado.descricao_leilao;
+          this.item_selecionado.data = this.item_selecionado.data_fim_leilao;
+          this.item_selecionado.id = this.item_selecionado.id_leilao;
+          this.item_selecionado.valor_inicial = this.item_selecionado.valor_maior_lance;
         }
         if(tipo == 3){
           this.comprar = 'Alugar';
