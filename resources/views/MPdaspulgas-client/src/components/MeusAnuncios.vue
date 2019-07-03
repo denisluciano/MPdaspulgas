@@ -9,8 +9,8 @@
             <v-select
             class='mt-4'
             v-model="busca_tipo"
-            :items="categoria"
-            label="Categoria"
+            :items="tipos"
+            label="Tipo"
             ></v-select>
         </v-flex>
         <v-flex xs3>
@@ -48,7 +48,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,1)" :loading="msg.loading">Finalizar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,1)">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -73,7 +73,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,2)" :loading="msg.loading">Encerrar Leilão</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,2)">Encerrar Leilão</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -98,7 +98,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,3)" :loading="msg.loading">Finalizar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,3)">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,3)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -125,7 +125,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,4)" :loading="msg.loading">Finalizar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,4)">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
