@@ -59,9 +59,9 @@ class LeilaoController extends Controller
 
         //return $categorias;
 
-        if(!$tt){
-            return "error";
-        }
+        // if(!$tt){
+        //     return "error";
+        // }
         return response()->json($tt);
         //return view('welcome', compact('categorias'));
 
@@ -73,14 +73,14 @@ class LeilaoController extends Controller
 
         $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
         ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
-        (select ref(an) from leiloes an where an.id = '$request->do_leilao'), '$datatt',
+        (select ref(an) from leiloes an where an.id = '$request->id_leilao'), '$datatt',
         '$request->precofim')";
 
         $query =  DB::insert($cons);
 
 
         if($query){
-            $cons2 = "update leiloes a set a.disponivel = 0
+            $cons2 = "update leiloes a set disponivel = 0
             where a.id = $request->id_leilao";
 
             $query2 = DB::update($cons2);
