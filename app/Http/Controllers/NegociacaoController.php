@@ -89,4 +89,35 @@ class NegociacaoController extends Controller
         }
 
     }
+    public function negociacoes_Usuario($id){
+        $cons = "select
+        a.titulo as titulo_negoc, a.descricao as descricao_negoc, a.foto as foto_negoc,
+        a.valor_inicial as valor_negoc, a.tipo as tipo_negoc, a.disponivel as disponivel_negoc,
+        a.possui_c.titulo as titulo_c_negoc, a.data_ as data_negoc, a.tempo_devolucao as tempo_negoc,
+        a.id as id_negoc
+        from negociacoes a where a.e_de.id = '$id'";
+
+        $tt = DB::select($cons);
+
+        //return $categorias;
+
+        if(!$tt){
+            return "error";
+        }
+        return response()->json($tt);
+        //return view('welcome', compact('categorias'));
+
+    }
+    public function finalizarCompra(Request $request){
+        $cons2 = "update negociacoes a set a.disponivel = 0
+            where a.id = $request->id_negoc";
+
+            $query2 = DB::update($cons2);
+            if($query2){
+                return response()->json($query2);
+            }else {
+                return "erro na inserção";
+            }
+
+    }
 }
