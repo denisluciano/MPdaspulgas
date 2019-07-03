@@ -138,12 +138,10 @@
               </v-card-actions>
             </v-card>
           </v-flex>
-<<<<<<< HEAD
-=======
-
->>>>>>> 0f99ccdd0631860c868be6ed5b1dd603b925a69b
         </v-layout>
 
+
+  
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
