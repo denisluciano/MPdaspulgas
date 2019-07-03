@@ -46,7 +46,7 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs8>
-                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.precofim}} - {{anuncio.descricao_negoc}} - {{anuncio.data_}}  </h2>
+                    <h2>{{anuncio.titulo_negoc}} - R$ {{anuncio.precofim}} - {{anuncio.descricao_negoc}} - {{formatDate(anuncio.data_)}}  </h2>
                 </v-flex>
 
               </v-layout>
@@ -77,7 +77,7 @@
                       ></v-img>
                 </v-flex>
                   <v-flex xs7>
-                    <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.valor_maior_lance}} - {{anuncio.data_fim_leilao}}  </h2>
+                    <h2>{{anuncio.titulo_leilao}} - R$ {{anuncio.valor_maior_lance}} - {{formatDate(anuncio.data_fim_leilao)}}  </h2>
                 </v-flex>
 
               </v-layout>
@@ -316,8 +316,9 @@
         axios
           .get('http://localhost:8000/api/compranusuario/'+ this.getId)
           .then(response => {
+              if(response.data != 'error'){
             this.anuncios = response.data
-            this.anuncios_filtro = this.anuncios;
+            this.anuncios_filtro = this.anuncios;}
           })
           .catch(error => {
             console.log(error);
@@ -355,7 +356,7 @@
           this.mensagem.titulo =item.titulo;
           this.lance.vencendo = item.valor_lance_v;
           this.lance.id_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + item.data_lance_v;
+          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + formatDate(item.data_lance_v);
         }
         else{
 
@@ -448,6 +449,9 @@
           this.msg.titulo ='Lance inválido';
           this.msg.message = 'Seu lance deve ser superior ao lance vencedor de R$' + this.lance.vencendo;
         }
+      },
+      formatDate(data){
+          return data[8] + data[9] + '/' + data[5] + data[6] + '/' + data[0] + data[1] + data[2] + data[3];
       },
       cadastraAnuncio(){
         this.cadastro.loading = true;

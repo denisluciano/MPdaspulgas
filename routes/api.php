@@ -42,3 +42,5 @@ Route::get('/leilaousuario/{id}','LeilaoController@leilao_Usuario');
 
 Route::post('/encerrarleilao', 'LeilaoController@encerrarLeilao');
 Route::post('/finalizarcompra', 'NegociacaoController@finalizarCompra');
+
+//Route::get('/minnegociacao', 'NegociacaoController@minnegociacao');

@@ -4,7 +4,7 @@
         <v-layout align-center justify-space-between row wrap>
           <v-flex xs12 md6>
             <h3 class="headline mb-0">Anúncios ativos no momento</h3>
-            <v-btn
+           <v-btn
             color="red" dark
             class="mt-4"
             @click="cria_anuncio"
@@ -67,7 +67,7 @@
         >
         <v-layout v-if="i == 1" row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel == 1" >
               <v-img
                 v-if="anuncio.foto != null"
                 class="white--text"
@@ -82,12 +82,12 @@
               <v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> -
+                  <h3>{{anuncio.titulo}}</h3>
                   <span>R$ {{anuncio.valor_inicial}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,1)">Comprar</v-btn>
+                <v-btn flat color="green" v-if="anuncio.email_usuario != getEmail" @click="compra(anuncio,1)">Comprar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -96,7 +96,7 @@
         </v-layout>
         <v-layout v-if="i == 2" row wrap>
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel == 1">
               <v-img
                 v-if="anuncio.foto != null"
                 class="white--text"
@@ -110,12 +110,13 @@
               ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> -
-                  <span>R$ {{anuncio.valor_lance_v}} maior lance de {{anuncio.nome_us_lance_v}} em {{anuncio.data_lance_v}}</span>
+                  <h3>{{anuncio.titulo}}</h3>
+                 <span v-if="anuncio.valor_lance_v">R$ {{anuncio.valor_lance_v}} maior lance de {{anuncio.nome_us_lance_v}} em {{formatDate(anuncio.data_lance_v)}}</span>
+                  <span v-else>Nenhum lance foi dado neste Leilão</span>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,2)">Dar Lance</v-btn>
+                <v-btn flat color="green" v-if="anuncio.email_usuario != getEmail" @click="compra(anuncio,2)">Dar Lance</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -124,7 +125,7 @@
         </v-layout>
         <v-layout v-if="i == 3" row wrap>
           <v-flex v-for="anuncio in emprestimos_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel == 1">
               <v-img
                 v-if="anuncio.foto != null"
                 class="white--text"
@@ -138,12 +139,12 @@
               ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> -
+                  <h3>{{anuncio.titulo}}</h3>
                   <span>R$ {{anuncio.valor_inicial}}/Dia</span>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,3)">Alugar</v-btn>
+                <v-btn flat color="green" v-if="anuncio.email_usuario != getEmail" @click="compra(anuncio,3)">Alugar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,3)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -152,7 +153,7 @@
         </v-layout>
         <v-layout v-if="i == 4" row wrap>
           <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel == 1">
               <v-img
                 v-if="anuncio.foto != null"
                 class="white--text"
@@ -166,12 +167,12 @@
               ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo}}</span> -
+                  <h3>{{anuncio.titulo}}</h3>
                   <span>Grátis</span>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,4)">Aceitar</v-btn>
+                <v-btn flat color="green" v-if="anuncio.email_usuario != getEmail" @click="compra(anuncio,4)">Aceitar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -203,17 +204,30 @@
             <v-layout row wrap>
               <v-flex xs6>
                 <v-text-field background-color='white' v-if="item_selecionado.valor_inicial>0" readonly outline hide-details required="" v-model="item_selecionado.valor_inicial" label="Valor do Anúncio"></v-text-field>
-                <v-text-field background-color='white' v-elsereadonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
+                <v-text-field background-color='white' v-else readonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
-                <v-text-field background-color='white' readonly outline hide-details required="" mask="(##) #####-####" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
+                <v-text-field v-if="item_selecionado.telefone[11] == ','" background-color='white' readonly outline hide-details required="" mask="(##)######### , (##)#########" v-model="item_selecionado.telefone" label="Telefones para Contato"></v-text-field>
+                <v-text-field v-else background-color='white' readonly outline hide-details required="" mask="(##)#########" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
+              <v-flex xs4>
+                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.bairro" label="Bairro"></v-text-field>
+              </v-flex>
+              <v-flex xs4>
+                <v-text-field background-color='white' readonly outline hide-details required="" mask="#####-###" v-model="item_selecionado.cep" label="CEP"></v-text-field>
+              </v-flex>
+              <v-flex xs4>
+                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.cidade" label="Cidade"></v-text-field>
+              </v-flex>
+
+
               <v-flex xs12>
                 <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea>
               </v-flex>
+
             </v-layout>
           </v-container>
-          <v-card-actions>
+          <v-card-actions v-if="item_selecionado.email_usuario != getEmail" >
             <v-btn color="green darken-1" flat @click="compra(item_selecionado,tipo_selecionado)">{{comprar}}</v-btn>
             <v-btn color="red darken-1" flat @click="dialog = false">Denunciar</v-btn>
           <v-spacer></v-spacer>
@@ -251,7 +265,7 @@
             v-if="mensagem.input == false"
             color="green darken-1"
             flat="flat"
-            @click="mensagem.dialog = false"
+            @click="initialize('denis')"
           > Ok
           </v-btn>
         </v-card-actions>
@@ -278,7 +292,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="cadastrar_anuncio" max-width="800px">
+    <v-dialog v-model="cadastrar_anuncio" max-width="800px" persistent>
       <v-card>
         <v-toolbar dark>
           <v-toolbar-title>Cadastrar novo Anúncio</v-toolbar-title>
@@ -373,7 +387,7 @@
       tabs: null,
       gratis: 'Grátis',
       dialog: false,
-      item_selecionado: null,
+       item_selecionado: null,
       busca_search: '',
       busca_categoria: 'Todas',
       categoria_atual:[],
@@ -477,7 +491,9 @@
     },
 
     computed:{
-
+        getEmail(){
+            return sessionStorage.getItem('email');
+        }
     },
 
     watch: {
@@ -594,7 +610,11 @@
           this.mensagem.titulo =item.titulo;
           this.lance.vencendo = item.valor_lance_v;
           this.lance.id_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + item.data_lance_v;
+          if(item.valor_lance_v){
+            this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + item.data_lance_v;
+          } else{
+            this.mensagem.message = 'Seja o primeiro a dar um Lance!';
+          }
         }
         else{
 
@@ -624,26 +644,38 @@
         }
       },
       seleciona(item,tipo){
+          console.log(tipo)
+
+
         if(tipo == 1){
+            this.dialog = true;
+        this.item_selecionado = item;
           this.comprar = 'Comprar';
           this.tipo_selecionado = 1;
         }
         if(tipo == 2){
-          this.comprar = 'Dar lance';
-          this.tipo_selecionado = 2;
-          this.item_selecionado.valor_inicial = item.valor_lance_v;
+            this.dialog = true;
+            console.log(item)
+            this.comprar = 'Dar lance';
+            this.tipo_selecionado = 2;
+           // this.item_selecionado.foto = item.foto;
+           // this.item_selecionado.descricao = item.descricao;
+           // this.item_selecionado.titulo = item.titulo;
+           this.item_selecionado = item;
+            this.item_selecionado.valor_inicial = item.valor_lance_v;
         }
         if(tipo == 3){
+            this.dialog = true;
+        this.item_selecionado = item;
           this.comprar = 'Alugar';
           this.tipo_selecionado = 3;
         }
         if(tipo == 4){
+            this.dialog = true;
+        this.item_selecionado = item;
           this.comprar =  'Aceitar';
           this.tipo_selecionado = 4;
         }
-        this.dialog = true;
-        this.item_selecionado = item;
-        console.log(this.item_selecionado)
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
@@ -652,8 +684,7 @@
         this.mensagem.loading = true;
         this.lance.valor = this.mensagem.lance;
         this.lance.id_usuario =  sessionStorage.getItem('id')
-
-        if(this.mensagem.lance > this.lance.vencendo){
+        if(this.mensagem.lance/this.lance.vencendo > 1){
           axios
             .post('http://localhost:8000/api/lance', this.lance)
             .then(response => {
@@ -683,6 +714,9 @@
           this.msg.message = 'Seu lance deve ser superior ao lance vencedor de R$' + this.lance.vencendo;
         }
       },
+      formatDate(data){
+          return data[8] + data[9] + '/' + data[5] + data[6] + '/' + data[0] + data[1] + data[2] + data[3];
+      },
       cadastraAnuncio(){
         this.cadastro.loading = true;
         if(this.tipo_anuncio == 'Leilão'){
@@ -697,6 +731,7 @@
             this.msg.dialog = true;
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
+            console.log(this.item_selecionado)
             this.msg.message = 'Seu anúncio "' + this.cadastro.titulo + '" foi cadastrado com Sucesso!';
 
           })
@@ -730,7 +765,7 @@
             this.msg.dialog = true;
             this.msg.error = false;
             this.msg.titulo ='Anúncio registrado!';
-            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
+            this.msg.message = 'Seu anúncio "' + this.cadastro.titulo + '" foi cadastrado com Sucesso!';
 
           })
           .catch(error => {

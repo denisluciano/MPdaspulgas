@@ -10,11 +10,12 @@ class LeilaoController extends Controller
 {
     public function index()
     {
-        $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
-        a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
+        $categorias = DB::select('select a.titulo, a.descricao, z.cep, z.bairro, z.cidade, z.numero, a.data_, a.valor_inicial,
+        a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario, value(t) as telefone,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
         a.data_abertura, a.data_fim, a.id, a.foto, a.maior_lance.e_de.nome as nome_us_lance_v,
-        a.maior_lance.valor as valor_lance_v, a.maior_lance.data_ as data_lance_v  from leiloes a');
+        a.maior_lance.valor as valor_lance_v, a.maior_lance.data_ as data_lance_v  from leiloes a,
+        table(a.e_de.enderecos) z, table(a.e_de.telefones) t');
 
         //return $categorias;
 
@@ -67,6 +68,7 @@ class LeilaoController extends Controller
 
     }
     public function encerrarLeilao(Request $request){
+        //return var_dump($request);
         $datatt = date('Y-m-d');
         //return var_dump($request);
 
@@ -74,38 +76,40 @@ class LeilaoController extends Controller
         $cons_max = "select max(a.id) as id_max from lances a where a.do_leilao.id = $request->id_leilao  ";
         $query_max = DB::select($cons_max);
 
+        //return $query_max;
 
-        if($query_max){ //se pessoas tiverem dado lances entra aqui registrar compra tipo leilao
+
+        if($max_id =  $query_max[0]->id_max){ //se pessoas tiverem dado lances entra aqui registrar compra tipo leilao
             $max_id =  $query_max[0]->id_max;
-
+            //return $max_id;
+            return "batata";
             //consulta saber valor max do lance
-            $cons_val = "select a.valor as valor_max_lance from lances a where a.id = $max_id";
+            $cons_val = "select a.valor as valor_max_lance, a.e_de.id as id_u_max from lances a
+            where a.id = $max_id";
+
             $query_val = DB::select($cons_val);
             $val_lance =  $query_val[0]->valor_max_lance;
+            $id_u_lance =  $query_val[0]->id_u_max;
+
+            //return $id_u_lance;
 
 
             //criando uma compra maior lance
             $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
-            ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
+            ((select ref(u) from usuarios u where u.id = '$id_u_lance'),
             (select ref(an) from leiloes an where an.id = '$request->id_leilao'), '$datatt',
-            '$request->val_lance')";
+            '$val_lance')";
 
             $query =  DB::insert($cons);
         }
 
+        $cons2 = "update leiloes a set disponivel = 0
+        where a.id = $request->id_leilao";
 
-        if($query){
-            $cons2 = "update leiloes a set disponivel = 0
-            where a.id = $request->id_leilao";
+        $query2 = DB::update($cons2);
+        if($query2){
 
-            $query2 = DB::update($cons2);
-            if($query2){
-                return response()->json($query2);
-            }else {
-                return "erro na inserção";
-            }
-
-
+            return response()->json($query2);
         }else {
             return "erro na inserção";
         }

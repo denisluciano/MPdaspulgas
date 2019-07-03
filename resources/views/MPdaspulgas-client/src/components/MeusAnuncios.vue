@@ -54,7 +54,7 @@
             </v-card>
           </v-flex>
 
-          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
+          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id_leilao">
             <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_leilao == 1">
               <v-img
                 v-if="anuncio.foto_leilao != null"
@@ -69,8 +69,8 @@
               ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo_leilao}}</span> -
-                  <span>R$ {{anuncio.valor_maior_lance}} maior lance de {{anuncio.nome_u_maior_lance}} em {{anuncio.data_fim_leilao}}</span>
+                    <span>{{anuncio.titulo_leilao}}</span>
+                  <span v-if="anuncio.valor_maior_lance > 0">R$ {{anuncio.valor_maior_lance}} maior lance de {{anuncio.nome_u_maior_lance}} em {{formatDate(anuncio.data_fim_leilao)}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -85,9 +85,9 @@
           <h3 class="headline mb-0 ma-4">Seus Anúncios encerrados</h3>
           </v-flex>
         </v-layout>
-        <v-layout align-center justify-space-between row wrap>
-          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2" v-if="anuncio.disponivel_negoc == 0">
+        <v-layout align-center justify-space-between row wrap v-for="anuncio in anuncios_filtro" :key="anuncio.id">
+          <v-flex  v-if="anuncio.disponivel_negoc == 0">
+            <v-card width="355px" class="ma-2">
               <v-img
                 v-if="anuncio.foto_negoc != null"
                 class="white--text"
@@ -107,8 +107,6 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,1)">Finalizar</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -128,20 +126,18 @@
               ></v-img><v-divider></v-divider>
               <v-card-title>
                 <div>
-                  <span>{{anuncio.titulo_leilao}}</span> -
-                  <span>R$ {{anuncio.valor_maior_lance}} maior lance de {{anuncio.nome_u_maior_lance}} em {{anuncio.data_fim_leilao}}</span>
+                  <span>{{anuncio.titulo_leilao}}</span>
+                  <span v-if="anuncio.valor_maior_lance > 0">R$ {{anuncio.valor_maior_lance}} maior lance de {{anuncio.nome_u_maior_lance}} em {{formatDate(anuncio.data_fim_leilao)}}</span>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="red" @click="finaliza(anuncio,2)">Encerrar Leilão</v-btn>
-                <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
 
 
-  
+
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
       <v-card>
         <v-toolbar dark>
@@ -166,7 +162,6 @@
                 <v-text-field background-color='white' v-else readonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
-                <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-textarea auto-grow background-color='white' readonly outline hide-details required="" v-model="item_selecionado.descricao" label="Descrição do Anúncio"></v-textarea>
@@ -227,8 +222,8 @@
       tipo_anuncio: null,
       categoria_anuncio: null,
       disable: false,
-      tipos: ['Venda', 'Leilão', 'Empréstimo', 'Doação'],
-      categoria: ['Todas','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
+      tipos: ['Todos','Venda', 'Leilão', 'Empréstimo', 'Doação'],
+      categoria: ['Todos','Automoveis','Eletrodomesticos','Eletronicos','Livraria','Pecuaria','Serviços','Outros'],
       cadastro:{
         loading: false,
         tipo: null,
@@ -242,9 +237,8 @@
       dialog: false,
       item_selecionado: null,
       busca_search: '',
-      busca_tipo: 'Todas',
+      busca_tipo: 'Todos',
       categoria_atual:[],
-      tipos: ['Todos','1','2','3'],
       anuncios_filtro:[],
       emprestimos_filtro:[],
       doacoes_filtro:[],
@@ -316,9 +310,19 @@
 
       },
       busca_tipo (val) {
-        if(this.busca_tipo != 'Todas'){
-          this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(val))
-          this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(val))
+        if(this.busca_tipo != 'Todos'){
+            if(this.busca_tipo == 'Venda'){
+                this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(1))
+            }
+            else if(this.busca_tipo == 'Empréstimo'){
+                this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(2))
+            }
+            else if(this.busca_tipo == 'Doação'){
+                this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(3))
+            }
+            else {
+                this.anuncios_filtro = this.leiloes_filtro;
+            }
         }
         else{
           this.anuncios_filtro = this.anuncios
@@ -328,6 +332,9 @@
     },
 
     methods: {
+        formatDate(data){
+          return data[8] + data[9] + '/' + data[5] + data[6] + '/' + data[0] + data[1] + data[2] + data[3];
+      },
       initialize(tipo){
         this.msg.dialog = false;
         this.categoria_atual = 1;
@@ -416,10 +423,12 @@
         */
       },
       finaliza(item,x){
+
         this.msg.loading = true;
         if(x == 2){
           item.id_usuario = this.getId;
-          item.id_leilao = item.id;
+          console.log(item)
+
           axios
             .post('http://localhost:8000/api/encerrarleilao',item)
             .then(response => {

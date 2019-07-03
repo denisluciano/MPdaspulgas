@@ -10,13 +10,15 @@ class NegociacaoController extends Controller
 {
     public function indexVenda()
     {
-        $categorias = DB::select('select a.titulo, a.possui_c.titulo as categoria_titulo,
+        $categorias = DB::select('select a.titulo, z.cep, z.bairro, z.cidade, z.numero, a.possui_c.titulo as categoria_titulo,
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo, a.descricao,
         a.data_, a.valor_inicial,
         a.e_de.nome as nome_usuario, value(t) as telefone,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a, table(a.e_de.telefones) t
+        a.tipo, a.tempo_devolucao, a.id, a.foto  from negociacoes a, table(a.e_de.enderecos) z,  table(a.e_de.telefones) t
         where a.tipo = 1 and a.disponivel = 1');
+
+
 
         //return $categorias;
 
@@ -28,12 +30,12 @@ class NegociacaoController extends Controller
     }
     public function indexEmprestimo()
     {
-        $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
+        $categorias = DB::select('select a.titulo, a.descricao, z.cep, z.bairro, z.cidade, z.numero, a.data_, a.valor_inicial,
         a.possui_c.titulo as categoria_titulo,
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefone from negociacoes a, table(a.e_de.telefones) t
+        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefone from negociacoes a, table(a.e_de.enderecos) z, table(a.e_de.telefones) t
         where a.tipo = 2 and a.disponivel = 1');
 
         //return $categorias;
@@ -46,12 +48,12 @@ class NegociacaoController extends Controller
     }
     public function indexDoacao()
     {
-        $categorias = DB::select('select a.titulo, a.descricao, a.data_, a.valor_inicial,
+        $categorias = DB::select('select a.titulo, a.descricao, z.cep, z.bairro, z.cidade, z.numero, a.data_, a.valor_inicial,
         a.possui_c.titulo as categoria_titulo,
         a.possui_c.prazo_max as categoria_prazo,a.possui_c.tipo as categoria_tipo,
         a.e_de.nome as nome_usuario,  a.e_de.email as email_usuario,
         a.possui_c.titulo as titulo_categoria, a.disponivel as disponivel,
-        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefone  from negociacoes a, table(a.e_de.telefones) t
+        a.tipo, a.tempo_devolucao, a.id, a.foto, value(t) as telefone  from negociacoes a, table(a.e_de.enderecos) z, table(a.e_de.telefones) t
         where a.tipo = 3 and a.disponivel = 1');
 
         //return $categorias;
@@ -119,5 +121,16 @@ class NegociacaoController extends Controller
                 return "erro na inserção";
             }
 
+    }
+
+    public function minnegociacao(Request $request){
+        $cons = "select a.e_de.nome from negociacoes a where a.possui_c.titulo = '$request->categoria' and min(a.valor_inicial) = valor_inicial";
+
+        $query2 = DB::select($cons);
+        if($query2){
+            return response()->json($query2);
+        }else {
+            return "erro na inserção";
+        }
     }
 }
