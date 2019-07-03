@@ -104,7 +104,7 @@
             </v-card>
 
           </v-flex>
-      
+
             <v-flex v-for="anuncio in doacoes_filtro" :key="anuncio.id">
             <v-card width="355px" class="ma-2">
               <v-img
@@ -170,7 +170,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  
+
     <v-dialog
         v-model="msg.dialog"
         max-width="400"
@@ -331,7 +331,7 @@
 
     }),
     created() {
-      this.initialize('deniss');
+      this.initialize('denis');
     },
 
     computed:{
@@ -411,7 +411,7 @@
         }
         this.item_selecionado = item;
         this.dialog = true;
-        
+
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
