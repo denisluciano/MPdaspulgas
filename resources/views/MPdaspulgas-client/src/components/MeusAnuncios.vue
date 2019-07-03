@@ -8,7 +8,7 @@
         <v-flex xs2>
             <v-select
             class='mt-4'
-            v-model="busca_categoria"
+            v-model="busca_tipo"
             :items="categoria"
             label="Categoria"
             ></v-select>
@@ -48,7 +48,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,1)">Comprar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,1)" :loading="msg.loading">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -73,7 +73,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,2)">Dar Lance</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,2)" :loading="msg.loading">Encerrar Leilão</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -98,7 +98,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,3)">Alugar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,3)" :loading="msg.loading">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,3)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -125,7 +125,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat color="green" @click="compra(anuncio,4)">Aceitar</v-btn>
+                <v-btn flat color="red" @click="finaliza(anuncio,4)" :loading="msg.loading">Finalizar</v-btn>
                 <v-btn flat color="orange" @click="seleciona(anuncio,4)">Ver mais</v-btn>
               </v-card-actions>
             </v-card>
@@ -153,7 +153,7 @@
             <v-layout row wrap>
               <v-flex xs6>
                 <v-text-field background-color='white' v-if="item_selecionado.valor_inicial>0" readonly outline hide-details required="" v-model="item_selecionado.valor_inicial" label="Valor do Anúncio"></v-text-field>
-                <v-text-field background-color='white' v-elsereadonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
+                <v-text-field background-color='white' v-else readonly outline hide-details required="" v-model="gratis" label="Valor do Anúncio"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-text-field background-color='white' readonly outline hide-details required="" v-model="item_selecionado.telefone" label="Telefone para Contato"></v-text-field>
@@ -164,8 +164,7 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn color="green darken-1" flat @click="compra(item_selecionado,tipo_selecionado)">{{comprar}}</v-btn>
-            <v-btn color="red darken-1" flat @click="dialog = false">Denunciar</v-btn>
+            <v-btn color="red darken-1" flat @click="finaliza(item_selecionado,tipo_selecionado)" :loading="msg.loading">{{comprar}}</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
         </v-card-text>
@@ -198,15 +197,8 @@
   const axios = require('axios');
   export default {
     data: vm => ({
-      mensagem:{
-        loading: false,
-        dialog: false,
-        message: '',
-        titulo: '',
-        input: false,
-        lance: null
-      },
       msg:{
+        loading: false,
         error: null,
         dialog: false,
         message: '',
@@ -240,8 +232,9 @@
       dialog: false,
       item_selecionado: null,
       busca_search: '',
-      busca_categoria: 'Todas',
+      busca_tipo: 'Todas',
       categoria_atual:[],
+      tipos: ['Todos','1','2','3'],
       anuncios_filtro:[],
       emprestimos_filtro:[],
       doacoes_filtro:[],
@@ -342,50 +335,25 @@
     },
 
     computed:{
-
+      getId(){
+        return sessionStorage.getItem('id');
+      }
     },
 
-    watch: {
-      tipo_anuncio(val){
-        if(val == 'Leilão'){
-          this.disable = false;
-          this.label_preco = 'Lance mínimo inicial'
-        }
-        if(val == 'Venda'){
-          this.disable = false;
-          this.label_preco = 'Valor do produto'
-        }
-        if(val == 'Empréstimo'){
-          this.disable = false;
-          this.label_preco = 'Valor da Diária'
-        }
-        if(val == 'Doação'){
-          this.cadastro.valor_inicial = 0.00;
-          this.disable = true;
-          this.label_preco = 'Grátis'
-        }
-      },
+      watch: {
       busca_search (val) {
         this.anuncios_filtro = this.anuncios.filter(a => a.titulo.toLowerCase().includes(val))
-
         this.leiloes_filtro = this.leiloes.filter(a => a.titulo.toLowerCase().includes(val))
 
-        this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo.toLowerCase().includes(val))
-
-        this.doacoes_filtro = this.doacoes.filter(a => a.titulo.toLowerCase().includes(val))
       },
-      busca_categoria (val) {
-        if(this.busca_categoria != 'Todas'){
-          this.anuncios_filtro = this.anuncios.filter(a => a.titulo_categoria.includes(val))
-          this.leiloes_filtro = this.leiloes.filter(a => a.titulo_categoria.includes(val))
-          this.emprestimos_filtro = this.emprestimos.filter(a => a.titulo_categoria.includes(val))
-          this.doacoes_filtro = this.doacoes.filter(a => a.titulo_categoria.includes(val))
+      busca_tipo (val) {
+        if(this.busca_tipo != 'Todas'){
+          this.anuncios_filtro = this.anuncios.filter(a => a.tipo_negoc.includes(val))
+          this.leiloes_filtro = this.leiloes.filter(a => a.tipo_negoc.includes(val))
         }
         else{
           this.anuncios_filtro = this.anuncios
           this.leiloes_filtro = this.leiloes
-          this.emprestimos_filtro = this.emprestimos
-          this.doacoes_filtro = this.doacoes
         }
       }
     },
@@ -393,7 +361,6 @@
     methods: {
       initialize(tipo){
         this.msg.dialog = false;
-        this.mensagem.dialog = false;
         this.categoria_atual = 1;
         if(tipo == 'denis'){
         axios
@@ -407,7 +374,7 @@
           });
 
         axios
-          .get('http://localhost:8000/api/negociacao1')
+          .get('http://localhost:8000/api/negociacaousuario/'+ this.getId)
           .then(response => {
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
@@ -416,25 +383,6 @@
             console.log(error);
           });
 
-        axios
-          .get('http://localhost:8000/api/negociacao2')
-          .then(response => {
-            this.emprestimos = response.data
-            this.emprestimos_filtro = this.emprestimos;
-          })
-          .catch(error => {
-            console.log(error);
-          });
-
-        axios
-          .get('http://localhost:8000/api/negociacao3')
-          .then(response => {
-            this.doacoes = response.data
-            this.doacoes_filtro = this.doacoes;
-          })
-          .catch(error => {
-            console.log(error);
-          });
         }
         else {
           this.leiloes_filtro = this.leiloes;
@@ -446,166 +394,72 @@
       cria_anuncio(){
         this.cadastrar_anuncio = true;
       },
-      compra(item,tipo){
-        console.log(item.id)
-        if(tipo == 2){ //É LEILÃO
-          this.mensagem.dialog = true;
-          this.mensagem.input = true;
-          this.mensagem.titulo =item.titulo;
-          this.lance.vencendo = item.valor_lance_v;
-          this.lance.id_leilao = item.id;
-          this.mensagem.message = 'Lance vencendo: R$' + item.valor_lance_v + ' de '+ item.nome_us_lance_v + ' em ' + item.data_lance_v;
-        }
-        else{
-
-        item.id_usuario =  sessionStorage.getItem('id');
-        item.do_negoc = item.id;
-        item.preco_fim = item.valor_lance_v;
-
-        axios
-          .post(sessionStorage.getItem('url') + '/api/compran', item)
-          .then(response => {
-            this.mensagem.dialog = true;
-            this.mensagem.input = false;
-            this.mensagem.titulo ='Operação bem sucedida';
-            if(tipo == 1){
-              this.mensagem.message = 'Parabéns! Você acaba de comprar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-            }
-            if(tipo == 3){
-              this.mensagem.message = 'Parabéns! Você acaba de alugar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-            }
-            if(tipo == 4){
-              this.mensagem.message = 'Parabéns! Você acaba de aceitar "' + item.titulo + '", entre em contato com o vendedor para finalizar sua transação.';
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        }
-      },
       seleciona(item,tipo){
+        this.comprar = 'Finalizar Anúncio'
         if(tipo == 1){
-          this.comprar = 'Comprar';
-          this.tipo_selecionado = 1;
+           this.tipo_selecionado = 1;
         }
         if(tipo == 2){
-          this.comprar = 'Dar lance';
+          this.comprar = 'Encerrara Leilão'
           this.tipo_selecionado = 2;
-          this.item_selecionado.valor_inicial = item.valor_lance_v;
         }
         if(tipo == 3){
-          this.comprar = 'Alugar';
           this.tipo_selecionado = 3;
         }
         if(tipo == 4){
-          this.comprar =  'Aceitar';
-          this.tipo_selecionado = 4;
+            this.tipo_selecionado = 4;
         }
-        this.dialog = true;
         this.item_selecionado = item;
-        console.log(this.item_selecionado)
+        this.dialog = true;
+        
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
       },
-      dar_lance(){
-        this.mensagem.loading = true;
-        this.lance.valor = this.mensagem.lance;
-        this.lance.id_usuario =  sessionStorage.getItem('id')
-
-        if(this.mensagem.lance > this.lance.vencendo){
+      finaliza(item,x){
+        this.msg.loading = true;
+        if(x == 2){
+          item.id_usuario = this.getId;
+          item.id_leilao = item.id;
           axios
-            .post('http://localhost:8000/api/lance', this.lance)
+            .post('http://localhost:8000/api/finaliza/'+ this.item)
             .then(response => {
-              this.mensagem.loading = false;
-              this.mensagem.dialog = false
+              this.msg.loading = false;
               this.msg.dialog = true;
               this.msg.error = false;
-              this.msg.titulo ='Lance registrado!';
-              this.msg.message = 'Seu lance de R$' + this.lance.valor + ' agora está vencendo este leilão!';
-
+              this.msg.titulo ='Leilão Encerrado';
+              this.msg.message = 'Entre em contato com o vencedor do leilão';
             })
             .catch(error => {
-              this.mensagem.loading = false;
-              this.mensagem.dialog = false
+              this.msg.loading = false;
               this.msg.dialog = true;
               this.msg.error = true;
-              this.msg.titulo ='ERROR';
+              this.msg.titulo ='ERRO!';
               this.msg.message = error;
+              console.log(error);
             });
         }
         else{
-          this.mensagem.loading = false;
-          this.mensagem.dialog = false
-          this.msg.dialog = true;
-          this.msg.error = true;
-          this.msg.titulo ='Lance inválido';
-          this.msg.message = 'Seu lance deve ser superior ao lance vencedor de R$' + this.lance.vencendo;
-        }
-      },
-      cadastraAnuncio(){
-        this.cadastro.loading = true;
-        if(this.tipo_anuncio == 'Leilão'){
-
-          this.cadastro.titulo_ca = this.categoria_anuncio
-          this.cadastro.id_usuario =  sessionStorage.getItem('id')
-
+          item.id_usuario = this.getId;
           axios
-          .post('http://localhost:8000/api/leilao', this.cadastro)
-          .then(response => {
-            this.cadastro.loading = false;
-            this.msg.dialog = true;
-            this.msg.error = false;
-            this.msg.titulo ='Anúncio registrado!';
-            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-
-          })
-          .catch(error => {
-            console.log(error);
-            this.cadastro.loading = false;
-            this.msg.dialog = true;
-            this.msg.error = true;
-            this.msg.titulo ='ERROR';
-            this.msg.message = error;
-
-          });
-
+            .post('http://localhost:8000/api/finaliza/'+ this.item)
+            .then(response => {
+              this.msg.loading = false;
+              this.msg.dialog = true;
+              this.msg.error = false;
+              this.msg.titulo ='Anúncio Finalizado';
+              this.msg.message = 'Este anúncio não aparecerá mais como disponível para os usuários';
+            })
+            .catch(error => {
+              this.msg.loading = false;
+              this.msg.dialog = true;
+              this.msg.error = true;
+              this.msg.titulo ='ERRO!';
+              this.msg.message = error;
+              console.log(error);
+            });
         }
-
-        else{
-          this.cadastro.tempo_devolucao = 0
-          if(this.tipo_anuncio == 'Venda') this.cadastro.tipo = 1
-          if(this.tipo_anuncio == 'Doação') this.cadastro.tipo = 3
-          if(this.tipo_anuncio == 'Empréstimo'){
-            this.cadastro.tipo = 2;
-            this.cadastro.tempo_devolucao = 15;
-          }
-           this.cadastro.titulo_ca = this.categoria_anuncio
-          this.cadastro.id_usuario =  sessionStorage.getItem('id')
-
-          axios
-          .post('http://localhost:8000/api/negociacao', this.cadastro)
-          .then(response => {
-            this.cadastro.loading = false;
-            this.msg.dialog = true;
-            this.msg.error = false;
-            this.msg.titulo ='Anúncio registrado!';
-            this.msg.message = 'Seu anúncio "' + this.cadastro.tipo + '" foi cadastrado com Sucesso!';
-
-          })
-          .catch(error => {
-            console.log(error);
-            this.cadastro.loading = false;
-            this.msg.dialog = true;
-            this.msg.error = true;
-            this.msg.titulo ='ERROR';
-            this.msg.message = error;
-
-          });
-
-        }
-
-      }
+     }
     }
   }
 
