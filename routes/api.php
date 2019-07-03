@@ -33,6 +33,12 @@ Route::get('/negociacao3','negociacaoController@indexDoacao');
 
 Route::get('/lancesusuario/{id}','LanceController@lancesUsuario');
 Route::get('/lancesleilao/{id}','LanceController@lancesLeilao');
-Route::get('/compranusuario/{id}','compra_nController@compras_nUsuario');
-Route::get('/compralusuario/{id}','compra_lController@compras_lUsuario');
+Route::get('/compranusuario/{id}','Compra_nController@compras_nUsuario');
+Route::get('/compralusuario/{id}','Compra_lController@compras_lUsuario');
 Route::post('/autentica', 'UsuarioController@autentica');
+
+Route::get('/negociacaousuario{id}','NegociacaoController@negociacoes_Usuario');
+Route::get('/leilaousuario{id}','LeilaoController@leilao_Usuario');
+
+Route::post('/encerrarleilao', 'LeilaoController@encerrarLeilao');
+Route::post('/finalizarcompra', 'NegociacaoController@finalizarCompra');

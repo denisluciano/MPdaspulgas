@@ -46,4 +46,54 @@ class LeilaoController extends Controller
         }
 
     }
+    public function leilao_Usuario($id){
+        $cons = "select
+        a.titulo as titulo_leilao, a.descricao as descricao_leilao, a.foto as foto_leilao,
+        a.valor_inicial as valor_leilao, a.disponivel as disponivel_leilao,
+        a.possui_c.titulo as titulo_c_leilao, a.data_abertura as data_abertura_leilao,
+        a.data_fim as data_fim_leilao, a.maior_lance.e_de.nome as nome_u_maior_lance,
+        a.maior_lance.valor as valor_maior_lance, a.id as id_leilao
+        from leiloes a where a.e_de.id = '$id'";
+
+        $tt = DB::select($cons);
+
+        //return $categorias;
+
+        if(!$tt){
+            return "error";
+        }
+        return response()->json($tt);
+        //return view('welcome', compact('categorias'));
+
+    }
+    public function encerrarLeilao(Request $request){
+
+        $datatt = date('Y-m-d');
+
+
+        $cons = "insert into compras_l (e_de, do_leilao, data_, precofim) values
+        ((select ref(u) from usuarios u where u.id = '$request->id_usuario'),
+        (select ref(an) from leiloes an where an.id = '$request->do_leilao'), '$datatt',
+        '$request->precofim')";
+
+        $query =  DB::insert($cons);
+
+
+        if($query){
+            $cons2 = "update leiloes a set a.disponivel = 0
+            where a.id = $request->id_leilao";
+
+            $query2 = DB::update($cons2);
+            if($query2){
+                return response()->json($query2);
+            }else {
+                return "erro na inserção";
+            }
+
+
+        }else {
+            return "erro na inserção";
+        }
+
+    }
 }
