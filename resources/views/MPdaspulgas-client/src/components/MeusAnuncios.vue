@@ -28,7 +28,7 @@
     </v-container>
         <v-layout align-center justify-space-between row wrap>
           <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="disponivel_negoc == 1">
               <v-img
                 v-if="anuncio.foto_negoc != null"
                 class="white--text"
@@ -55,7 +55,7 @@
           </v-flex>
 
           <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
-            <v-card width="355px" class="ma-2">
+            <v-card width="355px" class="ma-2" v-if="disponivel_leilao == 1">
               <v-img
                 v-if="anuncio.foto_leilao != null"
                 class="white--text"
@@ -79,7 +79,65 @@
               </v-card-actions>
             </v-card>
           </v-flex>
-          
+        </v-layout>
+        <v-layout align-center justify-space-between row wrap>
+          <v-flex xs12 md6>
+          <h3 class="headline mb-0 ma-4">Seus Anúncios encerrados</h3>
+          </v-flex>
+        </v-layout>
+        <v-layout align-center justify-space-between row wrap>
+          <v-flex v-for="anuncio in anuncios_filtro" :key="anuncio.id">
+            <v-card width="355px" class="ma-2" v-if="disponivel_negoc == 0">
+              <v-img
+                v-if="anuncio.foto_negoc != null"
+                class="white--text"
+                height="200px"
+                :src="anuncio.foto_negoc"
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
+              <v-divider></v-divider>
+              <v-card-title>
+                <div>
+                  <span>{{anuncio.titulo_negoc}}</span> -
+                  <span>R$ {{anuncio.valor_negoc}}</span>
+                </div>
+              </v-card-title>
+              <v-card-actions>
+                <v-btn flat color="red" @click="finaliza(anuncio,1)">Finalizar</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,1)">Ver mais</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+
+          <v-flex v-for="anuncio in leiloes_filtro" :key="anuncio.id">
+            <v-card width="355px" class="ma-2" v-if="disponivel_leilao == 0">
+              <v-img
+                v-if="anuncio.foto_leilao != null"
+                class="white--text"
+                height="200px"
+                :src="anuncio.foto_leilao"
+              ></v-img><v-img
+                v-else
+                class="white--text"
+                height="200px"
+                src="https://i.imgur.com/TOEbilE.png"
+              ></v-img><v-divider></v-divider>
+              <v-card-title>
+                <div>
+                  <span>{{anuncio.titulo_leilao}}</span> -
+                  <span>R$ {{anuncio.valor_maior_lance}} maior lance de {{anuncio.nome_u_maior_lance}} em {{anuncio.data_fim_leilao}}</span>
+                </div>
+              </v-card-title>
+              <v-card-actions>
+                <v-btn flat color="red" @click="finaliza(anuncio,2)">Encerrar Leilão</v-btn>
+                <v-btn flat color="orange" @click="seleciona(anuncio,2)">Ver mais</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
         </v-layout>
 
     <v-dialog v-model="dialog" max-width="650px" v-if="item_selecionado">
