@@ -331,6 +331,20 @@
       cria_anuncio(){
         this.cadastrar_anuncio = true;
       },
+      ordena(items) {
+        items.sort(function (a, b) {
+          if (a.saldo > b.saldo) {
+            return -1;
+          }
+          if (a.saldo < b.saldo) {
+            return 1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+
+        return items;
+      },
       compra(item,tipo){
         console.log(item.id)
         if(tipo == 2){ //É LEILÃO

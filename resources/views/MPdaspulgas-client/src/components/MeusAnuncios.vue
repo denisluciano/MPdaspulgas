@@ -364,10 +364,11 @@
         this.categoria_atual = 1;
         if(tipo == 'denis'){
         axios
-          .get('http://localhost:8000/api/leilaocaousuario/'+ this.getId)
+          .get('http://localhost:8000/api/leilaousuario/'+ this.getId)
           .then(response => {
             this.leiloes = response.data
             this.leiloes_filtro = this.leiloes;
+            this.ordena(this.leiloes_filtro)
           })
           .catch(error => {
             console.log(error);
@@ -378,6 +379,7 @@
           .then(response => {
             this.anuncios = response.data
             this.anuncios_filtro = this.anuncios;
+            this.ordena(this.anuncios_filtro)
           })
           .catch(error => {
             console.log(error);
@@ -415,6 +417,20 @@
       },
       muda_categoria(tipo) {
         this.categoria_atual = tipo;
+      },
+      ordena(items) {
+        /*
+        items.sort(function (a, b) {
+          if (a.saldo > b.saldo) {
+            return -1;
+          }
+          if (a.saldo < b.saldo) {
+            return 1;
+          }
+          // a must be equal to b
+          return 0;
+        })
+        */
       },
       finaliza(item,x){
         this.msg.loading = true;
