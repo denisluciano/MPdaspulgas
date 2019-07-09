@@ -43,4 +43,4 @@ Trabalho da disciplina de Banco de dados 2 UFV, que consiste desenvolver sistema
 - Mayke
 
 ## License
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
